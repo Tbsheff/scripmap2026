@@ -29,3 +29,19 @@ export type SuccessCallback = (text: Promise<string>) => void;
 
 export type NextPreviousTuple = [number, number, string];
 export type NextPreviousParameters = NextPreviousTuple | null;
+
+export interface Position {
+    lat: number;
+    lng: number;
+}
+
+export interface GeoPlace {
+    latitude: number;
+    longitude: number;
+    placename: string;
+    viewAltitude: number;
+}
+
+export interface GeoPlaces {
+    [key: string]: GeoPlace;
+}
