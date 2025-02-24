@@ -1,5 +1,5 @@
 /*======================================================================
- * FILE:    mapScripApi.js
+ * FILE:    mapScripApi.ts
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2025
  *

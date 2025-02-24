@@ -1,5 +1,5 @@
 /*======================================================================
- * FILE:    navigation.js
+ * FILE:    navigation.ts
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2025
  *
@@ -22,6 +22,7 @@ import {
 } from "./html.js";
 import { books, volumes, volumeIdIsValid } from "./mapScripApi.js";
 import { navElement } from "./scriptures.js";
+import { Book, Volume } from "./types.js";
 
 /*------------------------------------------------------------------
  *                      CONSTANTS
@@ -33,13 +34,9 @@ const CLASS_VOLUME = "volume";
 const ID_SCRIPTURES_NAVIGATION = "scripnav";
 
 /*------------------------------------------------------------------
- *                      PRIVATE VARIABLES
- */
-
-/*------------------------------------------------------------------
  *                      PRIVATE METHODS
  */
-const bookChapterValid = function (bookId, chapter) {
+const bookChapterValid = function (bookId: number, chapter: number): boolean {
     const book = books[bookId];
 
     if (book === undefined) {
@@ -57,7 +54,7 @@ const bookChapterValid = function (bookId, chapter) {
     return false;
 };
 
-const buildBooksGrid = function (navigationNode, volume) {
+const buildBooksGrid = function (navigationNode: HTMLElement, volume: Volume): void {
     const gridContent = domNode(TAG_DIV, CLASS_BOOKS);
 
     volume.books.forEach((book) => {
@@ -65,7 +62,7 @@ const buildBooksGrid = function (navigationNode, volume) {
             `#${volume.id}:${book.id}`,
             decodeEntities(book.fullName),
             CLASS_BUTTON,
-            book.id
+            String(book.id)
         );
 
         hyperlink.appendChild(document.createTextNode(decodeEntities(book.gridName)));
@@ -75,8 +72,8 @@ const buildBooksGrid = function (navigationNode, volume) {
     navigationNode.appendChild(gridContent);
 };
 
-const buildChaptersGrid = function (navigationNode, book) {
-    const titleNode = domNode(TAG_HEADER5, null, null, book.fullName);
+const buildChaptersGrid = function (navigationNode: HTMLElement, book: Book): void {
+    const titleNode = domNode(TAG_HEADER5, undefined, undefined, book.fullName);
     const volumeNode = domNode(TAG_DIV, CLASS_VOLUME);
     const booksNode = domNode(TAG_DIV, CLASS_BOOKS);
     let chapter = 1;
@@ -88,7 +85,7 @@ const buildChaptersGrid = function (navigationNode, book) {
 
         decorateNode(hyperlink, CLASS_BUTTON);
         hyperlink.classList.add(CLASS_CHAPTER);
-        hyperlink.appendChild(document.createTextNode(chapter));
+        hyperlink.appendChild(document.createTextNode(String(chapter)));
 
         booksNode.appendChild(hyperlink);
         chapter += 1;
@@ -98,7 +95,7 @@ const buildChaptersGrid = function (navigationNode, book) {
     navigationNode.appendChild(booksNode);
 };
 
-const buildVolumesGrid = function (navigationNode, volumeId) {
+const buildVolumesGrid = function (navigationNode: HTMLElement, volumeId?: number): void {
     volumes.forEach((volume) => {
         if (volumeId === undefined || volumeId === volume.id) {
             navigationNode.appendChild(volumeTitleNode(volume));
@@ -107,7 +104,7 @@ const buildVolumesGrid = function (navigationNode, volumeId) {
     });
 };
 
-const hashParameters = function () {
+const hashParameters = function (): string[] {
     if (location.hash !== "" && location.hash.length > 1) {
         return location.hash.slice(1).split(":");
     }
@@ -115,13 +112,13 @@ const hashParameters = function () {
     return [];
 };
 
-const navigateBook = function (bookId) {
+const navigateBook = function (bookId: number): void {
     const book = books[bookId];
 
     if (book.numChapters <= 1) {
         navigateChapter(bookId, book.numChapters);
     } else {
-        const chaptersNavigationNode = domNode(TAG_DIV, null, ID_SCRIPTURES_NAVIGATION);
+        const chaptersNavigationNode = domNode(TAG_DIV, undefined, ID_SCRIPTURES_NAVIGATION);
 
         buildChaptersGrid(chaptersNavigationNode, book);
         replaceNodeContent(navElement, chaptersNavigationNode);
@@ -129,8 +126,8 @@ const navigateBook = function (bookId) {
     }
 };
 
-const navigateHome = function (volumeId) {
-    const scripturesNavigationNode = domNode(TAG_DIV, null, ID_SCRIPTURES_NAVIGATION);
+const navigateHome = function (volumeId?: number): void {
+    const scripturesNavigationNode = domNode(TAG_DIV, undefined, ID_SCRIPTURES_NAVIGATION);
 
     buildVolumesGrid(scripturesNavigationNode, volumeId);
     replaceNodeContent(navElement, scripturesNavigationNode);
@@ -138,10 +135,10 @@ const navigateHome = function (volumeId) {
     configureBreadcrumbs(volumeId);
 };
 
-const volumeTitleNode = function (volume) {
+const volumeTitleNode = function (volume: Volume): HTMLElement {
     const titleNode = domNode(TAG_DIV, CLASS_VOLUME);
     const hyperlink = hyperlinkNode(`#${volume.id}`, volume.fullName);
-    const headerNode = domNode(TAG_HEADER5, null, null, volume.fullName);
+    const headerNode = domNode(TAG_HEADER5, undefined, undefined, volume.fullName);
 
     hyperlink.appendChild(headerNode);
     titleNode.appendChild(hyperlink);
@@ -153,12 +150,12 @@ const volumeTitleNode = function (volume) {
  *                      PUBLIC METHODS
  */
 export const onHashChanged = function () {
-    let [volumeId, bookId, chapter] = hashParameters();
+    let [volumeIdString, bookIdString, chapterString] = hashParameters();
 
-    if (volumeId === undefined) {
+    if (volumeIdString === undefined) {
         navigateHome();
-    } else if (bookId === undefined) {
-        volumeId = Number(volumeId);
+    } else if (bookIdString === undefined) {
+        const volumeId = Number(volumeIdString);
 
         if (volumeIdIsValid(volumeId)) {
             navigateHome(volumeId);
@@ -166,15 +163,15 @@ export const onHashChanged = function () {
             navigateHome();
         }
     } else {
-        bookId = Number(bookId);
+        const bookId = Number(bookIdString);
 
         if (books[bookId] === undefined) {
             navigateHome();
         } else {
-            if (chapter === undefined) {
+            if (chapterString === undefined) {
                 navigateBook(bookId);
             } else {
-                chapter = Number(chapter);
+                const chapter = Number(chapterString);
 
                 if (bookChapterValid(bookId, chapter)) {
                     navigateChapter(bookId, chapter);

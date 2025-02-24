@@ -1,5 +1,5 @@
 /*========================================================================
- * FILE:    chapter.js
+ * FILE:    chapter.ts
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2025
  *
