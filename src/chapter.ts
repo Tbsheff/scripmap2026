@@ -14,6 +14,7 @@ import { domNode, hyperlinkNode, replaceNodeContent, TAG_DIV, TAG_I } from "./ht
 import { setupMarkers } from "./mapHelper.js";
 import { books, requestChapterText } from "./mapScripApi.js";
 import { navElement } from "./scriptures.js";
+import { Book, NextPreviousParameters } from "./types.js";
 
 /*------------------------------------------------------------------------
  *                      CONSTANTS
@@ -27,28 +28,35 @@ const ICON_PREVIOUS = "skip_previous";
 /*------------------------------------------------------------------------
  *                      PRIVATE VARIABLES
  */
-let requestedBookId;
-let requestedChapter;
+let requestedBookId: number;
+let requestedChapter: number;
 
 /*------------------------------------------------------------------------
  *                      PRIVATE FUNCTIONS
  */
-const chapterNavigationNode = function (parameters, icon) {
+const chapterNavigationNode = function (
+    parameters: NextPreviousParameters,
+    icon: string
+): HTMLElement {
     // Build a node for next/previous chapter navigation
 
-    const [bookId, chapter, title] = parameters;
-    const node = hyperlinkNode(`#0:${bookId}:${chapter}`, title);
+    if (parameters) {
+        const [bookId, chapter, title] = parameters;
+        const node = hyperlinkNode(`#0:${bookId}:${chapter}`, title);
 
-    node.appendChild(domNode(TAG_I, CLASS_ICON, null, icon));
+        node.appendChild(domNode(TAG_I, CLASS_ICON, undefined, icon));
 
-    return node;
+        return node;
+    }
+
+    return domNode(TAG_DIV);
 };
 
-const getScripturesFailure = function () {
+const getScripturesFailure = function (): void {
     replaceNodeContent(navElement, document.createTextNode("Unable to retrieve chapter contents."));
 };
 
-const getScripturesSuccess = async function (chapterHtml) {
+const getScripturesSuccess = async function (chapterHtml: Promise<string>): Promise<void> {
     navElement.innerHTML = await chapterHtml;
 
     injectNextPrevious();
@@ -56,7 +64,7 @@ const getScripturesSuccess = async function (chapterHtml) {
     setupMarkers();
 };
 
-const injectNextPrevious = function () {
+const injectNextPrevious = function (): void {
     // Find next/previous chapter information and add buttons to
     // any "navheading" elements for next/previous chapter navigation
 
@@ -69,7 +77,7 @@ const injectNextPrevious = function () {
     });
 };
 
-const nextChapter = function (bookId, chapter) {
+const nextChapter = function (bookId: number, chapter: number): NextPreviousParameters {
     let book = books[bookId];
 
     if (book !== undefined) {
@@ -80,7 +88,7 @@ const nextChapter = function (bookId, chapter) {
 
         let nextBook = books[bookId + 1];
 
-        if (next !== undefined) {
+        if (nextBook !== undefined) {
             // "Next" is first chapter of next book
             let nextChapterValue = 0;
 
@@ -93,10 +101,13 @@ const nextChapter = function (bookId, chapter) {
     }
 
     // There is no next chapter
-    return [];
+    return null;
 };
 
-const nextPreviousNode = function (previousParameters, nextParameters) {
+const nextPreviousNode = function (
+    previousParameters: NextPreviousParameters,
+    nextParameters: NextPreviousParameters
+) {
     const nextPreviousNode = domNode(TAG_DIV, CLASS_NEXT_PREV);
 
     if (Array.isArray(previousParameters) && previousParameters.length > 0) {
@@ -110,7 +121,7 @@ const nextPreviousNode = function (previousParameters, nextParameters) {
     return nextPreviousNode;
 };
 
-const previousChapter = function (bookId, chapter) {
+const previousChapter = function (bookId: number, chapter: number): NextPreviousParameters {
     let book = books[bookId];
 
     if (chapter > 1) {
@@ -129,10 +140,10 @@ const previousChapter = function (bookId, chapter) {
     }
 
     // There is no previous chapter
-    return [];
+    return null;
 };
 
-const titleForBookChapter = function (book, chapter) {
+const titleForBookChapter = function (book: Book, chapter: number): string {
     if (book !== undefined) {
         if (chapter > 0) {
             return `${book.tocName} ${chapter}`;
@@ -140,12 +151,14 @@ const titleForBookChapter = function (book, chapter) {
 
         return book.tocName;
     }
+
+    return "";
 };
 
 /*------------------------------------------------------------------------
  *                      PUBLIC FUNCTIONS
  */
-export const navigateChapter = function (bookId, chapter) {
+export const navigateChapter = function (bookId: number, chapter: number): void {
     requestedBookId = bookId;
     requestedChapter = chapter;
 

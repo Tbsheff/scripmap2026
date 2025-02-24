@@ -36,7 +36,7 @@ const cacheBooks = function (callback: () => void) {
     // a given volume.
 
     volumes.forEach(function (volume) {
-        let volumeBooks = [];
+        let volumeBooks: Book[] = [];
         let bookId = volume.minBookId;
 
         while (bookId <= volume.maxBookId) {
@@ -86,8 +86,8 @@ export const apiInit = function (callback: () => void) {
         [URL_VOLUMES, URL_BOOKS].map((url) => fetch(url).then((response) => response.json()))
     ).then(([jsonVolumes, jsonBooks]) => {
         if (jsonVolumes !== undefined && jsonBooks !== undefined) {
-            volumes = jsonVolumes;
-            books = jsonBooks;
+            volumes = jsonVolumes as Volume[];
+            books = jsonBooks as Books;
 
             cacheBooks(callback);
         }
