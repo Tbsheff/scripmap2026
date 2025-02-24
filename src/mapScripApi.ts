@@ -81,7 +81,7 @@ const encodedScripturesUrl = function (
 /*----------------------------------------------------------------------
  *                      PUBLIC FUNCTIONS
  */
-export const apiInit = function (callback: () => void) {
+export const apiInit = function (callback: () => void): void {
     Promise.all(
         [URL_VOLUMES, URL_BOOKS].map((url) => fetch(url).then((response) => response.json()))
     ).then(([jsonVolumes, jsonBooks]) => {
@@ -99,7 +99,7 @@ export const requestChapterText = function (
     chapter: number,
     success: SuccessCallback,
     failure: () => void
-) {
+): void {
     fetch(encodedScripturesUrl(bookId, chapter))
         .then((response) => {
             const html = response.text();

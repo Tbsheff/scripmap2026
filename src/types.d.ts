@@ -19,22 +19,6 @@ export interface Books {
     [key: string]: Book;
 }
 
-export interface Volume extends Book {
-    minBookId: number;
-    maxBookId: number;
-    books: Book[];
-}
-
-export type SuccessCallback = (text: Promise<string>) => void;
-
-export type NextPreviousTuple = [number, number, string];
-export type NextPreviousParameters = NextPreviousTuple | null;
-
-export interface Position {
-    lat: number;
-    lng: number;
-}
-
 export interface GeoPlace {
     latitude: number;
     longitude: number;
@@ -44,4 +28,26 @@ export interface GeoPlace {
 
 export interface GeoPlaces {
     [key: string]: GeoPlace;
+}
+
+export interface MapStyle {
+    featureType?: string;
+    elementType: string;
+    stylers: { color: string }[];
+}
+
+export type NextPreviousTuple = [number, number, string];
+export type NextPreviousParameters = NextPreviousTuple | null;
+
+export interface Position {
+    lat: number;
+    lng: number;
+}
+
+export type SuccessCallback = (text: Promise<string>) => void;
+
+export interface Volume extends Book {
+    minBookId: number;
+    maxBookId: number;
+    books: Book[];
 }

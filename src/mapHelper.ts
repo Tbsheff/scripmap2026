@@ -234,7 +234,7 @@ const zoomToOneMarker = function (
 /*----------------------------------------------------------------------
  *                      PUBLIC FUNCTIONS
  */
-export const mapInit = async function () {
+export const mapInit = async function (): Promise<void> {
     initializeGoogleMaps({
         key: GOOGLE_MAPS_API_KEY,
         v: "quarterly"

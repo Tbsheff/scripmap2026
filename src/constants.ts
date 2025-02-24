@@ -1,6 +1,8 @@
+import { MapStyle } from "./types";
+
 export const DARK_MAP_BACKGROUND = "#242f3e";
 export const DARK_MAP_ID = "6d7ac57544e2cc35";
-export const DARK_MAP_STYLE = [
+export const DARK_MAP_STYLE: MapStyle[] = [
     { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
     { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
     { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
@@ -83,4 +85,4 @@ export const DARK_MAP_STYLE = [
 
 export const LIGHT_MAP_BACKGROUND = "#f8f8f8";
 export const LIGHT_MAP_ID = "dd27f636464f8569";
-export const LIGHT_MAP_STYLE = [];
+export const LIGHT_MAP_STYLE: MapStyle[] = [];

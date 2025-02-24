@@ -27,7 +27,7 @@ export let navElement: HTMLElement;
 /*------------------------------------------------------------------
  *                      PUBLIC METHODS
  */
-export const init = function (callback: () => void) {
+export function init(callback: () => void): void {
     apiInit(callback);
     mapInit();
 
@@ -37,7 +37,7 @@ export const init = function (callback: () => void) {
     if (nav) {
         navElement = nav;
     }
-};
+}
 
 export { onHashChanged };
 
