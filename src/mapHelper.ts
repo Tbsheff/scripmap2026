@@ -1,5 +1,5 @@
 /*======================================================================
- * FILE:    mapHelper.js
+ * FILE:    mapHelper.ts
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2025
  *
@@ -222,7 +222,12 @@ const zoomToOneMarker = function (
     viewAltitude: number
 ): void {
     if (marker.position) {
-        panAndZoom(marker.position.lat, marker.position.lng, viewAltitude);
+        const lat =
+            typeof marker.position.lat === "number" ? marker.position.lat : marker.position.lat();
+        const lng =
+            typeof marker.position.lng === "number" ? marker.position.lng : marker.position.lng();
+
+        panAndZoom(lat, lng, viewAltitude);
     }
 };
 

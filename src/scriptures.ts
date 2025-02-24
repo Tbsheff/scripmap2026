@@ -1,5 +1,5 @@
 /*======================================================================
- * FILE:    scriptures.js
+ * FILE:    scriptures.ts
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2025
  *
@@ -22,21 +22,25 @@ const ID_NAV_ELEMENT = "nav-root";
 /*------------------------------------------------------------------
  *                      PRIVATE VARIABLES
  */
-export let navElement;
+export let navElement: HTMLElement;
 
 /*------------------------------------------------------------------
  *                      PUBLIC METHODS
  */
-export const init = function (callback) {
+export const init = function (callback: () => void) {
     apiInit(callback);
     mapInit();
 
     // look up all the DOM elements we want to manipulate
-    navElement = document.getElementById(ID_NAV_ELEMENT);
+    const nav = document.getElementById(ID_NAV_ELEMENT);
+
+    if (nav) {
+        navElement = nav;
+    }
 };
 
 export { onHashChanged };
 
-export const panAndZoom = function (lat, lng, viewAltitude) {
+export const panAndZoom = function (lat: number, lng: number, viewAltitude: number): void {
     showLocation(lat, lng, viewAltitude);
 };
