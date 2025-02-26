@@ -1,3 +1,9 @@
+export enum AnimationType {
+    slideLeft,
+    slideRight,
+    crossFade
+}
+
 export interface Book {
     id: number;
     abbr: string;

@@ -10,6 +10,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
+import { animationInit } from "./animation.js";
 import { mapInit, showLocation } from "./mapHelper.js";
 import { apiInit } from "./mapScripApi.js";
 import { onHashChanged } from "./navigation.js";
@@ -28,6 +29,7 @@ export let navElement: HTMLElement;
  *                      PUBLIC METHODS
  */
 export function init(callback: () => void): void {
+    animationInit();
     apiInit(callback);
     mapInit();
 

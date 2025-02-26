@@ -9,6 +9,7 @@
 /*----------------------------------------------------------------------
  *                      CONSTANTS
  */
+import { animateToNewCrumbs } from "./animation.js";
 import {
     domNode,
     hyperlinkNode,
@@ -93,6 +94,7 @@ export const configureBreadcrumbs = function (
 
     if (crumbsElement) {
         // replaceNodeContent(crumbsElement, crumbs);
+        animateToNewCrumbs(crumbs);
     }
 
     if (crumbsComplementElement) {
