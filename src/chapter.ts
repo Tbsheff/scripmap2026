@@ -11,10 +11,11 @@
  */
 import { animateToNewNavContent } from "./animation.js";
 import { configureBreadcrumbs } from "./breadcrumbs.js";
-import { domNode, hyperlinkNode, replaceNodeContent, TAG_DIV, TAG_I } from "./html.js";
+import { ANIMATION_KEY_NEXT, ANIMATION_KEY_PREVIOUS } from "./constants.js";
+import { domNode, hyperlinkNode, TAG_DIV, TAG_I } from "./html.js";
 import { setupMarkers } from "./mapHelper.js";
 import { books, requestChapterText } from "./mapScripApi.js";
-import { Book, NextPreviousParameters, NextPreviousTuple } from "./types.js";
+import { AnimationType, Book, NextPreviousParameters, NextPreviousTuple } from "./types.js";
 
 /*------------------------------------------------------------------------
  *                      CONSTANTS
@@ -28,6 +29,7 @@ const ICON_PREVIOUS = "skip_previous";
 /*------------------------------------------------------------------------
  *                      PRIVATE VARIABLES
  */
+let requestedAnimationType: AnimationType;
 let requestedBookId: number;
 let requestedChapter: number;
 
@@ -38,11 +40,17 @@ const chapterNavigationNode = function (parameters: NextPreviousTuple, icon: str
     // Build a node for next/previous chapter navigation
 
     const [bookId, chapter, title] = parameters;
-    const node = hyperlinkNode(`#0:${bookId}:${chapter}`, title);
+    const node = hyperlinkNode(chapterNavigationUrl(bookId, chapter, icon), title);
 
     node.appendChild(domNode(TAG_I, CLASS_ICON, undefined, icon));
 
     return node;
+};
+
+const chapterNavigationUrl = function (bookId: number, chapter: number, icon: string): string {
+    return `#0:${bookId}:${chapter}:${
+        icon === ICON_NEXT ? ANIMATION_KEY_NEXT : ANIMATION_KEY_PREVIOUS
+    }`;
 };
 
 const getScripturesFailure = function (): void {
@@ -50,7 +58,7 @@ const getScripturesFailure = function (): void {
 };
 
 const getScripturesSuccess = async function (chapterHtml: Promise<string>): Promise<void> {
-    animateToNewNavContent(await chapterHtml);
+    animateToNewNavContent(await chapterHtml, requestedAnimationType);
     injectNextPrevious();
     configureBreadcrumbs(0, requestedBookId, requestedChapter);
     setupMarkers();
@@ -150,9 +158,19 @@ const titleForBookChapter = function (book: Book, chapter: number): string {
 /*------------------------------------------------------------------------
  *                      PUBLIC FUNCTIONS
  */
-export const navigateChapter = function (bookId: number, chapter: number): void {
+export const navigateChapter = function (
+    bookId: number,
+    chapter: number,
+    animationKey?: string
+): void {
     requestedBookId = bookId;
     requestedChapter = chapter;
+    requestedAnimationType =
+        animationKey === ANIMATION_KEY_NEXT
+            ? AnimationType.slideLeft
+            : animationKey === ANIMATION_KEY_PREVIOUS
+            ? AnimationType.slideRight
+            : AnimationType.crossFade;
 
     requestChapterText(bookId, chapter, getScripturesSuccess, getScripturesFailure);
 };

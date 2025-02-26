@@ -149,7 +149,7 @@ const volumeTitleNode = function (volume: Volume): HTMLElement {
  *                      PUBLIC METHODS
  */
 export const onHashChanged = function () {
-    let [volumeIdString, bookIdString, chapterString] = hashParameters();
+    let [volumeIdString, bookIdString, chapterString, animationKey] = hashParameters();
 
     if (volumeIdString === undefined) {
         navigateHome();
@@ -173,7 +173,7 @@ export const onHashChanged = function () {
                 const chapter = Number(chapterString);
 
                 if (bookChapterValid(bookId, chapter)) {
-                    navigateChapter(bookId, chapter);
+                    navigateChapter(bookId, chapter, animationKey);
                 } else {
                     navigateHome();
                 }

@@ -1,5 +1,8 @@
 import { MapStyle } from "./types";
 
+export const ANIMATION_KEY_NEXT = "n";
+export const ANIMATION_KEY_PREVIOUS = "p";
+
 export const DARK_MAP_BACKGROUND = "#242f3e";
 export const DARK_MAP_ID = "6d7ac57544e2cc35";
 export const DARK_MAP_STYLE: MapStyle[] = [
