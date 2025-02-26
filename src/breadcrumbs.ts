@@ -92,10 +92,10 @@ export const configureBreadcrumbs = function (
     }
 
     if (crumbsElement) {
-        replaceNodeContent(crumbsElement, crumbs);
+        // replaceNodeContent(crumbsElement, crumbs);
     }
 
     if (crumbsComplementElement) {
-        replaceNodeContent(crumbsComplementElement, crumbs.cloneNode(true));
+        // replaceNodeContent(crumbsComplementElement, crumbs.cloneNode(true));
     }
 };
