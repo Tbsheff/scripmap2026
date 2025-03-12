@@ -6,8 +6,8 @@ export function ScripturesDataProvider({ children }: { children: ReactNode }) {
     const { books, isLoading, volumes } = useFetchScripturesData();
 
     return (
-        <ScripturesDataContext.Provider value={{ books, isLoading, volumes }}>
+        <ScripturesDataContext value={{ books, isLoading, volumes }}>
             {children}
-        </ScripturesDataContext.Provider>
+        </ScripturesDataContext>
     );
 }
