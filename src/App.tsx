@@ -2,10 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import MainPage from "./components/MainPage";
 import { ScripturesDataProvider } from "./context/ScripturesDataProvider";
-
-function BookComponent() {
-    return <div>Some book</div>;
-}
+import VolumesList from "./components/VolumesList";
+import BookComponent from "./components/BookComponent";
 
 function ChapterComponent() {
     return <div>Some chapter</div>;
@@ -13,10 +11,6 @@ function ChapterComponent() {
 
 function ErrorPage() {
     return <div>There was a routing error.</div>;
-}
-
-function VolumesList() {
-    return <div>VolumesList</div>;
 }
 
 function App() {

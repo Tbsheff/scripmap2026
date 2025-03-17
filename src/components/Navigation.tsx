@@ -4,16 +4,9 @@ import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 
 export function Navigation() {
     const { books, isLoading, volumes } = useScripturesDataContext();
+    console.log(books, isLoading, volumes);
 
     const currentOutlet = useOutlet();
 
-    return isLoading ? (
-        <LoadingIndicator />
-    ) : (
-        <div>
-            {currentOutlet}
-            <p>{Object.keys(books).length}</p>
-            <p>{volumes[1].fullName}</p>
-        </div>
-    );
+    return isLoading ? <LoadingIndicator /> : <>{currentOutlet}</>;
 }

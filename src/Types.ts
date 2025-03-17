@@ -63,3 +63,14 @@ export type ScripturesContextType = {
     isLoading: boolean;
     volumes: Volume[];
 };
+
+/*------------------------------------------------------------------------
+ *                      TYPES FOR COMPONENT PROPS
+ */
+export interface VolumeProps {
+    volume?: Volume;
+}
+
+export interface BookProps {
+    book?: Book;
+}
