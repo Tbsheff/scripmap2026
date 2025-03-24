@@ -1,6 +1,7 @@
 import { Link, Route, Routes, useParams } from "react-router-dom";
 import { HOME_BREADCRUMB } from "../Constants";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
+import "./Breadcrumbs.css";
 
 function BreadcrumbsContent() {
     const { volumeId, bookId, chapter } = useParams();
@@ -44,7 +45,9 @@ function BreadcrumbsContent() {
 
     return (
         <div className="crumbs-wrapper">
-            <ul>{crumbs}</ul>
+            <div className="crumbs">
+                <ul>{crumbs}</ul>
+            </div>
         </div>
     );
 }
