@@ -10,7 +10,7 @@
  *                      IMPORTS
  */
 import { useEffect, useState } from "react";
-import { Book, Books, SuccessCallback, Volume } from "./Types";
+import { Book, Books, Volume } from "./Types";
 
 /*----------------------------------------------------------------------
  *                      CONSTANTS
@@ -134,19 +134,8 @@ export const useFetchScripturesData = function () {
 /*----------------------------------------------------------------------
  *                      PUBLIC FUNCTIONS
  */
-export const requestChapterText = function (
-    bookId: number,
-    chapter: number,
-    success: SuccessCallback,
-    failure: () => void
-): void {
-    fetch(encodedScripturesUrl(bookId, chapter))
-        .then((response) => {
-            const html = response.text();
-
-            success(html);
-        })
-        .catch(failure);
+export const fetchChapterHtml = async function (bookId: number, chapter: number) {
+    return fetch(encodedScripturesUrl(bookId, chapter)).then((response) => response.text());
 };
 
 // NEEDSWORK: figure this out

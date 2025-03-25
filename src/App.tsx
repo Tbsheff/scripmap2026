@@ -1,15 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import BookComponent from "./components/BookComponent";
+import ChapterComponent from "./components/ChapterComponent.js";
+import chapterLoader from "./components/ChapterLoader.js";
+import LoadingIndicator from "./components/LoadingIndicator.js";
 import MainPage from "./components/MainPage";
 import { ScripturesDataProvider } from "./context/ScripturesDataProvider";
 import VolumesList from "./components/VolumesList";
-import BookComponent from "./components/BookComponent";
 import "./App.css";
 import "./Waves.js";
 import "./Waves.css";
-
-function ChapterComponent() {
-    return <div>Some chapter</div>;
-}
 
 function ErrorPage() {
     return <div>There was a routing error.</div>;
@@ -25,7 +24,12 @@ function App() {
                 { path: "", element: <VolumesList /> },
                 { path: ":volumeId", element: <VolumesList /> },
                 { path: ":volumeId/:bookId", element: <BookComponent /> },
-                { path: ":volumeId/:bookId/:chapter", element: <ChapterComponent /> }
+                {
+                    path: ":volumeId/:bookId/:chapter",
+                    element: <ChapterComponent />,
+                    hydrateFallbackElement: <LoadingIndicator />,
+                    loader: chapterLoader
+                }
             ]
         }
     ]);
