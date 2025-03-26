@@ -9,23 +9,65 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { useOutlet } from "react-router-dom";
-import LoadingIndicator from "./LoadingIndicator";
-import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
+import { createRef, RefObject } from "react";
+import { useLocation, useOutlet } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { LRUCache } from "lru-cache";
+import { ANIMATION_KEY_NEXT, ANIMATION_KEY_PREVIOUS, MS_PER_HOUR } from "../Constants";
 import "./Navigation.css";
+
+/*----------------------------------------------------------------------
+ *                      PRIVATE VARIABLES
+ */
+const nodeRefCache = new LRUCache<string, RefObject<HTMLDivElement>>({
+    max: 30,
+    ttl: 8 * MS_PER_HOUR,
+    updateAgeOnGet: true
+});
+
+/*----------------------------------------------------------------------
+ *                      PRIVATE HELPERS
+ */
+function classNamesFor(state: { animationKey: string }) {
+    if (state && state.animationKey) {
+        if (state.animationKey === ANIMATION_KEY_NEXT) {
+            return "slide-left";
+        } else if (state.animationKey === ANIMATION_KEY_PREVIOUS) {
+            return "slide-right";
+        }
+    }
+
+    return "cross-fade";
+}
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
 export default function Navigation() {
-    const { books, isLoading, volumes } = useScripturesDataContext();
-    console.log(books, isLoading, volumes);
-
+    const { pathname, state } = useLocation();
     const currentOutlet = useOutlet();
+
+    if (!nodeRefCache.has(pathname)) {
+        nodeRefCache.set(pathname, createRef() as RefObject<HTMLDivElement>);
+    }
+
+    const nodeRef = nodeRefCache.get(pathname);
 
     return (
         <nav className="container">
-            {isLoading ? <LoadingIndicator /> : <div className="nav-content">{currentOutlet}</div>}
+            <TransitionGroup>
+                <CSSTransition
+                    key={pathname}
+                    nodeRef={nodeRef}
+                    timeout={500}
+                    classNames={classNamesFor(state)}
+                    unmountOnExit
+                >
+                    <div ref={nodeRef} className="nav-content">
+                        {currentOutlet}
+                    </div>
+                </CSSTransition>
+            </TransitionGroup>
         </nav>
     );
 }
