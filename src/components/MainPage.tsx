@@ -11,6 +11,7 @@
  */
 import Header from "./Header";
 import Navigation from "./Navigation";
+import NextPreviousComponent from "./NextPreviousComponent";
 
 /*----------------------------------------------------------------------
  *                      PRIVATE HELPERS
@@ -27,6 +28,7 @@ export default function MainPage() {
         <main>
             <Header />
             <Navigation />
+            <NextPreviousComponent />
             <MapDisplay />
         </main>
     );
