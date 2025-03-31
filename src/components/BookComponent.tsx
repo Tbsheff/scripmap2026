@@ -36,6 +36,7 @@ export default function BookComponent(props: BookProps) {
     }
 
     if (book.numChapters <= 1) {
+        // NEEDSWORK: implement this redirect
         return <div>Need to redirect to the chapter component.</div>;
     }
 

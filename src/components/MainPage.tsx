@@ -10,15 +10,9 @@
  *                      IMPORTS
  */
 import Header from "./Header";
+import MapDisplay from "./MapDisplay";
 import Navigation from "./Navigation";
 import NextPreviousComponent from "./NextPreviousComponent";
-
-/*----------------------------------------------------------------------
- *                      PRIVATE HELPERS
- */
-function MapDisplay() {
-    return <section className="MapDisplay">MapDisplay</section>;
-}
 
 /*----------------------------------------------------------------------
  *                      COMPONENT

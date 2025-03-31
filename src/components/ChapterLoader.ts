@@ -13,11 +13,13 @@ import { LRUCache } from "lru-cache";
 import { LoaderFunctionArgs } from "react-router-dom";
 import { MS_PER_HOUR } from "../Constants";
 import { fetchChapterHtml } from "../ServerApi";
+import { ChapterCacheEntry } from "../Types";
+import { extractGeoplaces } from "./MapHelper";
 
 /*----------------------------------------------------------------------
  *                      PRIVATE VARIABLES
  */
-const chapterDataCache = new LRUCache({
+const chapterDataCache = new LRUCache<string, ChapterCacheEntry>({
     max: 20,
     ttl: 8 * MS_PER_HOUR,
     updateAgeOnGet: true
@@ -34,13 +36,15 @@ export default async function chapterLoader({ params }: LoaderFunctionArgs) {
         return chapterDataCache.get(key);
     }
 
-    const chapterHtml = await fetchChapterHtml(Number(bookId), Number(chapter));
+    const html = await fetchChapterHtml(Number(bookId), Number(chapter));
 
-    if (!chapterHtml) {
+    if (!html) {
         throw new Response("Chapter not found", { status: 404 });
     }
 
-    chapterDataCache.set(key, chapterHtml);
+    const geoplaces = extractGeoplaces(html);
 
-    return chapterHtml;
+    chapterDataCache.set(key, { html, geoplaces });
+
+    return chapterDataCache.get(key);
 }

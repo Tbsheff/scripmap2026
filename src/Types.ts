@@ -40,6 +40,11 @@ export interface Books {
     [key: string]: Book;
 }
 
+export interface ChapterCacheEntry {
+    html: string;
+    geoplaces: GeoPlaces;
+}
+
 export interface GeoPlace {
     latitude: number;
     longitude: number;
@@ -79,7 +84,9 @@ export interface Volume {
 
 export type ScripturesContextType = {
     books: Books;
+    geoplaces: GeoPlaces | null;
     isLoading: boolean;
+    setGeoplaces: (geoplaces: GeoPlaces | null) => void;
     volumes: Volume[];
 };
 
