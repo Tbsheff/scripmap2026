@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    Breadcrumbs.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Breadcrumb navigation component.
  */

@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    LoadingIndicator.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Loading indicator to display when waiting for async
  *     operation to complete.

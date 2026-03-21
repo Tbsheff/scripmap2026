@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    App.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Top-level app component of our React app.
  */

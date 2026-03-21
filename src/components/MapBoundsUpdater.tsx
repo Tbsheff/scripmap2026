@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    MapBoundsUpdater.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Component to set the map position and zoom when needed.
  */

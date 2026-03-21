@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    ServerApi.ts
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Custom hook for fetching data from the
  *              scriptures.byu.edu server.
@@ -93,50 +93,53 @@ export function useFetchScripturesData() {
                     return response.json() as Promise<unknown>;
                 })
             )
-        ).then(([rawVolumes, rawBooks]) => {
-            if (
-                !Array.isArray(rawVolumes) ||
-                typeof (rawVolumes[0] as Record<string, unknown> | undefined)?.id !== "number" ||
-                typeof rawBooks !== "object" ||
-                rawBooks === null
-            ) {
-                throw new Error("Unexpected API response shape from scriptures server");
-            }
-
-            const jsonVolumes = rawVolumes as Volume[];
-            const jsonBooks = rawBooks as Books;
-
-            replaceHtmlEntities(jsonVolumes, jsonBooks);
-
-            // Build an array of books for each volume so it's easy to get
-            // the books when we have a volume object.  This is helpful,
-            // for example, when building the navigation grid of books for
-            // a given volume.
-            const enrichedVolumes = jsonVolumes.map((volume: Volume) => {
-                const volumeBooks: Book[] = [];
-                let bookId = volume.minBookId;
-
-                while (bookId <= volume.maxBookId) {
-                    const book = jsonBooks[bookId];
-
-                    if (book) {
-                        volumeBooks.push(book);
-                    }
-
-                    bookId += 1;
+        )
+            .then(([rawVolumes, rawBooks]) => {
+                if (
+                    !Array.isArray(rawVolumes) ||
+                    typeof (rawVolumes[0] as Record<string, unknown> | undefined)?.id !==
+                        "number" ||
+                    typeof rawBooks !== "object" ||
+                    rawBooks === null
+                ) {
+                    throw new Error("Unexpected API response shape from scriptures server");
                 }
 
-                return { ...volume, books: volumeBooks };
-            });
+                const jsonVolumes = rawVolumes as Volume[];
+                const jsonBooks = rawBooks as Books;
 
-            Object.freeze(jsonBooks);
-            Object.freeze(enrichedVolumes);
-            setVolumes(enrichedVolumes);
-            setBooks(jsonBooks);
-            setIsLoading(false);
-        }).catch((error: unknown) => {
-            console.error("Error loading scriptures data:", error);
-        });
+                replaceHtmlEntities(jsonVolumes, jsonBooks);
+
+                // Build an array of books for each volume so it's easy to get
+                // the books when we have a volume object.  This is helpful,
+                // for example, when building the navigation grid of books for
+                // a given volume.
+                const enrichedVolumes = jsonVolumes.map((volume: Volume) => {
+                    const volumeBooks: Book[] = [];
+                    let bookId = volume.minBookId;
+
+                    while (bookId <= volume.maxBookId) {
+                        const book = jsonBooks[bookId];
+
+                        if (book) {
+                            volumeBooks.push(book);
+                        }
+
+                        bookId += 1;
+                    }
+
+                    return { ...volume, books: volumeBooks };
+                });
+
+                Object.freeze(jsonBooks);
+                Object.freeze(enrichedVolumes);
+                setVolumes(enrichedVolumes);
+                setBooks(jsonBooks);
+                setIsLoading(false);
+            })
+            .catch((error: unknown) => {
+                console.error("Error loading scriptures data:", error);
+            });
     }, [setBooks, setVolumes]);
 
     return { books, isLoading, volumes };

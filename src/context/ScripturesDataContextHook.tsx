@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    ScripturesDataContextHook.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Custom hook for accessing our app's context.
  */

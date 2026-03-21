@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    Types.ts
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Useful interfaces and other type expressions.
  */

@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    MapData.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Variable for holding the map context.
  */

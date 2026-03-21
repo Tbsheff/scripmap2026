@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    NextPreviousComponent.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Component to handle next/previous chapter navigation.
  */
@@ -64,11 +64,7 @@ function chapterNavigationNode(
     );
 }
 
-function nextChapter(
-    bookId: number,
-    chapter: number,
-    books: Books
-): NextPreviousParameters {
+function nextChapter(bookId: number, chapter: number, books: Books): NextPreviousParameters {
     const book = books[bookId];
 
     if (book !== undefined) {
@@ -118,11 +114,7 @@ function nextMarkup(
         : null;
 }
 
-function previousChapter(
-    bookId: number,
-    chapter: number,
-    books: Books
-): NextPreviousParameters {
+function previousChapter(bookId: number, chapter: number, books: Books): NextPreviousParameters {
     const book = books[bookId];
 
     if (book !== undefined) {

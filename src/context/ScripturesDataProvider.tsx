@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    ScripturesDataProvider.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Provider component of our context pattern.
  */

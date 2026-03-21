@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    MapHelper.ts
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Module to support the Google Maps API.
  */

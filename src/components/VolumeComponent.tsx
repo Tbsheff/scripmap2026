@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    VolumeComponent.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Single volume display component with grid of books.
  */

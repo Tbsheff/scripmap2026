@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    ChapterComponent.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Chapter component displaying a chapter's HTML.
  */
@@ -36,7 +36,9 @@ export default function ChapterComponent() {
                 setFocusedGeoplace(null);
             }, ANIMATION_MARKER_DELAY);
 
-            return () => { clearTimeout(timer); };
+            return () => {
+                clearTimeout(timer);
+            };
         } else {
             setGeoplaces(null);
         }

@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    ChapterLoader.ts
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Asynchronous loader for the chapter component.
  */

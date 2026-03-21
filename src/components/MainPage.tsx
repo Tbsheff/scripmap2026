@@ -1,7 +1,7 @@
 /*======================================================================
  * FILE:    MainPage.tsx
  * AUTHOR:  Stephen W. Liddle
- * DATE:    Winter 2025
+ * DATE:    Winter 2026
  *
  * DESCRIPTION: Component with major high-level components of app.
  */
@@ -25,13 +25,7 @@ export default function MainPage() {
     const [geoplaces, setGeoplaces] = useState<GeoPlaces | null>(null);
 
     useEffect(() => {
-        window.showLocation = (
-            _id,
-            placename,
-            latitude,
-            longitude,
-            viewAltitude
-        ) => {
+        window.showLocation = (_id, placename, latitude, longitude, viewAltitude) => {
             setFocusedGeoplace({ latitude, longitude, placename, viewAltitude });
         };
     }, []);
