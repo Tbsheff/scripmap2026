@@ -24,11 +24,11 @@ export default function MainPage() {
 
     useEffect(() => {
         window.showLocation = (
-            _id: number,
-            placename: string,
-            latitude: number,
-            longitude: number,
-            viewAltitude: number
+            _id,
+            placename,
+            latitude,
+            longitude,
+            viewAltitude
         ) => {
             setFocusedGeoplace({ latitude, longitude, placename, viewAltitude });
         };

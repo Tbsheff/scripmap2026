@@ -1,5 +1,5 @@
 /*======================================================================
- * FILE:    ServerApi.tsx
+ * FILE:    ServerApi.ts
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2025
  *
@@ -48,7 +48,7 @@ function encodedScripturesUrl(
 export function useFetchScripturesData() {
     const [books, setBooks] = useState<Books>({});
     const [isLoading, setIsLoading] = useState(true);
-    const [volumes, setVolumes] = useState(Array<Volume>());
+    const [volumes, setVolumes] = useState<Volume[]>([]);
 
     useEffect(() => {
         const replaceEntities = (text: string) =>
@@ -117,7 +117,12 @@ export function useFetchScripturesData() {
                 let bookId = volume.minBookId;
 
                 while (bookId <= volume.maxBookId) {
-                    volumeBooks.push(jsonBooks[bookId]);
+                    const book = jsonBooks[bookId];
+
+                    if (book) {
+                        volumeBooks.push(book);
+                    }
+
                     bookId += 1;
                 }
 

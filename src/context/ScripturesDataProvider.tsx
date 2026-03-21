@@ -19,8 +19,8 @@ import { GeoPlace, GeoPlaces } from "../Types";
  */
 export function ScripturesDataProvider({ children }: { children: ReactNode }) {
     const { books, isLoading, volumes } = useFetchScripturesData();
-    const [focusedGeoplace, setFocusedGeoplace] = useState(null as GeoPlace | null);
-    const [geoplaces, setGeoplaces] = useState(null as GeoPlaces | null);
+    const [focusedGeoplace, setFocusedGeoplace] = useState<GeoPlace | null>(null);
+    const [geoplaces, setGeoplaces] = useState<GeoPlaces | null>(null);
 
     return (
         <ScripturesDataContext

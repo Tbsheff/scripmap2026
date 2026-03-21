@@ -52,7 +52,6 @@ export interface Volume extends Book {
     books: Book[];
 }
 
-
 export type ScripturesContextType = {
     books: Books;
     focusedGeoplace: GeoPlace | null;
@@ -77,8 +76,4 @@ export type ShowLocationFunction = (
  */
 export interface VolumeProps {
     volume?: Volume;
-}
-
-export interface BookProps {
-    book?: Book;
 }

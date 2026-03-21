@@ -11,9 +11,9 @@
  */
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import BookComponent from "./components/BookComponent";
-import ChapterComponent from "./components/ChapterComponent.js";
-import chapterLoader from "./components/ChapterLoader.js";
-import LoadingIndicator from "./components/LoadingIndicator.js";
+import ChapterComponent from "./components/ChapterComponent";
+import chapterLoader from "./components/ChapterLoader";
+import LoadingIndicator from "./components/LoadingIndicator";
 import MainPage from "./components/MainPage";
 import { ScripturesDataProvider } from "./context/ScripturesDataProvider";
 import VolumesList from "./components/VolumesList";

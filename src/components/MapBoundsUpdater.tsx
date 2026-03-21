@@ -64,10 +64,15 @@ export function MapBoundsUpdater() {
             map.setZoom(zoomLevelForAltitude(focusedGeoplace.viewAltitude));
         } else if (geoplaces && Object.keys(geoplaces).length > 0) {
             const places = Object.values(geoplaces);
+            const firstPlace = places[0];
+
+            if (!firstPlace) {
+                return;
+            }
 
             if (places.length <= 1) {
-                map.setCenter({ lat: places[0].latitude, lng: places[0].longitude });
-                map.setZoom(zoomLevelForAltitude(places[0].viewAltitude));
+                map.setCenter({ lat: firstPlace.latitude, lng: firstPlace.longitude });
+                map.setZoom(zoomLevelForAltitude(firstPlace.viewAltitude));
             } else {
                 map.fitBounds(boundsForCurrentMarkers(places));
             }

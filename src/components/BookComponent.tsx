@@ -9,27 +9,19 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { CLASS_BUTTON } from "../Constants";
 import LoadingIndicator from "./LoadingIndicator";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
-import { BookProps } from "../Types";
 import "./BookComponent.css";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
-export default function BookComponent(props: BookProps) {
+export default function BookComponent() {
     const { isLoading, books } = useScripturesDataContext();
     const { bookId } = useParams();
-    const [book, setBook] = useState(props.book);
-
-    useEffect(() => {
-        if (!book && !isLoading && bookId) {
-            setBook(books[bookId]);
-        }
-    }, [book, bookId, books, isLoading]);
+    const book = bookId ? books[bookId] : undefined;
 
     if (isLoading || !book) {
         return <LoadingIndicator />;

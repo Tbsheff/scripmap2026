@@ -43,8 +43,16 @@ export default function extractGeoplaces(html: string): GeoPlaces {
 
     try {
         for (const match of html.matchAll(LAT_LON_PARSER)) {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const [_, __, name, latitude, longitude, viewAltitude, flag] = match;
+            const name = match[2];
+            const latitude = match[3];
+            const longitude = match[4];
+            const viewAltitude = match[5];
+            const flag = match[6];
+
+            if (!name || !latitude || !longitude || !viewAltitude) {
+                continue;
+            }
+
             const placename = placenameWithFlag(name, flag);
             const key = `${latitude}|${longitude}`;
             const value = {
@@ -54,8 +62,10 @@ export default function extractGeoplaces(html: string): GeoPlaces {
                 viewAltitude: Number(viewAltitude)
             };
 
-            if (uniqueGeoplaces[key] !== undefined) {
-                mergePlacename(uniqueGeoplaces[key], name);
+            const existing = uniqueGeoplaces[key];
+
+            if (existing) {
+                mergePlacename(existing, name);
             } else {
                 uniqueGeoplaces[key] = value;
             }
