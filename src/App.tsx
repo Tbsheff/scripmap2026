@@ -29,28 +29,31 @@ function ErrorPage() {
 }
 
 /*----------------------------------------------------------------------
+ *                      ROUTER
+ */
+const router = createBrowserRouter([
+    {
+        path: "*",
+        element: <MainPage />,
+        errorElement: <ErrorPage />,
+        children: [
+            { path: "", element: <VolumesList /> },
+            { path: ":volumeId", element: <VolumesList /> },
+            { path: ":volumeId/:bookId", element: <BookComponent /> },
+            {
+                path: ":volumeId/:bookId/:chapter",
+                element: <ChapterComponent />,
+                hydrateFallbackElement: <LoadingIndicator />,
+                loader: chapterLoader
+            }
+        ]
+    }
+]);
+
+/*----------------------------------------------------------------------
  *                      COMPONENT
  */
 export default function App() {
-    const router = createBrowserRouter([
-        {
-            path: "*",
-            element: <MainPage />,
-            errorElement: <ErrorPage />,
-            children: [
-                { path: "", element: <VolumesList /> },
-                { path: ":volumeId", element: <VolumesList /> },
-                { path: ":volumeId/:bookId", element: <BookComponent /> },
-                {
-                    path: ":volumeId/:bookId/:chapter",
-                    element: <ChapterComponent />,
-                    hydrateFallbackElement: <LoadingIndicator />,
-                    loader: chapterLoader
-                }
-            ]
-        }
-    ]);
-
     return (
         <ScripturesDataProvider>
             <RouterProvider router={router} />

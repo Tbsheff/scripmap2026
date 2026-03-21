@@ -39,6 +39,7 @@ export default async function chapterLoader({ params }: LoaderFunctionArgs) {
     const html = await fetchChapterHtml(Number(bookId), Number(chapter));
 
     if (!html) {
+        // eslint-disable-next-line @typescript-eslint/only-throw-error
         throw new Response("Chapter not found", { status: 404 });
     }
 

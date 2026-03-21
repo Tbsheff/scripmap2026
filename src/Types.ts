@@ -9,12 +9,6 @@
 /*----------------------------------------------------------------------
  *                      TYPES
  */
-export enum AnimationType {
-    slideLeft = "slideleft",
-    slideRight = "slideright",
-    crossFade = "crossfade"
-}
-
 export interface Book {
     id: number;
     abbr: string;
@@ -30,10 +24,6 @@ export interface Book {
     backName: string;
     gridName: string;
     citeFull: string;
-}
-
-export interface Book {
-    [key: string]: unknown;
 }
 
 export interface Books {
@@ -56,31 +46,12 @@ export interface GeoPlaces {
     [key: string]: GeoPlace;
 }
 
-export interface MapStyle {
-    featureType?: string;
-    elementType: string;
-    stylers: { color: string }[];
-}
-
-export type NextPreviousTuple = [number, number, string];
-export type NextPreviousParameters = NextPreviousTuple | null;
-
-export interface Position {
-    lat: number;
-    lng: number;
-}
-
-export type SuccessCallback = (text: Promise<string>) => void;
-
 export interface Volume extends Book {
     minBookId: number;
     maxBookId: number;
     books: Book[];
 }
 
-export interface Volume {
-    [key: string]: unknown;
-}
 
 export type ScripturesContextType = {
     books: Books;

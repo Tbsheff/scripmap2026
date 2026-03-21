@@ -26,12 +26,12 @@ export default function BookComponent(props: BookProps) {
     const [book, setBook] = useState(props.book);
 
     useEffect(() => {
-        if (!book && !isLoading && books && bookId) {
+        if (!book && !isLoading && bookId) {
             setBook(books[bookId]);
         }
     }, [book, bookId, books, isLoading]);
 
-    if (isLoading || !books || !book) {
+    if (isLoading || !book) {
         return <LoadingIndicator />;
     }
 

@@ -18,7 +18,7 @@ import "./VolumesList.css";
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
-export default function VolumesList(props: React.ComponentProps<"div">) {
+export default function VolumesList() {
     const { isLoading, volumes } = useScripturesDataContext();
     const { volumeId } = useParams();
     const volumeIdNumber = Number(volumeId);
@@ -31,7 +31,7 @@ export default function VolumesList(props: React.ComponentProps<"div">) {
         <div className="volumesListComponent">
             {volumes.map((volume) =>
                 isNaN(volumeIdNumber) || volumeIdNumber === volume.id ? (
-                    <VolumeComponent volume={volume} key={`vk${volume.id}`} {...props} />
+                    <VolumeComponent volume={volume} key={`vk${volume.id}`} />
                 ) : null
             )}
         </div>

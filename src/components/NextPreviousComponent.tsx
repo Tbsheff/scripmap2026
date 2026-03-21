@@ -37,7 +37,7 @@ interface NextPreviousParameters {
  *                      PRIVATE HELPERS
  */
 
-const chapterNavigationNode = function (
+function chapterNavigationNode(
     { volumeId, bookId, chapter, title }: NextPreviousParameters,
     icon: ReactNode,
     textBefore: string,
@@ -51,7 +51,7 @@ const chapterNavigationNode = function (
     return (
         <Link
             to={`/${volumeId}/${bookId}/${chapter}`}
-            key={`np{bookId}-${chapter}`}
+            key={`np${bookId}-${chapter}`}
             title={title}
             state={{
                 animationKey
@@ -62,9 +62,9 @@ const chapterNavigationNode = function (
             {textAfter !== "" ? <div className="nav-text">{textAfter}</div> : null}
         </Link>
     );
-};
+}
 
-const nextChapter = function (
+function nextChapter(
     bookId: number,
     chapter: number,
     books: Books
@@ -100,9 +100,9 @@ const nextChapter = function (
     }
 
     return { volumeId: 0, bookId: 0, chapter: 0, title: "" };
-};
+}
 
-const nextMarkup = function (
+function nextMarkup(
     nextParameters: NextPreviousParameters,
     textBefore: string = "",
     textAfter: string = "",
@@ -116,9 +116,9 @@ const nextMarkup = function (
               textAfter
           )
         : null;
-};
+}
 
-const previousChapter = function (
+function previousChapter(
     bookId: number,
     chapter: number,
     books: Books
@@ -150,7 +150,7 @@ const previousChapter = function (
 
     // There is no previous chapter
     return { volumeId: 0, bookId: 0, chapter: 0, title: "" };
-};
+}
 
 function previousMarkup(
     previousParameters: NextPreviousParameters,
@@ -168,17 +168,13 @@ function previousMarkup(
         : null;
 }
 
-const titleForBookChapter = function (book: Book, chapter: number): string {
-    if (book !== undefined) {
-        if (chapter > 0) {
-            return `${book.tocName} ${chapter}`;
-        }
-
-        return book.tocName;
+function titleForBookChapter(book: Book, chapter: number): string {
+    if (chapter > 0) {
+        return `${book.tocName} ${chapter}`;
     }
 
-    return "";
-};
+    return book.tocName;
+}
 
 /*----------------------------------------------------------------------
  *                      COMPONENTS
@@ -204,7 +200,7 @@ export default function NextPreviousComponent() {
     );
 }
 
-export function NextSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
+export function PreviousSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
     const { books } = useScripturesDataContext();
 
     return (
@@ -214,7 +210,7 @@ export function NextSideComponent({ bookId, chapter }: { bookId?: string; chapte
     );
 }
 
-export function PreviousSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
+export function NextSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
     const { books } = useScripturesDataContext();
 
     return (

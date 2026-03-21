@@ -12,6 +12,7 @@
 import { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import { ANIMATION_MARKER_DELAY } from "../Constants";
+import { ChapterCacheEntry } from "../Types";
 import { NextSideComponent, PreviousSideComponent } from "./NextPreviousComponent";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import "./ChapterComponent.css";
@@ -22,7 +23,8 @@ import "./ChapterComponent.css";
 export default function ChapterComponent() {
     const { bookId, chapter } = useParams();
     const { setFocusedGeoplace, setGeoplaces } = useScripturesDataContext();
-    const loaderData = useLoaderData();
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    const loaderData = useLoaderData() as ChapterCacheEntry | undefined;
     const [cachedData, setCachedData] = useState(loaderData);
 
     useEffect(() => {
@@ -34,7 +36,7 @@ export default function ChapterComponent() {
                 setFocusedGeoplace(null);
             }, ANIMATION_MARKER_DELAY);
 
-            return () => clearTimeout(timer);
+            return () => { clearTimeout(timer); };
         } else {
             setGeoplaces(null);
         }

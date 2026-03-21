@@ -1,0 +1,151 @@
+/*======================================================================
+ * FILE:    ServerApi.tsx
+ * AUTHOR:  Stephen W. Liddle
+ * DATE:    Winter 2025
+ *
+ * DESCRIPTION: Custom hook for fetching data from the
+ *              scriptures.byu.edu server.
+ */
+/*----------------------------------------------------------------------
+ *                      IMPORTS
+ */
+import { useEffect, useState } from "react";
+import { Book, Books, Volume } from "./Types";
+
+/*----------------------------------------------------------------------
+ *                      CONSTANTS
+ */
+const URL_BASE = "https://scriptures.byu.edu/mapscrip/";
+const URL_BOOKS = `${URL_BASE}model/books.php`;
+const URL_SCRIPTURES = `${URL_BASE}mapgetscrip2.php`;
+const URL_VOLUMES = `${URL_BASE}model/volumes.php`;
+
+/*----------------------------------------------------------------------
+ *                      PRIVATE FUNCTIONS
+ */
+function encodedScripturesUrl(
+    bookId: number,
+    chapter: number,
+    verses?: string,
+    isJst?: boolean
+): string {
+    let options = "";
+
+    if (verses !== undefined) {
+        options += verses;
+    }
+
+    if (isJst !== undefined) {
+        options += "&jst=JST";
+    }
+
+    return `${URL_SCRIPTURES}?book=${bookId}&chap=${chapter}&verses${options}`;
+}
+
+/*----------------------------------------------------------------------
+ *                      PUBLIC HOOKS
+ */
+export function useFetchScripturesData() {
+    const [books, setBooks] = useState<Books>({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [volumes, setVolumes] = useState(Array<Volume>());
+
+    useEffect(() => {
+        const replaceEntities = (text: string) =>
+            text.replaceAll("&mdash;", "—").replaceAll("&amp;", "&");
+
+        const conditionallyReplace = (obj: Record<string, unknown>, props: string[]) => {
+            props.forEach((prop) => {
+                const property = obj[prop];
+
+                if (typeof property === "string") {
+                    if (property.includes("&")) {
+                        obj[prop] = replaceEntities(property);
+                    }
+                }
+            });
+        };
+
+        const replaceHtmlEntities = (volumesData: Volume[], booksData: Books) => {
+            volumesData.forEach((volume) => {
+                conditionallyReplace(volume as unknown as Record<string, unknown>, ["citeAbbr"]);
+            });
+
+            Object.keys(booksData).forEach((bookId) => {
+                conditionallyReplace(booksData[bookId] as unknown as Record<string, unknown>, [
+                    "backName",
+                    "citeAbbr",
+                    "citeFull",
+                    "fullName",
+                    "gridName",
+                    "subdiv",
+                    "tocName"
+                ]);
+            });
+        };
+
+        Promise.all(
+            [URL_VOLUMES, URL_BOOKS].map((url) =>
+                fetch(url).then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch ${url}: ${response.status}`);
+                    }
+                    return response.json() as Promise<unknown>;
+                })
+            )
+        ).then(([rawVolumes, rawBooks]) => {
+            if (
+                !Array.isArray(rawVolumes) ||
+                typeof (rawVolumes[0] as Record<string, unknown> | undefined)?.id !== "number" ||
+                typeof rawBooks !== "object" ||
+                rawBooks === null
+            ) {
+                throw new Error("Unexpected API response shape from scriptures server");
+            }
+
+            const jsonVolumes = rawVolumes as Volume[];
+            const jsonBooks = rawBooks as Books;
+
+            replaceHtmlEntities(jsonVolumes, jsonBooks);
+
+            // Build an array of books for each volume so it's easy to get
+            // the books when we have a volume object.  This is helpful,
+            // for example, when building the navigation grid of books for
+            // a given volume.
+            const enrichedVolumes = jsonVolumes.map((volume: Volume) => {
+                const volumeBooks: Book[] = [];
+                let bookId = volume.minBookId;
+
+                while (bookId <= volume.maxBookId) {
+                    volumeBooks.push(jsonBooks[bookId]);
+                    bookId += 1;
+                }
+
+                return { ...volume, books: volumeBooks };
+            });
+
+            Object.freeze(jsonBooks);
+            Object.freeze(enrichedVolumes);
+            setVolumes(enrichedVolumes);
+            setBooks(jsonBooks);
+            setIsLoading(false);
+        }).catch((error: unknown) => {
+            console.error("Error loading scriptures data:", error);
+        });
+    }, [setBooks, setVolumes]);
+
+    return { books, isLoading, volumes };
+}
+
+/*----------------------------------------------------------------------
+ *                      PUBLIC FUNCTIONS
+ */
+export async function fetchChapterHtml(bookId: number, chapter: number) {
+    const response = await fetch(encodedScripturesUrl(bookId, chapter));
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch chapter: ${response.status}`);
+    }
+
+    return response.text();
+}

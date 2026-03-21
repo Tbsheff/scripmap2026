@@ -10,7 +10,7 @@
  *                      IMPORTS
  */
 import { useMemo } from "react";
-import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
+import { AdvancedMarker, APIProvider, ControlPosition, Map } from "@vis.gl/react-google-maps";
 import { MapBoundsUpdater } from "./MapBoundsUpdater";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import "./MapDisplay.css";
@@ -18,7 +18,7 @@ import "./MapDisplay.css";
 /*----------------------------------------------------------------------
  *                      CONSTANTS
  */
-const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
 const CLASS_GEOPLACE_MARKER = "geoplace-marker";
 const CLASS_LABEL = "label";
 const CLASS_PIN = "pin";
@@ -27,8 +27,6 @@ const DEFAULT_MAP_TYPE_ID = "terrain";
 const DEFAULT_ZOOM = 8;
 const JERUSALEM_LOCATION = { lat: 31.778407, lng: 35.234725 };
 const MAP_ID = "dd27f636464f8569";
-const POSITION_RIGHT_TOP = 3;
-const POSITION_RIGHT_BOTTOM = 9;
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
@@ -36,7 +34,7 @@ const POSITION_RIGHT_BOTTOM = 9;
 export default function MapDisplay() {
     const { geoplaces } = useScripturesDataContext();
 
-    if (!API_KEY || !MAP_ID) {
+    if (!API_KEY) {
         throw new Error("Unable to display Google Map.");
     }
 
@@ -69,14 +67,14 @@ export default function MapDisplay() {
                     gestureHandling={DEFAULT_GESTURE_HANDLING}
                     mapTypeControl={true}
                     mapTypeControlOptions={{
-                        position: POSITION_RIGHT_TOP
+                        position: ControlPosition.TOP_RIGHT
                     }}
                     mapTypeId={DEFAULT_MAP_TYPE_ID}
                     streetViewControl={false}
                     fullscreenControl={false}
                     zoomControl={true}
                     zoomControlOptions={{
-                        position: POSITION_RIGHT_BOTTOM
+                        position: ControlPosition.RIGHT_BOTTOM
                     }}
                 >
                     {markers}

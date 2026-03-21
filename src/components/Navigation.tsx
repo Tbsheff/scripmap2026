@@ -33,7 +33,7 @@ const nodeRefCache = new LRUCache<string, RefObject<HTMLDivElement>>({
 /*----------------------------------------------------------------------
  *                      PRIVATE HELPERS
  */
-function classNamesFor(state: { animationKey: string }) {
+function classNamesFor(state: { animationKey: string } | null) {
     if (state && state.animationKey) {
         if (state.animationKey === ANIMATION_KEY_NEXT) {
             return "slide-left";
@@ -49,7 +49,9 @@ function classNamesFor(state: { animationKey: string }) {
  *                      COMPONENT
  */
 export default function Navigation() {
-    const { pathname, state } = useLocation();
+    const location = useLocation();
+    const { pathname } = location;
+    const state = location.state as { animationKey: string } | null;
     const currentOutlet = useOutlet();
 
     if (!nodeRefCache.has(pathname)) {

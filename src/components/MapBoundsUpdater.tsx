@@ -54,7 +54,7 @@ export function MapBoundsUpdater() {
     const { focusedGeoplace, geoplaces } = useScripturesDataContext();
 
     useEffect(() => {
-        if (!map || typeof google === "undefined" || !google.maps || !google.maps.LatLngBounds) {
+        if (!map || typeof google === "undefined") {
             // Ignore -- the map or API isn't fully loaded
             return;
         }

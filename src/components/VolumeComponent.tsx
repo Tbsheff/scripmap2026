@@ -19,17 +19,17 @@ import { VolumeProps } from "../Types";
  *                      COMPONENT
  */
 export default function VolumeComponent({ volume }: VolumeProps) {
-    const { volumes, isLoading } = useScripturesDataContext();
+    const { isLoading } = useScripturesDataContext();
 
-    if (isLoading || !volumes || !volume) {
+    if (isLoading || !volume) {
         return <LoadingIndicator />;
     }
 
     return (
         <div className="volume">
-            <h5>{volume?.fullName}</h5>
+            <h5>{volume.fullName}</h5>
             <div className="books">
-                {volume?.books.map((book) => (
+                {volume.books.map((book) => (
                     <Link
                         className={CLASS_BUTTON}
                         id={String(book.id)}
