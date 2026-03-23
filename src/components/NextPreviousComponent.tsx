@@ -75,7 +75,7 @@ function chapterNavigationNode(
             }}
         >
             {textBefore !== "" ? <div className="nav-text">{textBefore}</div> : null}
-            <div className="icon waves-effect">{icon}</div>
+            <div className="icon">{icon}</div>
             {textAfter !== "" ? <div className="nav-text">{textAfter}</div> : null}
         </Link>
     );

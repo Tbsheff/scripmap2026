@@ -20,8 +20,6 @@ const BookComponent = lazy(() => import("./components/BookComponent"));
 const ChapterComponent = lazy(() => import("./components/ChapterComponent"));
 const VolumesList = lazy(() => import("./components/VolumesList"));
 import "./App.css";
-import "./Waves.js";
-import "./Waves.css";
 
 /*----------------------------------------------------------------------
  *                      PRIVATE HELPERS

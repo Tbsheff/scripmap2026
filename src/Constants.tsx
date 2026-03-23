@@ -14,7 +14,7 @@ export const ANIMATION_KEY_PREVIOUS = "p";
 // Keep in sync with --animation-duration in Navigation.css
 export const ANIMATION_DURATION = 320;
 export const ANIMATION_MARKER_DELAY = 250;
-export const CLASS_BUTTON = "waves-effect waves-custom waves-ripple btn";
+export const CLASS_BUTTON = "btn";
 export const HOME_BREADCRUMB = "The Scriptures";
 
 export const ICON_NEXT = (
