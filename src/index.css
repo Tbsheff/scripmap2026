@@ -40,7 +40,7 @@
     --header-shadow-2: rgba(44, 52, 51, 0.04);
     --button-background-color: var(--surface-container-lowest);
     --button-text-color: var(--on-surface);
-    --border-nav-map-color: rgba(171, 180, 179, 0.15);
+    --border-nav-map-color: rgba(171, 180, 179, 0.35);
     --nav-hover-color: var(--surface-container-low);
     --scripture-link-color: var(--primary);
     --scripture-hover-color: #3d4a42;
