@@ -61,6 +61,7 @@ export type MapContextType = {
 
 export type ScripturesContextType = {
     books: Books;
+    error: string | null;
     isLoading: boolean;
     volumes: Volume[];
 };
@@ -73,6 +74,10 @@ export type ShowLocationFunction = (
     viewAltitude: number,
     flag: string
 ) => void;
+
+export type AnimationState = {
+    animationKey: string;
+};
 
 /*------------------------------------------------------------------------
  *                      TYPES FOR COMPONENT PROPS

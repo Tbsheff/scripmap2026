@@ -17,12 +17,13 @@ import { ScripturesDataContext } from "./ScripturesData";
  *                      COMPONENT
  */
 export function ScripturesDataProvider({ children }: { children: ReactNode }) {
-    const { books, isLoading, volumes } = useFetchScripturesData();
+    const { books, error, isLoading, volumes } = useFetchScripturesData();
 
     return (
         <ScripturesDataContext
             value={{
                 books,
+                error,
                 isLoading,
                 volumes
             }}

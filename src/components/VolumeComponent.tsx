@@ -11,18 +11,14 @@
  */
 import { Link } from "react-router-dom";
 import { CLASS_BUTTON } from "../Constants";
-import LoadingIndicator from "./LoadingIndicator";
-import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import { VolumeProps } from "../Types";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
 export default function VolumeComponent({ volume }: VolumeProps) {
-    const { isLoading } = useScripturesDataContext();
-
-    if (isLoading || !volume) {
-        return <LoadingIndicator />;
+    if (!volume) {
+        return null;
     }
 
     return (

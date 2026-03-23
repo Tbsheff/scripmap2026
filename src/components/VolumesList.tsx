@@ -19,12 +19,16 @@ import "./VolumesList.css";
  *                      COMPONENT
  */
 export default function VolumesList() {
-    const { isLoading, volumes } = useScripturesDataContext();
+    const { error, isLoading, volumes } = useScripturesDataContext();
     const { volumeId } = useParams();
     const volumeIdNumber = Number(volumeId);
 
     if (isLoading) {
         return <LoadingIndicator />;
+    }
+
+    if (error) {
+        return <div role="alert" style={{ padding: "2rem", textAlign: "center" }}>{error}</div>;
     }
 
     return (

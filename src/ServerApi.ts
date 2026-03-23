@@ -11,6 +11,7 @@
  */
 import { useEffect, useState } from "react";
 import { Book, Books, Volume } from "./Types";
+import { replaceHtmlEntities } from "./scripturesUtils";
 
 /*----------------------------------------------------------------------
  *                      CONSTANTS
@@ -48,42 +49,10 @@ function encodedScripturesUrl(
 export function useFetchScripturesData() {
     const [books, setBooks] = useState<Books>({});
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [volumes, setVolumes] = useState<Volume[]>([]);
 
     useEffect(() => {
-        const replaceEntities = (text: string) =>
-            text.replaceAll("&mdash;", "—").replaceAll("&amp;", "&");
-
-        const conditionallyReplace = (obj: Record<string, unknown>, props: string[]) => {
-            props.forEach((prop) => {
-                const property = obj[prop];
-
-                if (typeof property === "string") {
-                    if (property.includes("&")) {
-                        obj[prop] = replaceEntities(property);
-                    }
-                }
-            });
-        };
-
-        const replaceHtmlEntities = (volumesData: Volume[], booksData: Books) => {
-            volumesData.forEach((volume) => {
-                conditionallyReplace(volume as unknown as Record<string, unknown>, ["citeAbbr"]);
-            });
-
-            Object.keys(booksData).forEach((bookId) => {
-                conditionallyReplace(booksData[bookId] as unknown as Record<string, unknown>, [
-                    "backName",
-                    "citeAbbr",
-                    "citeFull",
-                    "fullName",
-                    "gridName",
-                    "subdiv",
-                    "tocName"
-                ]);
-            });
-        };
-
         Promise.all(
             [URL_VOLUMES, URL_BOOKS].map((url) =>
                 fetch(url).then((response) => {
@@ -137,12 +106,14 @@ export function useFetchScripturesData() {
                 setBooks(jsonBooks);
                 setIsLoading(false);
             })
-            .catch((error: unknown) => {
-                console.error("Error loading scriptures data:", error);
+            .catch((err: unknown) => {
+                console.error("Error loading scriptures data:", err);
+                setError("Failed to load scripture data. Please refresh the page.");
+                setIsLoading(false);
             });
-    }, [setBooks, setVolumes]);
+    }, []);
 
-    return { books, isLoading, volumes };
+    return { books, error, isLoading, volumes };
 }
 
 /*----------------------------------------------------------------------

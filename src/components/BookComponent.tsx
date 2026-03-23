@@ -31,11 +31,8 @@ export default function BookComponent() {
         return <Navigate to={`/${book.parentBookId}/${book.id}/${book.numChapters}`} replace />;
     }
 
-    const chaptersList = [];
-    let chapter = 1;
-
-    while (chapter <= book.numChapters) {
-        chaptersList.push(
+    const chaptersList = Array.from({ length: book.numChapters }, (_, i) => i + 1).map(
+        (chapter) => (
             <Link
                 className={`${CLASS_BUTTON} chapter-btn`}
                 id={`c${chapter}`}
@@ -44,9 +41,8 @@ export default function BookComponent() {
             >
                 {chapter}
             </Link>
-        );
-        chapter += 1;
-    }
+        )
+    );
 
     return (
         <div className="booksContainer">

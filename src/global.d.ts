@@ -4,6 +4,6 @@ export {};
 
 declare global {
     interface Window {
-        showLocation: ShowLocationFunction;
+        showLocation?: ShowLocationFunction;
     }
 }

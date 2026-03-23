@@ -1,4 +1,5 @@
 :root {
+    /* Keep in sync with ANIMATION_DURATION in Constants.tsx */
     --animation-duration: 500ms;
 }
 
