@@ -13,6 +13,7 @@ import { Link, useParams } from "react-router-dom";
 import LoadingIndicator from "./LoadingIndicator";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import { Volume } from "../Types";
+import { volumeBySlug } from "../utils/scriptureNavigation";
 import "./VolumesList.css";
 
 /*----------------------------------------------------------------------
@@ -32,7 +33,7 @@ const VOLUME_ICONS: Record<number, string> = {
  */
 function BookCard({ volume, book, variant = "default" }: {
     volume: Volume;
-    book: { id: number; citeAbbr: string; fullName: string };
+    book: { id: number; citeAbbr: string; fullName: string; urlPath: string };
     variant?: "default" | "surface" | "glass";
 }) {
     const cls = variant === "surface" ? "book-card book-card--surface"
@@ -40,7 +41,7 @@ function BookCard({ volume, book, variant = "default" }: {
         : "book-card";
 
     return (
-        <Link className={cls} id={String(book.id)} to={`/${volume.id}/${book.id}`}>
+        <Link className={cls} id={String(book.id)} to={`/${volume.urlPath}/${book.urlPath}`}>
             <span className="book-abbr">{book.citeAbbr}</span>
             <span className="book-name">{book.fullName}</span>
         </Link>
@@ -112,8 +113,7 @@ function VolumeCompact({ volume, label, tinted = false }: {
  */
 export default function VolumesList() {
     const { error, isLoading, volumes } = useScripturesDataContext();
-    const { volumeId } = useParams();
-    const volumeIdNumber = Number(volumeId);
+    const { volumeSlug } = useParams();
 
     if (isLoading) {
         return <LoadingIndicator />;
@@ -124,8 +124,8 @@ export default function VolumesList() {
     }
 
     // Single volume view
-    if (!isNaN(volumeIdNumber)) {
-        const volume = volumes.find((v) => v.id === volumeIdNumber);
+    if (volumeSlug) {
+        const volume = volumeBySlug(volumeSlug);
         if (!volume) return null;
         const label = VOLUME_LABELS[volume.id - 1] ?? `Volume ${volume.id}`;
         return (
