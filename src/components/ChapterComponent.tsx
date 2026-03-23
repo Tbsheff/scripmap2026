@@ -11,10 +11,18 @@
  */
 import { useEffect, useMemo, useRef } from "react";
 import { Link, useLoaderData, useParams } from "react-router-dom";
-import { ANIMATION_MARKER_DELAY } from "../Constants";
+import {
+    ANIMATION_KEY_NEXT,
+    ANIMATION_KEY_PREVIOUS,
+    ANIMATION_MARKER_DELAY,
+    ICON_NEXT_SMALL,
+    ICON_PREVIOUS_SMALL
+} from "../Constants";
 import { ChapterCacheEntry } from "../Types";
-import { NextSideComponent, PreviousSideComponent } from "./NextPreviousComponent";
+import { nextChapter, NextSideComponent, previousChapter, PreviousSideComponent } from "./NextPreviousComponent";
 import { useGeoplacesContext, useFocusedGeoplaceContext } from "../context/MapDataContextHook";
+import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
+import { bookBySlug } from "../utils/scriptureNavigation";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
@@ -23,6 +31,12 @@ export default function ChapterComponent() {
     const { bookSlug, chapter } = useParams();
     const { setGeoplaces } = useGeoplacesContext();
     const { setFocusedGeoplace } = useFocusedGeoplaceContext();
+    const { books, volumes } = useScripturesDataContext();
+    const book = bookBySlug(bookSlug ?? "");
+    const numericBookId = book?.id ?? 0;
+    const chapterNum = Number(chapter);
+    const prev = previousChapter(numericBookId, chapterNum, books, volumes);
+    const next = nextChapter(numericBookId, chapterNum, books, volumes);
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const loaderData = useLoaderData() as ChapterCacheEntry | undefined;
     const cachedDataRef = useRef(loaderData);
@@ -61,6 +75,34 @@ export default function ChapterComponent() {
         <div className="relative w-full h-full">
             <PreviousSideComponent bookSlug={bookSlug} chapter={chapter} />
             <div className="chapter-content" dangerouslySetInnerHTML={innerHtml} />
+            {(prev.bookId > 0 || next.bookId > 0) && (
+                <div className="flex w-full max-w-[36rem] mx-auto px-12 py-8 mt-4 border-t border-[var(--outline-variant)]">
+                    <div className="flex-1">
+                        {prev.bookId > 0 && (
+                            <Link
+                                to={`/${prev.volumeSlug}/${prev.bookSlug}/${prev.chapter}`}
+                                state={{ animationKey: ANIMATION_KEY_PREVIOUS }}
+                                className="inline-flex items-center gap-2 text-sm text-[var(--on-surface-variant)] hover:text-[var(--primary)] transition-colors group"
+                            >
+                                {ICON_PREVIOUS_SMALL}
+                                <span className="font-medium">{prev.title}</span>
+                            </Link>
+                        )}
+                    </div>
+                    <div className="flex-1 text-right">
+                        {next.bookId > 0 && (
+                            <Link
+                                to={`/${next.volumeSlug}/${next.bookSlug}/${next.chapter}`}
+                                state={{ animationKey: ANIMATION_KEY_NEXT }}
+                                className="inline-flex items-center gap-2 text-sm text-[var(--on-surface-variant)] hover:text-[var(--primary)] transition-colors group"
+                            >
+                                <span className="font-medium">{next.title}</span>
+                                {ICON_NEXT_SMALL}
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            )}
             <NextSideComponent bookSlug={bookSlug} chapter={chapter} />
         </div>
     );

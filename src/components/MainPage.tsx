@@ -10,16 +10,19 @@
  *                      IMPORTS
  */
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "./Header";
 import { MapErrorBoundary } from "./MapErrorBoundary";
 
 const MapDisplay = lazy(() => import("./MapDisplay"));
 import Navigation from "./Navigation";
-import NextPreviousComponent from "./NextPreviousComponent";
 import Sidebar from "./Sidebar";
 import { GeoplacesContext, FocusedGeoplaceContext } from "../context/MapData";
 import { GeoPlace, GeoPlaces } from "../Types";
+import { bookBySlug } from "../utils/scriptureNavigation";
+import { nextChapter, previousChapter } from "./NextPreviousComponent";
+import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
+import { ANIMATION_KEY_NEXT, ANIMATION_KEY_PREVIOUS } from "../Constants";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
@@ -29,13 +32,19 @@ export default function MainPage() {
     const [geoplaces, setGeoplaces] = useState<GeoPlaces | null>(null);
     const [mapOpen, setMapOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
-    const { chapter } = useParams();
+    const { bookSlug, chapter } = useParams();
     const isChapterView = Boolean(chapter);
+    const navigate = useNavigate();
+    const { books, volumes } = useScripturesDataContext();
+    const book = bookBySlug(bookSlug ?? "");
+    const numericBookId = book?.id ?? 0;
+    const chapterNum = Number(chapter);
+    const prev = previousChapter(numericBookId, chapterNum, books, volumes);
+    const next = nextChapter(numericBookId, chapterNum, books, volumes);
 
     const toggleMap = useCallback(() => setMapOpen((prev) => !prev), []);
     const toggleSidebar = useCallback(() => setSidebarOpen((prev) => !prev), []);
 
-    // Cmd/Ctrl+B to toggle sidebar
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "b" && (e.metaKey || e.ctrlKey)) {
@@ -46,6 +55,25 @@ export default function MainPage() {
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [toggleSidebar]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!isChapterView) return;
+            const tag = (document.activeElement?.tagName ?? "").toLowerCase();
+            if (tag === "input" || tag === "textarea") return;
+
+            if (e.key === "ArrowLeft" && prev.bookId > 0) {
+                navigate(`/${prev.volumeSlug}/${prev.bookSlug}/${prev.chapter}`,
+                    { state: { animationKey: ANIMATION_KEY_PREVIOUS } });
+            }
+            if (e.key === "ArrowRight" && next.bookId > 0) {
+                navigate(`/${next.volumeSlug}/${next.bookSlug}/${next.chapter}`,
+                    { state: { animationKey: ANIMATION_KEY_NEXT } });
+            }
+        };
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [isChapterView, prev, next, navigate]);
 
     useEffect(() => {
         if (!isChapterView) {
@@ -104,7 +132,6 @@ export default function MainPage() {
                                 {/* Scripture content */}
                                 <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
                                     <Navigation />
-                                    <NextPreviousComponent />
                                 </div>
 
                                 {/* Map panel */}

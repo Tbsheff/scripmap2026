@@ -10,7 +10,7 @@
  *                      IMPORTS
  */
 import { memo, ReactNode } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     ANIMATION_KEY_NEXT,
     ANIMATION_KEY_PREVIOUS,
@@ -198,33 +198,6 @@ export function titleForBookChapter(book: Book, chapter: number): string {
 /*----------------------------------------------------------------------
  *                      COMPONENTS
  */
-export default function NextPreviousComponent() {
-    const { books, volumes } = useScripturesDataContext();
-    const { bookSlug, chapter } = useParams();
-    const book = bookBySlug(bookSlug ?? "");
-    const numericBookId = book?.id ?? 0;
-
-    if (!bookSlug || !chapter) {
-        return null;
-    }
-
-    return (
-        <div className="next-prev-wrapper shrink-0">
-            <div className="previous-link flex-1 basis-1/2 text-right pe-5">
-                {previousMarkup(
-                    previousChapter(numericBookId, Number(chapter), books, volumes),
-                    "",
-                    "Previous",
-                    true
-                )}
-            </div>
-            <div className="next-link flex-1 basis-1/2 text-left ps-5">
-                {nextMarkup(nextChapter(numericBookId, Number(chapter), books, volumes), "Next", "", true)}
-            </div>
-        </div>
-    );
-}
-
 export const PreviousSideComponent = memo(function PreviousSideComponent({ bookSlug, chapter }: { bookSlug?: string; chapter?: string }) {
     const { books, volumes } = useScripturesDataContext();
     const book = bookBySlug(bookSlug ?? "");
