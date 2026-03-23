@@ -12,22 +12,21 @@
 import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { HOME_BREADCRUMB } from "../Constants";
-import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
+import { bookBySlug, volumeBySlug } from "../utils/scriptureNavigation";
 import "./Breadcrumbs.css";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
 export default function Breadcrumbs() {
-    const { volumeId, bookId, chapter } = useParams();
-    const { volumes, books } = useScripturesDataContext();
-    const volume = volumes.find((v) => v.id === Number(volumeId));
-    const book = books[bookId ?? ""];
+    const { volumeSlug, bookSlug, chapter } = useParams();
+    const volume = volumeBySlug(volumeSlug ?? "");
+    const book = bookBySlug(bookSlug ?? "");
 
     const crumbs = useMemo(() => {
         const items = [];
 
-        if (volume === undefined) {
+        if (!volumeSlug || volume === undefined) {
             items.push(<li key="t" aria-current="page">{HOME_BREADCRUMB}</li>);
         } else {
             items.push(
@@ -36,12 +35,12 @@ export default function Breadcrumbs() {
                 </li>
             );
 
-            if (book === undefined) {
+            if (!bookSlug || book === undefined) {
                 items.push(<li key={`v${volume.id}`} aria-current="page">{volume.fullName}</li>);
             } else {
                 items.push(
                     <li key={`v${volume.id}`}>
-                        <Link to={`/${volume.id}`}>{volume.fullName}</Link>
+                        <Link to={`/${volume.urlPath}`}>{volume.fullName}</Link>
                     </li>
                 );
 
@@ -50,7 +49,7 @@ export default function Breadcrumbs() {
                 } else {
                     items.push(
                         <li key={`b${book.id}`}>
-                            <Link to={`/${volume.id}/${book.id}`}>{book.tocName}</Link>
+                            <Link to={`/${volume.urlPath}/${book.urlPath}`}>{book.tocName}</Link>
                         </li>
                     );
 
@@ -60,7 +59,7 @@ export default function Breadcrumbs() {
         }
 
         return items;
-    }, [volumeId, bookId, chapter, volumes, books]);
+    }, [volumeSlug, bookSlug, chapter, volume, book]);
 
     return (
         <div className="crumbs-wrapper">

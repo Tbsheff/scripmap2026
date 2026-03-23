@@ -13,15 +13,16 @@ import { useMemo } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ChapterLoadingIndicator } from "./LoadingIndicator";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
+import { bookBySlug } from "../utils/scriptureNavigation";
 import "./BookComponent.css";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
 export default function BookComponent() {
-    const { isLoading, books } = useScripturesDataContext();
-    const { bookId } = useParams();
-    const book = bookId ? books[bookId] : undefined;
+    const { isLoading } = useScripturesDataContext();
+    const { bookSlug, volumeSlug } = useParams();
+    const book = bookBySlug(bookSlug ?? "");
 
     const chaptersList = useMemo(() =>
         book
@@ -30,13 +31,13 @@ export default function BookComponent() {
                     className="chapter-pill"
                     id={`c${chapter}`}
                     key={`k${chapter}`}
-                    to={`/${book.parentBookId}/${book.id}/${chapter}`}
+                    to={`/${volumeSlug}/${book.urlPath}/${chapter}`}
                 >
                     {chapter}
                 </Link>
             ))
             : [],
-        [book, bookId]
+        [book, bookSlug, volumeSlug]
     );
 
     if (isLoading || !book) {
@@ -44,7 +45,7 @@ export default function BookComponent() {
     }
 
     if (book.numChapters <= 1) {
-        return <Navigate to={`/${book.parentBookId}/${book.id}/${book.numChapters}`} replace />;
+        return <Navigate to={`/${volumeSlug}/${book.urlPath}/${book.numChapters}`} replace />;
     }
 
     return (

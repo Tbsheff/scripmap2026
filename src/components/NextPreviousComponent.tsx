@@ -19,7 +19,8 @@ import {
     ICON_PREVIOUS,
     ICON_PREVIOUS_SMALL
 } from "../Constants";
-import { Book, Books } from "../Types";
+import { Book, Books, Volume } from "../Types";
+import { bookBySlug } from "../utils/scriptureNavigation";
 import "./NextPreviousComponent.css";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import { chapterDataCache } from "./ChapterLoader";
@@ -36,7 +37,8 @@ const PREV_STATE = { animationKey: ANIMATION_KEY_PREVIOUS };
  *                      PRIVATE TYPES
  */
 interface NextPreviousParameters {
-    volumeId: number;
+    volumeSlug: string;
+    bookSlug: string;
     bookId: number;
     chapter: number;
     title: string;
@@ -47,7 +49,7 @@ interface NextPreviousParameters {
  */
 
 function chapterNavigationNode(
-    { volumeId, bookId, chapter, title }: NextPreviousParameters,
+    { volumeSlug, bookSlug, bookId, chapter, title }: NextPreviousParameters,
     icon: ReactNode,
     textBefore: string,
     textAfter: string
@@ -56,7 +58,7 @@ function chapterNavigationNode(
 
     return (
         <Link
-            to={`/${volumeId}/${bookId}/${chapter}`}
+            to={`/${volumeSlug}/${bookSlug}/${chapter}`}
             key={`np${bookId}-${chapter}`}
             title={title}
             aria-label={title}
@@ -79,13 +81,16 @@ function chapterNavigationNode(
     );
 }
 
-export function nextChapter(bookId: number, chapter: number, books: Books): NextPreviousParameters {
+export function nextChapter(bookId: number, chapter: number, books: Books, volumes: Volume[]): NextPreviousParameters {
     const book = books[bookId];
 
     if (book !== undefined) {
         if (chapter < book.numChapters) {
+            const volume = volumes.find((v) => v.id === book.parentBookId);
+
             return {
-                volumeId: book.parentBookId,
+                volumeSlug: volume?.urlPath ?? "",
+                bookSlug: book.urlPath,
                 bookId,
                 chapter: chapter + 1,
                 title: titleForBookChapter(book, chapter + 1)
@@ -101,8 +106,11 @@ export function nextChapter(bookId: number, chapter: number, books: Books): Next
                 nextChapterValue = 1;
             }
 
+            const nextVolume = volumes.find((v) => v.id === nextBook.parentBookId);
+
             return {
-                volumeId: nextBook.parentBookId,
+                volumeSlug: nextVolume?.urlPath ?? "",
+                bookSlug: nextBook.urlPath,
                 bookId: nextBook.id,
                 chapter: nextChapterValue,
                 title: titleForBookChapter(nextBook, nextChapterValue)
@@ -110,7 +118,7 @@ export function nextChapter(bookId: number, chapter: number, books: Books): Next
         }
     }
 
-    return { volumeId: 0, bookId: 0, chapter: 0, title: "" };
+    return { volumeSlug: "", bookSlug: "", bookId: 0, chapter: 0, title: "" };
 }
 
 function nextMarkup(
@@ -129,13 +137,16 @@ function nextMarkup(
         : null;
 }
 
-export function previousChapter(bookId: number, chapter: number, books: Books): NextPreviousParameters {
+export function previousChapter(bookId: number, chapter: number, books: Books, volumes: Volume[]): NextPreviousParameters {
     const book = books[bookId];
 
     if (book !== undefined) {
         if (chapter > 1) {
+            const volume = volumes.find((v) => v.id === book.parentBookId);
+
             return {
-                volumeId: book.parentBookId,
+                volumeSlug: volume?.urlPath ?? "",
+                bookSlug: book.urlPath,
                 bookId,
                 chapter: chapter - 1,
                 title: titleForBookChapter(book, chapter - 1)
@@ -145,9 +156,11 @@ export function previousChapter(bookId: number, chapter: number, books: Books): 
         const previousBook = books[bookId - 1];
 
         if (previousBook !== undefined) {
-            // "Previous" is last chapter of previous book
+            const prevVolume = volumes.find((v) => v.id === previousBook.parentBookId);
+
             return {
-                volumeId: previousBook.parentBookId,
+                volumeSlug: prevVolume?.urlPath ?? "",
+                bookSlug: previousBook.urlPath,
                 bookId: previousBook.id,
                 chapter: previousBook.numChapters,
                 title: titleForBookChapter(previousBook, previousBook.numChapters)
@@ -155,8 +168,7 @@ export function previousChapter(bookId: number, chapter: number, books: Books): 
         }
     }
 
-    // There is no previous chapter
-    return { volumeId: 0, bookId: 0, chapter: 0, title: "" };
+    return { volumeSlug: "", bookSlug: "", bookId: 0, chapter: 0, title: "" };
 }
 
 function previousMarkup(
@@ -187,42 +199,48 @@ export function titleForBookChapter(book: Book, chapter: number): string {
  *                      COMPONENTS
  */
 export default function NextPreviousComponent() {
-    const { books } = useScripturesDataContext();
-    const { bookId, chapter } = useParams();
+    const { books, volumes } = useScripturesDataContext();
+    const { bookSlug, chapter } = useParams();
+    const book = bookBySlug(bookSlug ?? "");
+    const numericBookId = book?.id ?? 0;
 
     return (
         <div className="next-prev-wrapper">
             <div className="previous-link">
                 {previousMarkup(
-                    previousChapter(Number(bookId), Number(chapter), books),
+                    previousChapter(numericBookId, Number(chapter), books, volumes),
                     "",
                     "Previous",
                     true
                 )}
             </div>
             <div className="next-link">
-                {nextMarkup(nextChapter(Number(bookId), Number(chapter), books), "Next", "", true)}
+                {nextMarkup(nextChapter(numericBookId, Number(chapter), books, volumes), "Next", "", true)}
             </div>
         </div>
     );
 }
 
-export const PreviousSideComponent = memo(function PreviousSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
-    const { books } = useScripturesDataContext();
+export const PreviousSideComponent = memo(function PreviousSideComponent({ bookSlug, chapter }: { bookSlug?: string; chapter?: string }) {
+    const { books, volumes } = useScripturesDataContext();
+    const book = bookBySlug(bookSlug ?? "");
+    const numericBookId = book?.id ?? 0;
 
     return (
         <div className="nav-previous">
-            {previousMarkup(previousChapter(Number(bookId), Number(chapter), books))}
+            {previousMarkup(previousChapter(numericBookId, Number(chapter), books, volumes))}
         </div>
     );
 });
 
-export const NextSideComponent = memo(function NextSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
-    const { books } = useScripturesDataContext();
+export const NextSideComponent = memo(function NextSideComponent({ bookSlug, chapter }: { bookSlug?: string; chapter?: string }) {
+    const { books, volumes } = useScripturesDataContext();
+    const book = bookBySlug(bookSlug ?? "");
+    const numericBookId = book?.id ?? 0;
 
     return (
         <div className="nav-next">
-            {nextMarkup(nextChapter(Number(bookId), Number(chapter), books))}
+            {nextMarkup(nextChapter(numericBookId, Number(chapter), books, volumes))}
         </div>
     );
 });

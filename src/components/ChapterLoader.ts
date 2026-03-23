@@ -15,6 +15,7 @@ import { MS_PER_HOUR } from "../Constants";
 import extractGeoplaces from "./MapHelper";
 import { fetchChapterHtml } from "../ServerApi";
 import { ChapterCacheEntry } from "../Types";
+import { bookBySlug } from "../utils/scriptureNavigation";
 
 /*----------------------------------------------------------------------
  *                      PRIVATE VARIABLES
@@ -49,14 +50,20 @@ function prefetchAdjacentChapters(bookId: number, chapter: number): void {
  *                      LOADER
  */
 export default async function chapterLoader({ params, request }: LoaderFunctionArgs) {
-    const { bookId, chapter } = params;
+    const { bookSlug, chapter } = params;
+    const book = bookBySlug(bookSlug ?? "");
+    if (!book) {
+        // eslint-disable-next-line @typescript-eslint/only-throw-error
+        throw new Response("Book not found", { status: 404 });
+    }
+    const bookId = book.id;
     const key = `${bookId}:${chapter}`;
 
     if (chapterDataCache.has(key)) {
         return chapterDataCache.get(key);
     }
 
-    const html = await fetchChapterHtml(Number(bookId), Number(chapter), request.signal);
+    const html = await fetchChapterHtml(bookId, Number(chapter), request.signal);
 
     if (!html) {
         // eslint-disable-next-line @typescript-eslint/only-throw-error
@@ -67,7 +74,7 @@ export default async function chapterLoader({ params, request }: LoaderFunctionA
     const entry = { html, geoplaces };
 
     chapterDataCache.set(key, entry);
-    void prefetchAdjacentChapters(Number(bookId), Number(chapter));
+    void prefetchAdjacentChapters(bookId, Number(chapter));
 
     return entry;
 }

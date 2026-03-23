@@ -21,7 +21,7 @@ import "./ChapterComponent.css";
  *                      COMPONENT
  */
 export default function ChapterComponent() {
-    const { bookId, chapter } = useParams();
+    const { bookSlug, chapter } = useParams();
     const { setGeoplaces } = useGeoplacesContext();
     const { setFocusedGeoplace } = useFocusedGeoplaceContext();
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -60,9 +60,9 @@ export default function ChapterComponent() {
 
     return (
         <div className="with-nav-buttons">
-            <PreviousSideComponent bookId={bookId} chapter={chapter} />
+            <PreviousSideComponent bookSlug={bookSlug} chapter={chapter} />
             <div className="chapter-content" dangerouslySetInnerHTML={innerHtml} />
-            <NextSideComponent bookId={bookId} chapter={chapter} />
+            <NextSideComponent bookSlug={bookSlug} chapter={chapter} />
         </div>
     );
 }

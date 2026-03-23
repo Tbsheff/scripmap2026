@@ -46,10 +46,10 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: "", element: <Suspense fallback={<LoadingIndicator />}><VolumesList /></Suspense> },
-            { path: ":volumeId", element: <Suspense fallback={<LoadingIndicator />}><VolumesList /></Suspense> },
-            { path: ":volumeId/:bookId", element: <Suspense fallback={<ChapterLoadingIndicator />}><BookComponent /></Suspense> },
+            { path: ":volumeSlug", element: <Suspense fallback={<LoadingIndicator />}><VolumesList /></Suspense> },
+            { path: ":volumeSlug/:bookSlug", element: <Suspense fallback={<ChapterLoadingIndicator />}><BookComponent /></Suspense> },
             {
-                path: ":volumeId/:bookId/:chapter",
+                path: ":volumeSlug/:bookSlug/:chapter",
                 element: <Suspense fallback={<ScriptureLoadingIndicator />}><ChapterComponent /></Suspense>,
                 hydrateFallbackElement: <ScriptureLoadingIndicator />,
                 loader: chapterLoader

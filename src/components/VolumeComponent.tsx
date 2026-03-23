@@ -42,7 +42,7 @@ export default memo(function VolumeComponent({ volume }: VolumeProps) {
                         className="book-card"
                         id={String(book.id)}
                         key={`bk${book.id}`}
-                        to={`/${volume.id}/${book.id}`}
+                        to={`/${volume.urlPath}/${book.urlPath}`}
                     >
                         <span className="book-abbr">{book.citeAbbr}</span>
                         <span className="book-name">{book.gridName}</span>
