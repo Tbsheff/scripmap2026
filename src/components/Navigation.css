@@ -93,7 +93,8 @@ div.books {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 0 0.3em;
+    gap: 0.25rem;
+    padding: 0.25rem 0.75rem;
     margin: 0;
 }
 
