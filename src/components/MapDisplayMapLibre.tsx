@@ -101,7 +101,7 @@ function PitchTransition({ mapStyle }: { mapStyle: MapStyle }) {
  */
 export default function MapDisplayMapLibre() {
     const { geoplaces } = useGeoplacesContext();
-    const { focusedGeoplace } = useFocusedGeoplaceContext();
+    const { focusedGeoplace, setFocusedGeoplace } = useFocusedGeoplaceContext();
     const [mapStyle, setMapStyle] = useState<MapStyle>(getStoredStyle);
     const mapRef = useRef<MapRef>(null);
 
@@ -168,6 +168,22 @@ export default function MapDisplayMapLibre() {
                 <MapTerrainLayer enabled={mapStyle === "terrain"} />
                 <PitchTransition mapStyle={mapStyle} />
             </Map>
+            {geoplaces && Object.keys(geoplaces).length > 0 && (
+                <div className="absolute bottom-3 left-3 z-10 max-h-48 overflow-y-auto rounded-lg bg-[var(--surface)]/90 backdrop-blur-sm shadow-lg border border-[var(--outline-variant)] p-2 text-sm">
+                    <div className="text-xs font-medium text-[var(--on-surface-variant)] px-2 py-1 mb-1">
+                        Locations ({Object.keys(geoplaces).length})
+                    </div>
+                    {Object.entries(geoplaces).map(([key, gp]) => (
+                        <button
+                            key={key}
+                            className="block w-full text-left px-2 py-1 rounded-md text-[var(--on-surface)] hover:bg-[var(--surface-container)] transition-colors text-sm cursor-pointer"
+                            onClick={() => setFocusedGeoplace(gp)}
+                        >
+                            {gp.placename}
+                        </button>
+                    ))}
+                </div>
+            )}
             {showEmptyState && (
                 <div className="map-empty-state">
                     Select a chapter to explore locations on the map
