@@ -41,7 +41,7 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
                 aria-expanded={expanded}
             >
                 {icon}
-                <span className="flex-1 min-w-0 leading-tight truncate">{volume.fullName}</span>
+                <span className="flex-1 min-w-0 leading-tight">{volume.fullName}</span>
                 <ChevronDown className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 opacity-50 ${expanded ? "rotate-180" : ""}`} strokeWidth={1.5} />
             </button>
 
