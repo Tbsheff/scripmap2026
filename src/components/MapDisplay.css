@@ -80,7 +80,7 @@ section.MapDisplay {
     font-size: 14px;
     font-weight: bold;
     color: var(--header-background-color);
-    text-shadow: 1px 1px 1px white, -1px -1px 1px white, 1px -1px 1px white, -1px 1px 1px white;
+    text-shadow: 1px 1px 1px var(--map-text-shadow-color, white), -1px -1px 1px var(--map-text-shadow-color, white), 1px -1px 1px var(--map-text-shadow-color, white), -1px 1px 1px var(--map-text-shadow-color, white);
     white-space: nowrap;
     margin-bottom: 5px;
     transition: color 150ms ease;

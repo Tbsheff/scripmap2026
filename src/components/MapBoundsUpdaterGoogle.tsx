@@ -1,5 +1,5 @@
 /*======================================================================
- * FILE:    MapBoundsUpdater.tsx
+ * FILE:    MapBoundsUpdaterGoogle.tsx
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2026
  *

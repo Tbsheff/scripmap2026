@@ -1,5 +1,5 @@
 /*======================================================================
- * FILE:    MapDisplay.tsx
+ * FILE:    MapDisplayGoogle.tsx
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2026
  *
@@ -11,7 +11,7 @@
  */
 import { useMemo } from "react";
 import { AdvancedMarker, APIProvider, ControlPosition, Map } from "@vis.gl/react-google-maps";
-import { MapBoundsUpdater } from "./MapBoundsUpdater";
+import { MapBoundsUpdater } from "./MapBoundsUpdaterGoogle";
 import { useGeoplacesContext } from "../context/MapDataContextHook";
 import "./MapDisplay.css";
 
@@ -33,11 +33,11 @@ const ZOOM_CONTROL_OPTIONS = { position: ControlPosition.RIGHT_BOTTOM };
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
-export default function MapDisplay() {
+export default function MapDisplayGoogle() {
     const { geoplaces } = useGeoplacesContext();
 
     if (!API_KEY) {
-        throw new Error("Unable to display Google Map.");
+        throw new Error("Google Maps API key not configured. Set VITE_GOOGLE_MAPS_API_KEY in .env.local");
     }
 
     const markers = useMemo(() => {

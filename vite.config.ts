@@ -11,7 +11,8 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-maps': ['@vis.gl/react-google-maps'],
+          'vendor-maplibre': ['maplibre-gl'],
+          'vendor-google-maps': ['@vis.gl/react-google-maps'],
         }
       }
     }
