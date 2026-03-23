@@ -17,7 +17,7 @@ import {
     ANIMATION_MARKER_DELAY
 } from "../Constants";
 import { ChapterCacheEntry } from "../Types";
-import { nextChapter, NextSideComponent, previousChapter, PreviousSideComponent } from "./NextPreviousComponent";
+import { nextChapter, previousChapter } from "./NextPreviousComponent";
 import { useGeoplacesContext, useFocusedGeoplaceContext } from "../context/MapDataContextHook";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import { bookBySlug } from "../utils/scriptureNavigation";
@@ -70,8 +70,7 @@ export default function ChapterComponent() {
     }
 
     return (
-        <div className="relative w-full h-full">
-            <PreviousSideComponent bookSlug={bookSlug} chapter={chapter} />
+        <>
             <div className="chapter-content" dangerouslySetInnerHTML={innerHtml} />
             {(prev.bookId > 0 || next.bookId > 0) && (
                 <div className="flex w-full max-w-[36rem] mx-auto px-12 py-8 mt-4 border-t border-[var(--outline-variant)]">
@@ -101,7 +100,6 @@ export default function ChapterComponent() {
                     </div>
                 </div>
             )}
-            <NextSideComponent bookSlug={bookSlug} chapter={chapter} />
-        </div>
+        </>
     );
 }

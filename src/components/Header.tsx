@@ -7,16 +7,20 @@
  */
 
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import { Map, PanelLeft, X } from "lucide-react";
 import Breadcrumbs from "./Breadcrumbs";
+import { ANIMATION_KEY_NEXT, ANIMATION_KEY_PREVIOUS } from "../Constants";
 
 interface HeaderProps {
     mapOpen?: boolean;
     onToggleMap?: () => void;
     onToggleSidebar?: () => void;
+    prevChapter?: { volumeSlug: string; bookSlug: string; chapter: number; title: string; bookId: number } | null;
+    nextChapter?: { volumeSlug: string; bookSlug: string; chapter: number; title: string; bookId: number } | null;
 }
 
-export default memo(function Header({ mapOpen = false, onToggleMap, onToggleSidebar }: HeaderProps) {
+export default memo(function Header({ mapOpen = false, onToggleMap, onToggleSidebar, prevChapter, nextChapter }: HeaderProps) {
     const prefetchMap = () => void import("./MapDisplay");
 
     return (
@@ -44,6 +48,38 @@ export default memo(function Header({ mapOpen = false, onToggleMap, onToggleSide
             <div className="flex-1 min-w-0">
                 <Breadcrumbs />
             </div>
+
+            {/* Prev/next chapter chevrons — chapter view only */}
+            {(prevChapter || nextChapter) && (
+                <div className="flex items-center gap-0.5 shrink-0 ml-auto mr-2">
+                    {prevChapter ? (
+                        <Link
+                            to={`/${prevChapter.volumeSlug}/${prevChapter.bookSlug}/${prevChapter.chapter}`}
+                            state={{ animationKey: ANIMATION_KEY_PREVIOUS }}
+                            aria-label={`Previous: ${prevChapter.title}`}
+                            title={prevChapter.title}
+                            className="flex items-center justify-center h-7 w-7 rounded-md text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
+                        >
+                            ‹
+                        </Link>
+                    ) : (
+                        <span className="h-7 w-7" />
+                    )}
+                    {nextChapter ? (
+                        <Link
+                            to={`/${nextChapter.volumeSlug}/${nextChapter.bookSlug}/${nextChapter.chapter}`}
+                            state={{ animationKey: ANIMATION_KEY_NEXT }}
+                            aria-label={`Next: ${nextChapter.title}`}
+                            title={nextChapter.title}
+                            className="flex items-center justify-center h-7 w-7 rounded-md text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
+                        >
+                            ›
+                        </Link>
+                    ) : (
+                        <span className="h-7 w-7" />
+                    )}
+                </div>
+            )}
 
             {/* Map toggle — chapter view only */}
             {onToggleMap && (

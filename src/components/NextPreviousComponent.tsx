@@ -9,28 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { memo, ReactNode } from "react";
-import { Link } from "react-router-dom";
-import {
-    ANIMATION_KEY_NEXT,
-    ANIMATION_KEY_PREVIOUS,
-    ICON_NEXT,
-    ICON_NEXT_SMALL,
-    ICON_PREVIOUS,
-    ICON_PREVIOUS_SMALL
-} from "../Constants";
 import { Book, Books, Volume } from "../Types";
-import { bookBySlug } from "../utils/scriptureNavigation";
-import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
-import { chapterDataCache } from "./ChapterLoader";
-import extractGeoplaces from "./MapHelper";
-import { fetchChapterHtml } from "../ServerApi";
-
-/*----------------------------------------------------------------------
- *                      CONSTANTS
- */
-const NEXT_STATE = { animationKey: ANIMATION_KEY_NEXT };
-const PREV_STATE = { animationKey: ANIMATION_KEY_PREVIOUS };
 
 /*----------------------------------------------------------------------
  *                      PRIVATE TYPES
@@ -41,44 +20,6 @@ interface NextPreviousParameters {
     bookId: number;
     chapter: number;
     title: string;
-}
-
-/*----------------------------------------------------------------------
- *                      PRIVATE HELPERS
- */
-
-function chapterNavigationNode(
-    { volumeSlug, bookSlug, bookId, chapter, title }: NextPreviousParameters,
-    icon: ReactNode,
-    textBefore: string,
-    textAfter: string
-) {
-    const isNext = icon === ICON_NEXT || icon === ICON_NEXT_SMALL;
-
-    return (
-        <Link
-            to={`/${volumeSlug}/${bookSlug}/${chapter}`}
-            key={`np${bookId}-${chapter}`}
-            title={title}
-            aria-label={title}
-            className="min-h-[2.5rem]"
-            state={isNext ? NEXT_STATE : PREV_STATE}
-            onMouseEnter={() => {
-                const key = `${bookId}:${chapter}`;
-                if (!chapterDataCache.has(key)) {
-                    void fetchChapterHtml(bookId, chapter).then((html) => {
-                        if (html) {
-                            chapterDataCache.set(key, { html, geoplaces: extractGeoplaces(html) });
-                        }
-                    }).catch(() => {});
-                }
-            }}
-        >
-            {textBefore !== "" ? <div className="nav-text">{textBefore}</div> : null}
-            <div className="icon">{icon}</div>
-            {textAfter !== "" ? <div className="nav-text">{textAfter}</div> : null}
-        </Link>
-    );
 }
 
 export function nextChapter(bookId: number, chapter: number, books: Books, volumes: Volume[]): NextPreviousParameters {
@@ -121,22 +62,6 @@ export function nextChapter(bookId: number, chapter: number, books: Books, volum
     return { volumeSlug: "", bookSlug: "", bookId: 0, chapter: 0, title: "" };
 }
 
-function nextMarkup(
-    nextParameters: NextPreviousParameters,
-    textBefore: string = "",
-    textAfter: string = "",
-    useSmall: boolean = false
-) {
-    return nextParameters.bookId > 0
-        ? chapterNavigationNode(
-              nextParameters,
-              useSmall ? ICON_NEXT_SMALL : ICON_NEXT,
-              textBefore,
-              textAfter
-          )
-        : null;
-}
-
 export function previousChapter(bookId: number, chapter: number, books: Books, volumes: Volume[]): NextPreviousParameters {
     const book = books[bookId];
 
@@ -171,22 +96,6 @@ export function previousChapter(bookId: number, chapter: number, books: Books, v
     return { volumeSlug: "", bookSlug: "", bookId: 0, chapter: 0, title: "" };
 }
 
-function previousMarkup(
-    previousParameters: NextPreviousParameters,
-    textBefore = "",
-    textAfter = "",
-    useSmall: boolean = false
-) {
-    return previousParameters.bookId > 0
-        ? chapterNavigationNode(
-              previousParameters,
-              useSmall ? ICON_PREVIOUS_SMALL : ICON_PREVIOUS,
-              textBefore,
-              textAfter
-          )
-        : null;
-}
-
 export function titleForBookChapter(book: Book, chapter: number): string {
     if (chapter > 0) {
         return `${book.tocName} ${chapter}`;
@@ -195,29 +104,3 @@ export function titleForBookChapter(book: Book, chapter: number): string {
     return book.tocName;
 }
 
-/*----------------------------------------------------------------------
- *                      COMPONENTS
- */
-export const PreviousSideComponent = memo(function PreviousSideComponent({ bookSlug, chapter }: { bookSlug?: string; chapter?: string }) {
-    const { books, volumes } = useScripturesDataContext();
-    const book = bookBySlug(bookSlug ?? "");
-    const numericBookId = book?.id ?? 0;
-
-    return (
-        <div className="nav-previous">
-            {previousMarkup(previousChapter(numericBookId, Number(chapter), books, volumes))}
-        </div>
-    );
-});
-
-export const NextSideComponent = memo(function NextSideComponent({ bookSlug, chapter }: { bookSlug?: string; chapter?: string }) {
-    const { books, volumes } = useScripturesDataContext();
-    const book = bookBySlug(bookSlug ?? "");
-    const numericBookId = book?.id ?? 0;
-
-    return (
-        <div className="nav-next">
-            {nextMarkup(nextChapter(numericBookId, Number(chapter), books, volumes))}
-        </div>
-    );
-});

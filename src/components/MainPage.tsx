@@ -124,6 +124,8 @@ export default function MainPage() {
                                 mapOpen={isChapterView && mapOpen}
                                 onToggleMap={isChapterView ? toggleMap : undefined}
                                 onToggleSidebar={toggleSidebar}
+                                prevChapter={isChapterView && prev.bookId > 0 ? prev : null}
+                                nextChapter={isChapterView && next.bookId > 0 ? next : null}
                             />
 
                             {/* Content + optional map */}
