@@ -12,6 +12,7 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import MapDisplay from "./MapDisplay";
+import { MapErrorBoundary } from "./MapErrorBoundary";
 import Navigation from "./Navigation";
 import NextPreviousComponent from "./NextPreviousComponent";
 import { MapDataContext } from "../context/MapData";
@@ -28,6 +29,9 @@ export default function MainPage() {
         window.showLocation = (_id, placename, latitude, longitude, viewAltitude) => {
             setFocusedGeoplace({ latitude, longitude, placename, viewAltitude });
         };
+        return () => {
+            delete window.showLocation;
+        };
     }, []);
 
     return (
@@ -36,7 +40,9 @@ export default function MainPage() {
                 <Header />
                 <Navigation />
                 <NextPreviousComponent />
-                <MapDisplay />
+                <MapErrorBoundary>
+                    <MapDisplay />
+                </MapErrorBoundary>
             </main>
         </MapDataContext>
     );
