@@ -111,7 +111,7 @@ section.MapDisplay {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background-color: #B85C38;
+    background: radial-gradient(circle at 35% 35%, #D4845A, #B85C38 70%);
     border: 2.5px solid white;
     box-shadow:
         0 1px 5px rgba(0, 0, 0, 0.35),
@@ -139,6 +139,21 @@ section.MapDisplay {
     }
 }
 
+/* --- Stem connecting dot to label --- */
+
+.geoplace-marker::after {
+    content: "";
+    width: 1px;
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+    .geoplace-marker::after {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+}
+
 /* --- Label --- */
 
 .label {
@@ -153,7 +168,7 @@ section.MapDisplay {
         1px -1px 2px var(--map-text-shadow-color, white),
         -1px 1px 2px var(--map-text-shadow-color, white);
     white-space: nowrap;
-    margin-top: 3px;
+    margin-top: 0;
     letter-spacing: 0.01em;
     transition: color 150ms ease;
 }
