@@ -10,6 +10,7 @@
  *                      IMPORTS
  */
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
 import Header from "./Header";
 import { MapErrorBoundary } from "./MapErrorBoundary";
 
@@ -26,8 +27,16 @@ export default function MainPage() {
     const [focusedGeoplace, setFocusedGeoplace] = useState<GeoPlace | null>(null);
     const [geoplaces, setGeoplaces] = useState<GeoPlaces | null>(null);
     const [mapOpen, setMapOpen] = useState(false);
+    const { chapter } = useParams();
+    const isChapterView = Boolean(chapter);
 
     const toggleMap = useCallback(() => setMapOpen((prev) => !prev), []);
+
+    useEffect(() => {
+        if (!isChapterView) {
+            setMapOpen(false);
+        }
+    }, [isChapterView]);
 
     useEffect(() => {
         window.showLocation = (_id, placename, latitude, longitude, viewAltitude) => {
@@ -46,8 +55,8 @@ export default function MainPage() {
         <GeoplacesContext value={geoplacesValue}>
             <FocusedGeoplaceContext value={focusedValue}>
                 <a className="skip-to-content" href="#scripture-content">Skip to content</a>
-                <main data-map-open={mapOpen || undefined}>
-                    <Header mapOpen={mapOpen} onToggleMap={toggleMap} />
+                <main data-map-open={(isChapterView && mapOpen) || undefined}>
+                    <Header mapOpen={isChapterView && mapOpen} onToggleMap={isChapterView ? toggleMap : undefined} />
                     <Navigation />
                     <NextPreviousComponent />
                     <div className="map-panel">
