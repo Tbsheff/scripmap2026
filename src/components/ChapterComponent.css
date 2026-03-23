@@ -13,6 +13,7 @@
     color: var(--body-text-color);
     z-index: var(--z-nav-overlay);
     padding-bottom: env(safe-area-inset-bottom);
+    transition: background-color 150ms ease;
 }
 
 .nav-next a {

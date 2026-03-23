@@ -1,6 +1,6 @@
 :root {
     /* Keep in sync with ANIMATION_DURATION in Constants.tsx */
-    --animation-duration: 500ms;
+    --animation-duration: 280ms;
 }
 
 nav.container {
@@ -35,6 +35,21 @@ nav .btn {
     text-transform: uppercase;
     box-shadow: 0 2px 2px 0 var(--button-shadow-1), 0 1px 5px 0 var(--button-shadow-2),
         0 3px 1px -2px var(--button-shadow-3);
+    transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    nav .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px 0 var(--button-shadow-1),
+                    0 2px 10px 0 var(--button-shadow-2),
+                    0 4px 2px -2px var(--button-shadow-3);
+    }
+}
+
+nav .btn:active {
+    transform: scale(0.97);
+    transition-duration: 100ms;
 }
 
 div.books {
@@ -85,13 +100,13 @@ div.books a.chapter {
 
 .cross-fade-enter {
     opacity: 0;
-    transform: translateX(0);
+    transform: scale(0.98);
 }
 
 .cross-fade-enter-active {
     opacity: 1;
-    transform: translateX(0);
-    transition: opacity var(--animation-duration);
+    transform: scale(1);
+    transition: opacity var(--animation-duration) var(--ease-out), transform var(--animation-duration) var(--ease-out);
 }
 
 .cross-fade-exit {
@@ -102,7 +117,7 @@ div.books a.chapter {
 .cross-fade-exit-active {
     opacity: 0;
     transform: translateX(0);
-    transition: opacity var(--animation-duration);
+    transition: opacity var(--animation-duration) var(--ease-out);
 }
 
 .slide-left-enter {
@@ -111,12 +126,12 @@ div.books a.chapter {
 
 .slide-left-enter-active {
     transform: translateX(0%);
-    transition: transform var(--animation-duration);
+    transition: transform var(--animation-duration) var(--ease-out);
 }
 
 .slide-left-exit-active {
     transform: translateX(-100%);
-    transition: transform var(--animation-duration);
+    transition: transform var(--animation-duration) var(--ease-out);
 }
 
 .slide-right-enter {
@@ -125,12 +140,12 @@ div.books a.chapter {
 
 .slide-right-enter-active {
     transform: translateX(0%);
-    transition: transform var(--animation-duration);
+    transition: transform var(--animation-duration) var(--ease-out);
 }
 
 .slide-right-exit-active {
     transform: translateX(100%);
-    transition: transform var(--animation-duration);
+    transition: transform var(--animation-duration) var(--ease-out);
 }
 
 /* Override the slide direction when the user has changed directions
@@ -139,14 +154,14 @@ div.books a.chapter {
 .slide-right-enter-active + .cross-fade-exit-active {
     opacity: 1;
     transform: translateX(100%);
-    transition: transform var(--animation-duration);
+    transition: transform var(--animation-duration) var(--ease-out);
 }
 
 .slide-left-enter-active + .slide-right-exit-active,
 .slide-left-enter-active + .cross-fade-exit-active {
     opacity: 1;
     transform: translateX(-100%);
-    transition: transform var(--animation-duration);
+    transition: transform var(--animation-duration) var(--ease-out);
 }
 
 /* Replace slide left/right exit with cross-fade exit */
@@ -154,7 +169,7 @@ div.books a.chapter {
 .cross-fade-enter-active + .slide-right-exit-active {
     transform: translateX(0);
     opacity: 0;
-    transition: opacity var(--animation-duration);
+    transition: opacity var(--animation-duration) var(--ease-out);
 }
 
 .slide-right-enter-active .nav-previous .icon svg,
@@ -244,6 +259,7 @@ span.verse {
 .scripturewrapper li a:active {
     color: var(--scripture-link-color);
     text-decoration: none;
+    transition: color 150ms ease;
 }
 
 .scripturewrapper li a:hover {

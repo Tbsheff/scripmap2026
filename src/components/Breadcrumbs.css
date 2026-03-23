@@ -33,6 +33,7 @@ header a:visited,
 header a:active {
     color: var(--header-text-color);
     text-decoration: none;
+    transition: color 150ms ease;
 }
 
 header a:hover {

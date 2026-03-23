@@ -39,6 +39,10 @@
     --text-shadow-color: #fff;
     --map-text-color: #201500;
     --map-text-shadow-color: #fff8f0;
+
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -106,15 +110,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cross-fade-enter-active,
-  .cross-fade-exit-active,
-  .slide-left-enter-active,
-  .slide-left-exit-active,
-  .slide-right-enter-active,
-  .slide-right-exit-active {
-    transition-duration: 0ms !important;
-    animation-duration: 0ms !important;
-  }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 @media screen and (max-width: 44rem) {

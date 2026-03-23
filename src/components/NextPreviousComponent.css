@@ -31,6 +31,7 @@
 .next-prev-wrapper a:active {
     color: var(--header-text-color);
     text-decoration: none;
+    transition: color 150ms ease;
 }
 
 .next-prev-wrapper a:hover {
@@ -40,6 +41,7 @@
 
 .next-prev-wrapper .nav-icon {
     stroke: var(--header-text-color);
+    transition: stroke 150ms ease;
 }
 
 .next-prev-wrapper a {
