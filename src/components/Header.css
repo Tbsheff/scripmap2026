@@ -4,11 +4,10 @@ header {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    background-color: var(--header-background-color);
-    color: var(--header-text-color);
+    background-color: var(--on-surface);
+    color: var(--surface);
     z-index: var(--z-header);
-    box-shadow: 0 1px 2px 0 var(--header-shadow-1);
-    padding: 0 0.75rem;
+    padding: 0 1.25rem;
 }
 
 .centerhead {
@@ -19,15 +18,18 @@ header {
 }
 
 .title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-family: "Noto Serif", serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
 }
 
 .subtitle {
-    font-size: 0.65rem;
-    opacity: 0.7;
-    letter-spacing: 0.02em;
+    font-size: 0.6rem;
+    opacity: 0.5;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 500;
 }
 
 @media screen and (max-width: 64rem) {
@@ -42,7 +44,7 @@ header {
     }
 
     header {
-        padding: 0 0.5rem;
+        padding: 0 0.75rem;
     }
 }
 
@@ -52,18 +54,19 @@ header {
     justify-content: center;
     background: none;
     border: none;
-    color: var(--header-text-color);
+    color: var(--surface);
     cursor: pointer;
     padding: 0.4rem;
-    border-radius: var(--radius-md, 0.5rem);
-    transition: background-color 150ms ease, color 150ms ease;
+    border-radius: var(--radius-full);
+    transition: background-color var(--transition-slow), opacity var(--transition-slow);
     flex-shrink: 0;
+    opacity: 0.7;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .map-toggle-btn:hover {
-        background-color: rgba(255, 255, 255, 0.15);
-        color: var(--header-hover-color);
+        background-color: rgba(255, 255, 255, 0.1);
+        opacity: 1;
     }
 }
 
@@ -75,19 +78,4 @@ header {
     display: block;
     width: 18px;
     height: 18px;
-}
-
-@keyframes subtlePulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-}
-
-.map-toggle-btn {
-    animation: subtlePulse 2s ease-in-out 3;
-    animation-delay: 2s;
-}
-
-.map-toggle-btn:hover,
-.map-toggle-btn:focus {
-    animation: none;
 }

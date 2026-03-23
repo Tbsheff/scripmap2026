@@ -1,13 +1,15 @@
+/* The Reflection Tray — bottom navigation */
 .next-prev-wrapper {
     grid-area: nextprev;
-    flex: 1 1 auto;
     display: flex;
     align-items: center;
-    font-size: 0.7rem;
+    font-family: "Manrope", sans-serif;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    background-color: var(--header-background-color);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    background-color: var(--on-surface);
+    color: var(--surface);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
@@ -17,32 +19,32 @@
     flex: 1 1 50%;
     justify-content: flex-end;
     text-align: right;
-    padding-inline-end: 1em;
+    padding-inline-end: 1.25rem;
 }
 
 .next-link {
     flex: 1 1 50%;
     justify-content: flex-start;
     text-align: left;
-    padding-inline-start: 1em;
+    padding-inline-start: 1.25rem;
 }
 
 .next-prev-wrapper a:link,
 .next-prev-wrapper a:visited,
 .next-prev-wrapper a:active {
-    color: var(--header-text-color);
+    color: var(--surface);
     text-decoration: none;
-    transition: color 150ms ease;
+    transition: opacity var(--transition-slow);
+    opacity: 0.7;
 }
 
 .next-prev-wrapper a:hover {
-    color: var(--header-hover-color);
-    text-decoration: underline;
+    opacity: 1;
 }
 
 .next-prev-wrapper .nav-icon {
-    stroke: var(--header-text-color);
-    transition: stroke 150ms ease;
+    stroke: var(--surface);
+    transition: stroke var(--transition-slow);
 }
 
 .next-prev-wrapper a {
@@ -56,9 +58,9 @@
 }
 
 .next-prev-wrapper .icon svg {
-    height: 0.7em;
+    height: 0.6em;
     margin: 0.4em;
-    transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 200ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -72,5 +74,5 @@
 }
 
 .next-prev-wrapper a:hover .nav-icon {
-    stroke: var(--header-hover-color);
+    stroke: var(--surface);
 }

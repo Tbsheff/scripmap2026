@@ -8,19 +8,13 @@
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(4px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .volume {
     animation: fadeIn 350ms var(--ease-out) both;
-    padding: 0.75rem 1.25rem;
+    padding: 1.25rem 1.5rem 0.75rem;
 }
 
 .volume:nth-child(1) { animation-delay: 0ms; }
@@ -32,23 +26,23 @@
 .volume a:has(> h5):link,
 .volume a:has(> h5):visited,
 .volume a:has(> h5):active {
-    color: var(--body-text-color);
+    color: var(--on-surface-variant);
     text-decoration: none;
-    transition: color 150ms ease;
+    transition: color var(--transition-slow);
 }
 
 .volume a:has(> h5):hover {
-    color: var(--volume-hover-color);
-    text-decoration: underline;
+    color: var(--primary);
 }
 
 .volume h5 {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-family: "Manrope", sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: var(--on-surface-variant);
     opacity: 0.6;
-    margin: 0 0 0.5rem 0;
-    padding-bottom: 0.35rem;
-    border-bottom: 1px solid var(--border-nav-map-color);
+    margin: 0 0 0.75rem 0;
+    padding: 0;
 }
