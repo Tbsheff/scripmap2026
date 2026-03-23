@@ -204,6 +204,10 @@ export default function NextPreviousComponent() {
     const book = bookBySlug(bookSlug ?? "");
     const numericBookId = book?.id ?? 0;
 
+    if (!bookSlug || !chapter) {
+        return null;
+    }
+
     return (
         <div className="next-prev-wrapper">
             <div className="previous-link">
