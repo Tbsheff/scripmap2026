@@ -6,17 +6,18 @@
  * DESCRIPTION: Left sidebar with scripture tree navigation.
  */
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
+import { BookOpen, ChevronDown, Church, Layers, ScrollText, Star } from "lucide-react";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import { Volume } from "../Types";
 
-const VOLUME_ICONS: Record<number, string> = {
-    1: "menu_book",
-    2: "auto_stories",
-    3: "history_edu",
-    4: "church",
-    5: "star",
+const VOLUME_ICONS: Record<number, ReactNode> = {
+    1: <BookOpen className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} />,
+    2: <ScrollText className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} />,
+    3: <Layers className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} />,
+    4: <Church className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} />,
+    5: <Star className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} />,
 };
 
 function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean }) {
@@ -24,39 +25,37 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
     const { bookSlug } = useParams();
 
     const toggle = useCallback(() => setExpanded((prev) => !prev), []);
-    const icon = VOLUME_ICONS[volume.id] ?? "book";
+    const icon = VOLUME_ICONS[volume.id];
 
     return (
         <div>
             <button
-                className={`flex items-center gap-2.5 w-full px-6 py-2.5 border-none bg-transparent cursor-pointer
-                    font-[Manrope] text-[0.7rem] font-bold tracking-[0.05em] uppercase text-left
+                className={`flex items-center gap-2 w-full px-6 py-2 border-none bg-transparent cursor-pointer
+                    font-[Manrope] text-xs font-medium text-left
                     rounded-r-full transition-all duration-200
                     ${isActive
-                        ? "bg-[var(--primary-container)] text-[var(--primary)] opacity-100"
-                        : "text-[var(--on-surface)] opacity-70 hover:bg-[var(--surface-container-lowest)] hover:opacity-100"
+                        ? "bg-[var(--surface-container)] text-[var(--on-surface)] font-semibold"
+                        : "text-[var(--on-surface)] opacity-80 hover:bg-[var(--surface-container-lowest)] hover:opacity-100"
                     }`}
                 onClick={toggle}
                 aria-expanded={expanded}
             >
-                <span className="material-symbols-outlined text-xl shrink-0">{icon}</span>
-                <span className="flex-1 min-w-0 leading-tight">{volume.fullName}</span>
-                <span className={`material-symbols-outlined text-xl shrink-0 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}>
-                    expand_more
-                </span>
+                {icon}
+                <span className="flex-1 min-w-0 leading-tight truncate">{volume.fullName}</span>
+                <ChevronDown className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 opacity-50 ${expanded ? "rotate-180" : ""}`} strokeWidth={1.5} />
             </button>
 
             {expanded && (
-                <ul className="list-none m-0 py-1 pl-0">
+                <ul className="list-none m-0 py-0.5 pl-0">
                     {volume.books.map((book) => {
                         const active = bookSlug === book.urlPath;
                         return (
                             <li key={book.id}>
                                 <Link
-                                    className={`block py-1.5 pl-14 pr-6 mr-3 font-serif text-[0.8rem] no-underline
+                                    className={`block py-1.5 pl-12 pr-6 mr-3 text-[0.8rem] no-underline
                                         rounded-r-full transition-all duration-200
                                         ${active
-                                            ? "text-[var(--primary)] font-semibold bg-[var(--primary-container)]"
+                                            ? "text-[var(--primary)] font-semibold bg-[var(--surface-container)]"
                                             : "text-[var(--on-surface-variant)] hover:bg-[var(--surface-container-lowest)] hover:text-[var(--on-surface)]"
                                         }`}
                                     to={`/${volume.urlPath}/${book.urlPath}`}
@@ -78,19 +77,24 @@ export default function Sidebar({ open = true }: { open?: boolean }) {
 
     return (
         <aside
-            className={`hidden lg:flex flex-col shrink-0 overflow-y-auto overflow-x-hidden pt-6
+            className={`hidden lg:flex flex-col shrink-0 overflow-y-auto overflow-x-hidden px-3 py-2
                         transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-                        ${open ? "w-[18rem]" : "w-0"}`}
+                        ${open ? "w-56" : "w-0 px-0"}`}
         >
             <div className={`transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                <div className="px-6 pb-6">
-                    <span className="block font-serif text-lg italic text-[var(--on-surface)] whitespace-nowrap">
-                        The Scriptures Mapped
-                    </span>
+                {/* Logo / Title */}
+                <div className="flex h-12 shrink-0 items-center px-3">
+                    <Link to="/" className="flex items-center gap-2 no-underline text-[var(--on-surface)]">
+                        <BookOpen className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                        <span className="truncate font-semibold text-xs">
+                            The Scriptures Mapped
+                        </span>
+                    </Link>
                 </div>
 
+                {/* Volume tree */}
                 {!isLoading && volumes.length > 0 && (
-                    <nav className="flex flex-col gap-0.5 pr-3" aria-label="Scripture volumes">
+                    <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto pb-2" aria-label="Scripture volumes">
                         {volumes.map((volume) => (
                             <VolumeTree
                                 key={volume.id}
