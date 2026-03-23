@@ -78,3 +78,18 @@ header {
 .map-toggle-btn svg {
     display: block;
 }
+
+@keyframes subtlePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.map-toggle-btn {
+    animation: subtlePulse 2s ease-in-out 3;
+    animation-delay: 2s;
+}
+
+.map-toggle-btn:hover,
+.map-toggle-btn:focus {
+    animation: none;
+}

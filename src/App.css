@@ -43,6 +43,7 @@ main[data-map-open] {
 
 main[data-map-open] .map-panel {
     display: block;
+    border-left: 1px solid var(--border-nav-map-color);
 }
 
 @media screen and (max-width: 64rem) {

@@ -227,7 +227,7 @@ div.books a.chapter {
     background-color: var(--chapter-background-color);
     color: var(--body-text-color);
     padding-block-start: 1em;
-    padding-block-end: 3em;
+    padding-block-end: 4rem;
     width: 100%;
     font: -apple-system-body;
     font-family: "Palatino", serif;
