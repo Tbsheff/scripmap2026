@@ -74,14 +74,14 @@ export default function VolumesList() {
         if (!volume) return null;
         const label = VOLUME_LABELS[volume.id - 1] ?? `Volume ${volume.id}`;
         return (
-            <div className="volumesListComponent">
+            <div className="max-w-[75rem] mx-auto px-4 pt-5 pb-16 sm:px-10 sm:pt-8 sm:pb-24">
                 <VolumeSection volume={volume} label={label} />
             </div>
         );
     }
 
     return (
-        <div className="volumesListComponent">
+        <div className="max-w-[75rem] mx-auto px-4 pt-5 pb-16 sm:px-10 sm:pt-8 sm:pb-24">
             <header className="hub-header">
                 <h1 className="hub-title">The Scriptures</h1>
                 <p className="hub-subtitle">Explore scripture and geography together.</p>

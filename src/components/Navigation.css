@@ -4,11 +4,7 @@
     --fade-duration: 250ms;
 }
 
-nav.container {
-    grid-area: nav;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
+nav#scripture-content {
     background-color: var(--surface);
     color: var(--on-surface);
 }
@@ -81,18 +77,8 @@ div.books a.chapter {
 
 /* ── Scrollable Content Area ── */
 
-.nav-content {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-}
-
 .chapter-content {
     width: 100%;
-    height: 100%;
 }
 
 /* ── Route Transitions ── */

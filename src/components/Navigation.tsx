@@ -68,7 +68,8 @@ export default function Navigation() {
     }, [pathname]);
 
     return (
-        <nav id="scripture-content" ref={navRef} tabIndex={-1} aria-label="Scripture navigation" className="container">
+        <nav id="scripture-content" ref={navRef} tabIndex={-1} aria-label="Scripture navigation"
+             className="grid overflow-hidden" style={{ gridArea: 'nav' }}>
             <TransitionGroup>
                 <CSSTransition
                     key={pathname}
@@ -77,7 +78,7 @@ export default function Navigation() {
                     classNames={classNamesFor(state)}
                     unmountOnExit
                 >
-                    <div ref={nodeRef} className="nav-content">
+                    <div ref={nodeRef} className="[grid-area:1/1] overflow-y-auto min-h-0 scroll-smooth">
                         {currentOutlet}
                     </div>
                 </CSSTransition>

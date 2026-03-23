@@ -1,11 +1,3 @@
-.volumesListComponent {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    padding: 2rem 2.5rem 6rem;
-    max-width: 75rem;
-    margin-inline: auto;
-}
 
 .volumes-error {
     padding: 2rem;
@@ -160,11 +152,7 @@
 }
 
 @media screen and (max-width: 44rem) {
-    .volumesListComponent {
-        padding: 1.25rem 1rem 4rem;
-    }
-
-    .hub-title {
+.hub-title {
         font-size: 2rem;
     }
 
