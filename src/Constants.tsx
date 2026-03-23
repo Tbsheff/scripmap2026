@@ -15,7 +15,7 @@ export const ANIMATION_KEY_PREVIOUS = "p";
 export const ANIMATION_DURATION = 320;
 export const ANIMATION_MARKER_DELAY = 250;
 export const CLASS_BUTTON = "btn";
-export const HOME_BREADCRUMB = "The Scriptures Mapped";
+export const HOME_BREADCRUMB = "Home";
 
 export const ICON_NEXT = (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53.59 182">

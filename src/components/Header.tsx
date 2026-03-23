@@ -3,7 +3,7 @@
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2026
  *
- * DESCRIPTION: Header component with title and breadcrumbs.
+ * DESCRIPTION: Header component with glass nav, title, and breadcrumbs.
  */
 
 /*----------------------------------------------------------------------
@@ -27,14 +27,22 @@ export default memo(function Header({ mapOpen = false, onToggleMap }: HeaderProp
     const prefetchMap = () => void import("./MapDisplay");
 
     return (
-        <header>
-            <div className="centerhead hidden sm:flex flex-col items-start whitespace-nowrap pr-4 mr-2 border-r border-[rgba(171,180,179,0.15)]">
-                <div className="font-['Noto_Serif'] text-base font-normal italic tracking-normal text-[var(--on-surface)]">The Scriptures Mapped</div>
+        <header className="flex items-center justify-between gap-4 px-6 backdrop-blur-xl z-20"
+                style={{ gridArea: "header", backgroundColor: "rgba(249, 249, 248, 0.85)" }}>
+            {/* Title — visible on mobile (no sidebar), hidden on desktop (sidebar has it) */}
+            <div className="flex lg:hidden items-center whitespace-nowrap pr-4 mr-1 border-r border-[var(--outline-variant)]">
+                <span className="font-serif text-base italic text-[var(--on-surface)]">
+                    The Scriptures Mapped
+                </span>
             </div>
+
+            {/* Breadcrumbs */}
             <Breadcrumbs />
+
+            {/* Map toggle — only in chapter view */}
             {onToggleMap && (
                 <button
-                    className="map-toggle-btn flex items-center justify-center bg-none border-none text-[var(--primary)] cursor-pointer p-[0.625rem] min-w-[2.75rem] min-h-[2.75rem] rounded-full transition-[background-color,transform] flex-shrink-0 active:scale-[0.92]"
+                    className="map-toggle-btn"
                     onClick={onToggleMap}
                     onMouseEnter={prefetchMap}
                     onFocus={prefetchMap}

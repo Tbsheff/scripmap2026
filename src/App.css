@@ -28,7 +28,7 @@ main {
 
 @media screen and (min-width: 64rem) {
     main {
-        grid-template-columns: 16rem 1fr;
+        grid-template-columns: 18rem 1fr;
         grid-template-areas:
             "sidebar header"
             "sidebar nav"
@@ -57,7 +57,7 @@ main[data-map-open] .map-panel {
 
 @media screen and (min-width: 64rem) {
     main[data-map-open] {
-        grid-template-columns: 16rem 1fr minmax(300px, 40%);
+        grid-template-columns: 18rem 1fr minmax(300px, 40%);
         grid-template-areas:
             "sidebar header map"
             "sidebar nav map"

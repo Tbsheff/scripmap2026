@@ -40,7 +40,7 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
                 aria-expanded={expanded}
             >
                 <span className="material-symbols-outlined text-xl shrink-0">{icon}</span>
-                <span className="flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{volume.fullName}</span>
+                <span className="flex-1 min-w-0 leading-tight">{volume.fullName}</span>
                 <span className={`material-symbols-outlined text-xl shrink-0 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}>
                     expand_more
                 </span>
@@ -82,11 +82,8 @@ export default function Sidebar() {
                style={{ gridArea: "sidebar" }}>
 
             <div className="px-6 pb-6">
-                <span className="block font-[Manrope] text-[0.7rem] font-bold tracking-[0.08em] uppercase text-[var(--on-surface-variant)]">
-                    Library
-                </span>
-                <span className="block font-serif text-[0.95rem] italic text-[var(--on-surface)] mt-1">
-                    The Silent Curator
+                <span className="block font-serif text-lg italic text-[var(--on-surface)]">
+                    The Scriptures Mapped
                 </span>
             </div>
 
