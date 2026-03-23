@@ -6,7 +6,6 @@
  * DESCRIPTION: Editorial loading states that mirror the content layout.
  */
 
-import "./LoadingIndicator.css";
 
 /*----------------------------------------------------------------------
  *                      COMPONENTS

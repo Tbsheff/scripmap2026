@@ -15,7 +15,6 @@ import { Map, MapControls, MapMarker, MarkerContent, MarkerPopup, MarkerTooltip,
 import { MapBoundsUpdaterMapLibre } from "./MapBoundsUpdaterMapLibre";
 import { MapTerrainLayer } from "./MapTerrainLayer";
 import { useGeoplacesContext, useFocusedGeoplaceContext } from "../context/MapDataContextHook";
-import "./MapDisplay.css";
 
 /*----------------------------------------------------------------------
  *                      CONSTANTS

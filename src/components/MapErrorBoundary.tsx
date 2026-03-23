@@ -1,5 +1,4 @@
 import { Component, ReactNode } from "react";
-import "./MapDisplay.css";
 
 interface Props {
     children: ReactNode;

@@ -13,7 +13,6 @@ import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { HOME_BREADCRUMB } from "../Constants";
 import { bookBySlug, volumeBySlug } from "../utils/scriptureNavigation";
-import "./Breadcrumbs.css";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT

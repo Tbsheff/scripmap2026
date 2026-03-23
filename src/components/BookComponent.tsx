@@ -14,7 +14,6 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ChapterLoadingIndicator } from "./LoadingIndicator";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import { bookBySlug } from "../utils/scriptureNavigation";
-import "./BookComponent.css";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT

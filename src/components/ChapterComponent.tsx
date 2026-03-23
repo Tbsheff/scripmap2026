@@ -15,7 +15,6 @@ import { ANIMATION_MARKER_DELAY } from "../Constants";
 import { ChapterCacheEntry } from "../Types";
 import { NextSideComponent, PreviousSideComponent } from "./NextPreviousComponent";
 import { useGeoplacesContext, useFocusedGeoplaceContext } from "../context/MapDataContextHook";
-import "./ChapterComponent.css";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT

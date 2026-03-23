@@ -13,7 +13,6 @@ import { useMemo } from "react";
 import { AdvancedMarker, APIProvider, ControlPosition, Map } from "@vis.gl/react-google-maps";
 import { MapBoundsUpdater } from "./MapBoundsUpdaterGoogle";
 import { useGeoplacesContext } from "../context/MapDataContextHook";
-import "./MapDisplay.css";
 
 /*----------------------------------------------------------------------
  *                      CONSTANTS

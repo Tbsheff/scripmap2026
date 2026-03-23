@@ -14,7 +14,6 @@ import LoadingIndicator from "./LoadingIndicator";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import { Volume } from "../Types";
 import { volumeBySlug } from "../utils/scriptureNavigation";
-import "./VolumesList.css";
 
 /*----------------------------------------------------------------------
  *                      CONSTANTS

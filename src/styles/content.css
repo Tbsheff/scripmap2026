@@ -1,0 +1,601 @@
+.scripturewrapper {
+    min-height: 100%;
+    overflow-x: hidden;
+    background-color: var(--surface-container-lowest);
+    color: var(--on-surface);
+    padding-block-start: 2rem;
+    padding-block-end: 4rem;
+    width: 100%;
+    font-family: "Noto Serif", serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    -webkit-text-size-adjust: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+div.chapterheading {
+    font-family: "Noto Serif", serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+    margin: 0.5em 0;
+}
+
+div.chapterheading .big {
+    font-size: 3.5rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    display: block;
+    padding: 0.2em 0;
+    color: var(--on-surface);
+    text-transform: none;
+}
+
+div.navheading {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.navheading .divtitle {
+    font-size: 110%;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    display: inline-block;
+    padding: 0.3em;
+}
+
+#scriptures ul.versesblock {
+    margin: 0;
+    list-style: none;
+    padding: 1.5em 0;
+}
+
+ul.versesblock li {
+    position: relative;
+    display: block;
+    margin-bottom: 0.4em;
+}
+
+ul.versesblock li.sectionHeader {
+    font-style: italic;
+}
+
+span.verse {
+    padding-left: 0.4em;
+    padding-right: 0.3em;
+}
+
+.scripturewrapper li a,
+.scripturewrapper li a:visited,
+.scripturewrapper li a:active {
+    color: var(--scripture-link-color);
+    text-decoration: none;
+    transition: color var(--transition-slow);
+}
+
+.scripturewrapper li a:hover {
+    color: var(--scripture-hover-color);
+}
+
+.scripturecontent {
+    flex: 1;
+    max-width: 36rem;
+    padding-inline-start: 3rem;
+    padding-inline-end: 3rem;
+}
+
+@media screen and (max-width: 44rem) {
+    .scripturecontent {
+        padding-inline-start: 1.25rem;
+        padding-inline-end: 1.25rem;
+    }
+}
+
+.scripturecontent ul {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+}
+
+.match {
+    background-color: var(--match-background-color);
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+.verse,
+.footVerse {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.7;
+}
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--surface-container-low) 25%,
+        var(--surface-container) 50%,
+        var(--surface-container-low) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite, fadeInSkeleton 400ms var(--ease-out) both;
+    border-radius: 0.5rem;
+}
+
+nav .btn {
+    flex: 0 1 auto;
+    min-width: 5rem;
+    text-decoration: none;
+    text-align: center;
+    font-family: "Manrope", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background-color: var(--surface-container-lowest);
+    color: var(--on-surface);
+    border: none;
+    border-radius: var(--radius-full);
+    height: 2.75rem;
+    line-height: 2.75rem;
+    padding: 0 0.875rem;
+    box-shadow: none;
+    transition: background-color var(--transition-slow), color var(--transition-slow), transform 160ms var(--ease-out);
+}
+
+nav .btn:active {
+    transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    nav .btn:hover {
+        background-color: var(--primary);
+        color: var(--on-primary);
+    }
+}
+
+.book-card {
+    transition: background-color 300ms ease, color 300ms ease, transform 160ms var(--ease-out);
+}
+
+.book-abbr {
+    transition: opacity 300ms ease, color 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .book-card:hover {
+        background-color: var(--primary);
+        color: var(--on-primary);
+    }
+
+    .book-card:hover .book-abbr {
+        opacity: 0.7;
+        color: inherit;
+    }
+}
+
+.chapter-pill {
+    transition: background-color 300ms ease, color 300ms ease, transform 160ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .chapter-pill:hover {
+        background-color: var(--primary);
+        color: var(--on-primary);
+    }
+}
+
+.map-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 0.625rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    border-radius: var(--radius-full);
+    transition: background-color var(--transition-slow), transform 160ms var(--ease-out);
+    flex-shrink: 0;
+}
+
+.map-toggle-btn:active {
+    transform: scale(0.92);
+}
+
+.map-toggle-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.map-toggle-btn svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .map-toggle-btn:hover {
+        background-color: var(--surface-container-low);
+    }
+}
+
+.crumbs li:not(:first-child)::before {
+    content: "";
+    display: inline-block;
+    width: 0.35em;
+    height: 0.35em;
+    border-right: 1.5px solid var(--on-surface-variant);
+    border-top: 1.5px solid var(--on-surface-variant);
+    transform: rotate(45deg);
+    margin: 0 0.6em;
+    opacity: 0.5;
+    vertical-align: middle;
+}
+
+header a:link,
+header a:visited,
+header a:active {
+    color: var(--on-surface-variant);
+    text-decoration: none;
+    transition: color var(--transition-slow);
+}
+
+header a:hover {
+    color: var(--primary);
+}
+
+@media (prefers-color-scheme: dark) {
+    header a:link,
+    header a:visited,
+    header a:active {
+        color: var(--outline);
+    }
+}
+
+.next-prev-wrapper a:link,
+.next-prev-wrapper a:visited,
+.next-prev-wrapper a:active {
+    color: var(--on-surface-variant);
+    text-decoration: none;
+    transition: color var(--transition-slow);
+}
+
+.next-prev-wrapper a:hover {
+    color: var(--primary);
+}
+
+.next-prev-wrapper a:hover .nav-icon {
+    stroke: var(--primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .next-prev-wrapper .previous-link:hover .icon svg {
+        transform: translateX(-2px);
+    }
+
+    .next-prev-wrapper .next-link:hover .icon svg {
+        transform: translateX(2px);
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .nav-next:hover a,
+    .nav-previous:hover a {
+        background-color: var(--surface-container-low);
+        opacity: 1;
+    }
+
+    .nav-next:hover .icon svg,
+    .nav-previous:hover .icon svg {
+        fill: var(--primary);
+        transform: scale(1.15);
+    }
+}
+
+@media (hover: none) {
+    .nav-next a,
+    .nav-previous a {
+        opacity: 0.7;
+    }
+}
+
+.next-prev-wrapper {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+.nav-next a,
+.nav-previous a {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-previous a {
+    left: env(safe-area-inset-left);
+}
+
+header {
+    grid-area: header;
+}
+
+.next-prev-wrapper {
+    grid-area: nextprev;
+}
+
+@keyframes markerAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.4);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes focusPulse {
+    0%, 100% {
+        box-shadow:
+            0 1px 5px rgba(0, 0, 0, 0.35),
+            0 0 0 0 rgba(184, 92, 56, 0.4);
+    }
+    50% {
+        box-shadow:
+            0 1px 5px rgba(0, 0, 0, 0.35),
+            0 0 0 10px rgba(184, 92, 56, 0);
+    }
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+section.MapDisplay {
+    background-color: var(--body-background-color);
+    position: relative;
+    height: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-ambient);
+}
+
+.map-empty-state {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--surface-container-lowest);
+    color: var(--on-surface-variant);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-lg, 0.625rem);
+    font-family: "Noto Serif", serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: var(--shadow-subtle);
+    animation: fadeInSlide 400ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: 200ms;
+}
+
+.geoplace-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    animation: markerAppear 350ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+                opacity 200ms ease;
+}
+
+.geoplace-marker:nth-child(1) { animation-delay: 0ms; }
+.geoplace-marker:nth-child(2) { animation-delay: 50ms; }
+.geoplace-marker:nth-child(3) { animation-delay: 100ms; }
+.geoplace-marker:nth-child(4) { animation-delay: 150ms; }
+.geoplace-marker:nth-child(5) { animation-delay: 200ms; }
+.geoplace-marker:nth-child(n+6) { animation-delay: 250ms; }
+
+.geoplace-marker.dimmed {
+    opacity: 0.45;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .geoplace-marker:hover {
+        transform: translateY(-2px);
+    }
+
+    .geoplace-marker:hover .marker-dot {
+        transform: scale(1.2);
+        box-shadow:
+            0 2px 6px rgba(0, 0, 0, 0.35),
+            0 0 0 4px rgba(184, 92, 56, 0.2);
+    }
+
+    .geoplace-marker:hover .label {
+        color: #9a4e30;
+    }
+}
+
+.marker-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #D4845A, #B85C38 70%);
+    border: 2.5px solid white;
+    box-shadow:
+        0 1px 5px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(0, 0, 0, 0.08);
+    transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 300ms ease;
+}
+
+.geoplace-marker.focused .marker-dot {
+    width: 16px;
+    height: 16px;
+    background-color: #B85C38;
+    border-width: 3px;
+    animation: focusPulse 2s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+    .marker-dot {
+        background-color: #D4845A;
+        border-color: rgba(26, 31, 30, 0.9);
+    }
+
+    .geoplace-marker.focused .marker-dot {
+        background-color: #D4845A;
+    }
+}
+
+.geoplace-marker::after {
+    content: "";
+    width: 1px;
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+    .geoplace-marker::after {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.label {
+    font-family: "Noto Serif", serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--on-surface);
+    text-shadow:
+        0 0 4px var(--map-text-shadow-color, white),
+        1px 1px 2px var(--map-text-shadow-color, white),
+        -1px -1px 2px var(--map-text-shadow-color, white),
+        1px -1px 2px var(--map-text-shadow-color, white),
+        -1px 1px 2px var(--map-text-shadow-color, white);
+    white-space: nowrap;
+    margin-top: 0;
+    letter-spacing: 0.01em;
+    transition: color 150ms ease;
+}
+
+.marker-popup {
+    font-family: "Noto Serif", serif;
+    background: var(--surface-container-lowest);
+    border-radius: var(--radius-md);
+    padding: 0.625rem 0.875rem;
+    box-shadow: var(--shadow-ambient);
+    max-width: 200px;
+}
+
+.marker-popup-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--on-surface);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.marker-popup-coords {
+    font-family: "Manrope", sans-serif;
+    font-size: 0.65rem;
+    color: var(--on-surface-variant);
+    margin: 0.25rem 0 0;
+    letter-spacing: 0.02em;
+}
+
+.map-style-switcher {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    z-index: 2;
+}
+
+.map-style-switcher button {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: var(--surface-container-lowest);
+    color: var(--on-surface-variant);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-sm);
+    padding: 0.375rem 0.625rem;
+    font-family: "Manrope", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+    box-shadow: var(--shadow-subtle);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .map-style-switcher button:hover {
+        background: var(--surface-container-low);
+        color: var(--on-surface);
+    }
+}
+
+.map-style-switcher button:active {
+    transform: scale(0.96);
+}
+
+.map-style-switcher button svg {
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.map-error-boundary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+    color: var(--on-surface-variant);
+    font-size: 0.9rem;
+}
+
+.map-error-boundary svg {
+    margin-bottom: 0.75rem;
+    opacity: 0.5;
+}
+
+.map-error-boundary p {
+    margin: 0;
+}
+
+.map-error-boundary p + p {
+    margin: 0.25rem 0 0;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.pin {
+    width: 20px;
+    height: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 64' width='48' height='64'%3E%3Cpath fill='%23EA4335' d='M24 64C24 64 0 36.5 0 22C0 9.85 10.75 0 24 0C37.25 0 48 9.85 48 22C48 36.5 24 64 24 64Z'/%3E%3Cpath fill='none' stroke='%233f2000' stroke-width='2' d='M24 63C24 63 1 36 1 22C1 10.4 11.4 1 24 1C36.6 1 47 10.4 47 22C47 36 24 63 24 63Z'/%3E%3Ccircle cx='24' cy='22' r='8' fill='%233f2000'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}

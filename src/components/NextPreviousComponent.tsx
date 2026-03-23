@@ -21,7 +21,6 @@ import {
 } from "../Constants";
 import { Book, Books, Volume } from "../Types";
 import { bookBySlug } from "../utils/scriptureNavigation";
-import "./NextPreviousComponent.css";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import { chapterDataCache } from "./ChapterLoader";
 import extractGeoplaces from "./MapHelper";

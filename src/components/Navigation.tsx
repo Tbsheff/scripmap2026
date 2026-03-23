@@ -20,7 +20,6 @@ import {
     MS_PER_HOUR
 } from "../Constants";
 import { AnimationState } from "../Types";
-import "./Navigation.css";
 
 /*----------------------------------------------------------------------
  *                      PRIVATE VARIABLES
