@@ -98,3 +98,10 @@
         right: 0;
     }
 }
+
+@media (hover: none) {
+    .nav-next a,
+    .nav-previous a {
+        opacity: 0.7;
+    }
+}

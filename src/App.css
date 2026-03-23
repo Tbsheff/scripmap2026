@@ -18,7 +18,7 @@ main {
     height: 100dvh;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 3rem 1fr 2.25rem;
+    grid-template-rows: 3rem 1fr 2.75rem;
     grid-template-areas:
         "header"
         "nav"
@@ -34,7 +34,7 @@ main {
 
 main[data-map-open] {
     grid-template-columns: 1fr minmax(300px, 45%);
-    grid-template-rows: 3rem 1fr 2.25rem;
+    grid-template-rows: 3rem 1fr 2.75rem;
     grid-template-areas:
         "header header"
         "nav map"
@@ -54,12 +54,12 @@ main[data-map-open] .map-panel {
 
 @media screen and (max-width: 44rem) {
     main {
-        grid-template-rows: 2.75rem 1fr 2.5rem;
+        grid-template-rows: 2.75rem 1fr 2.75rem;
     }
 
     main[data-map-open] {
         grid-template-columns: 1fr;
-        grid-template-rows: 2.75rem 1fr 45vh 2.5rem;
+        grid-template-rows: 2.75rem 1fr 45vh 2.75rem;
         grid-template-areas:
             "header"
             "nav"
