@@ -8,11 +8,6 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
 @keyframes chapterFadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to   { opacity: 1; transform: scale(1); }
@@ -26,45 +21,6 @@
 @keyframes fadeInSkeleton {
     from { opacity: 0; }
     to { opacity: 1; }
-}
-
-@keyframes markerAppear {
-    0% {
-        opacity: 0;
-        transform: scale(0.4);
-    }
-    70% {
-        opacity: 1;
-        transform: scale(1.08);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes focusPulse {
-    0%, 100% {
-        box-shadow:
-            0 1px 5px rgba(0, 0, 0, 0.35),
-            0 0 0 0 rgba(184, 92, 56, 0.4);
-    }
-    50% {
-        box-shadow:
-            0 1px 5px rgba(0, 0, 0, 0.35),
-            0 0 0 10px rgba(184, 92, 56, 0);
-    }
-}
-
-@keyframes fadeInSlide {
-    from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
 }
 
 .cross-fade-enter {
@@ -150,15 +106,6 @@
     transition: opacity var(--fade-duration) var(--ease-out), filter var(--fade-duration) var(--ease-out);
 }
 
-.slide-right-enter-active .nav-previous .icon svg,
-.slide-left-enter-active .nav-previous .icon svg,
-.cross-fade-enter-active .nav-previous .icon svg,
-.slide-right-enter-active .nav-next .icon svg,
-.slide-left-enter-active .nav-next .icon svg,
-.cross-fade-enter-active .nav-next .icon svg {
-    display: none;
-}
-
 .vol-section {
     animation: fadeIn 400ms var(--ease-out) both;
 }
@@ -168,7 +115,7 @@
 }
 
 nav .btn {
-    animation: fadeInUp 300ms var(--ease-out) both;
+    animation: fadeIn 300ms var(--ease-out) both;
 }
 
 nav .btn:nth-child(1) { animation-delay: 0ms; }

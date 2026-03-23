@@ -34,33 +34,15 @@
     --tertiary: #8C9BA5;
     --tertiary-container: #e3edf5;
 
-    /* Type scale */
-    --text-xs: 0.6875rem;
-    --text-sm: 0.8125rem;
-    --text-base: 1rem;
-    --text-lg: 1.25rem;
-    --text-xl: 1.875rem;
-    --text-2xl: 2.5rem;
-
     /* Legacy compatibility tokens */
     --body-background-color: var(--surface);
     --body-text-color: var(--on-surface);
-    --chapter-background-color: var(--surface-container-lowest);
     --header-background-color: var(--on-surface);
     --header-text-color: var(--surface);
     --header-hover-color: var(--primary-container);
-    --header-shadow-1: rgba(44, 52, 51, 0.06);
-    --header-shadow-2: rgba(44, 52, 51, 0.04);
-    --button-background-color: var(--surface-container-lowest);
-    --button-text-color: var(--on-surface);
     --border-nav-map-color: rgba(171, 180, 179, 0.35);
-    --nav-hover-color: var(--surface-container-low);
     --scripture-link-color: var(--primary);
-    --scripture-hover-color: #4a5850;
-    --volume-hover-color: var(--primary);
     --match-background-color: #e8ecd8;
-    --active-hover-color: var(--primary);
-    --text-shadow-color: transparent;
     --map-text-color: var(--on-surface);
     --map-text-shadow-color: var(--surface);
 
@@ -112,13 +94,8 @@
         --accent: #c4a882;
         --accent-container: #3d3228;
 
-        --chapter-background-color: var(--surface-container-lowest);
-        --header-shadow-1: rgba(0, 0, 0, 0.15);
-        --header-shadow-2: rgba(0, 0, 0, 0.1);
-        --nav-hover-color: var(--surface-container);
         --match-background-color: #2a3028;
         --scripture-link-color: var(--primary);
-        --scripture-hover-color: #c4deca;
         --border-nav-map-color: rgba(64, 72, 71, 0.4);
 
         --shadow-ambient: 0px 20px 40px rgba(0, 0, 0, 0.2);
