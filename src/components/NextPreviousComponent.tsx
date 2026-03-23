@@ -53,6 +53,7 @@ function chapterNavigationNode(
             to={`/${volumeId}/${bookId}/${chapter}`}
             key={`np${bookId}-${chapter}`}
             title={title}
+            aria-label={title}
             state={{
                 animationKey
             }}
@@ -64,7 +65,7 @@ function chapterNavigationNode(
     );
 }
 
-function nextChapter(bookId: number, chapter: number, books: Books): NextPreviousParameters {
+export function nextChapter(bookId: number, chapter: number, books: Books): NextPreviousParameters {
     const book = books[bookId];
 
     if (book !== undefined) {
@@ -114,7 +115,7 @@ function nextMarkup(
         : null;
 }
 
-function previousChapter(bookId: number, chapter: number, books: Books): NextPreviousParameters {
+export function previousChapter(bookId: number, chapter: number, books: Books): NextPreviousParameters {
     const book = books[bookId];
 
     if (book !== undefined) {
@@ -160,7 +161,7 @@ function previousMarkup(
         : null;
 }
 
-function titleForBookChapter(book: Book, chapter: number): string {
+export function titleForBookChapter(book: Book, chapter: number): string {
     if (chapter > 0) {
         return `${book.tocName} ${chapter}`;
     }

@@ -9,7 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { createRef, RefObject } from "react";
+import { createRef, RefObject, useEffect, useRef } from "react";
 import { useLocation, useOutlet } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { LRUCache } from "lru-cache";
@@ -54,6 +54,11 @@ export default function Navigation() {
     const { pathname } = location;
     const state = location.state as AnimationState | null;
     const currentOutlet = useOutlet();
+    const navRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        navRef.current?.focus();
+    }, [pathname]);
 
     if (!nodeRefCache.has(pathname)) {
         nodeRefCache.set(pathname, createRef() as RefObject<HTMLDivElement>);
@@ -62,7 +67,7 @@ export default function Navigation() {
     const nodeRef = nodeRefCache.get(pathname);
 
     return (
-        <nav aria-label="Scripture navigation" className="container">
+        <nav id="scripture-content" ref={navRef} tabIndex={-1} aria-label="Scripture navigation" className="container">
             <TransitionGroup>
                 <CSSTransition
                     key={pathname}

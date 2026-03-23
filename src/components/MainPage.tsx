@@ -36,6 +36,7 @@ export default function MainPage() {
 
     return (
         <MapDataContext value={{ focusedGeoplace, geoplaces, setFocusedGeoplace, setGeoplaces }}>
+            <a className="skip-to-content" href="#scripture-content">Skip to content</a>
             <main>
                 <Header />
                 <Navigation />

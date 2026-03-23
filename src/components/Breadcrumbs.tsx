@@ -9,7 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { HOME_BREADCRUMB } from "../Constants";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import "./Breadcrumbs.css";
@@ -20,13 +20,13 @@ import "./Breadcrumbs.css";
 function BreadcrumbsContent() {
     const { volumeId, bookId, chapter } = useParams();
     const { volumes, books } = useScripturesDataContext();
-    const volume = volumes[Number(volumeId) - 1];
+    const volume = volumes.find((v) => v.id === Number(volumeId));
     const book = books[bookId ?? ""];
 
     const crumbs = [];
 
     if (volume === undefined) {
-        crumbs.push(<li key="t">{HOME_BREADCRUMB}</li>);
+        crumbs.push(<li key="t" aria-current="page">{HOME_BREADCRUMB}</li>);
     } else {
         crumbs.push(
             <li key="t">
@@ -35,7 +35,7 @@ function BreadcrumbsContent() {
         );
 
         if (book === undefined) {
-            crumbs.push(<li key={`v${volume.id}`}>{volume.fullName}</li>);
+            crumbs.push(<li key={`v${volume.id}`} aria-current="page">{volume.fullName}</li>);
         } else {
             crumbs.push(
                 <li key={`v${volume.id}`}>
@@ -44,7 +44,7 @@ function BreadcrumbsContent() {
             );
 
             if (chapter === undefined || Number(chapter) <= 0) {
-                crumbs.push(<li key={`b${book.id}`}>{book.tocName}</li>);
+                crumbs.push(<li key={`b${book.id}`} aria-current="page">{book.tocName}</li>);
             } else {
                 crumbs.push(
                     <li key={`b${book.id}`}>
@@ -52,7 +52,7 @@ function BreadcrumbsContent() {
                     </li>
                 );
 
-                crumbs.push(<li key={`c${chapter}`}>{chapter}</li>);
+                crumbs.push(<li key={`c${chapter}`} aria-current="page">{chapter}</li>);
             }
         }
     }
@@ -70,9 +70,5 @@ function BreadcrumbsContent() {
  *                      COMPONENT
  */
 export default function Breadcrumbs() {
-    return (
-        <Routes>
-            <Route path="/:volumeId?/:bookId?/:chapter?" element={<BreadcrumbsContent />} />
-        </Routes>
-    );
+    return <BreadcrumbsContent />;
 }
