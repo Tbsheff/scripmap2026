@@ -61,6 +61,7 @@ function chapterNavigationNode(
             key={`np${bookId}-${chapter}`}
             title={title}
             aria-label={title}
+            className="min-h-[2.5rem]"
             state={isNext ? NEXT_STATE : PREV_STATE}
             onMouseEnter={() => {
                 const key = `${bookId}:${chapter}`;

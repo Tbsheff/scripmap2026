@@ -27,7 +27,7 @@ export default function BookComponent() {
         book
             ? Array.from({ length: book.numChapters }, (_, i) => i + 1).map((chapter) => (
                 <Link
-                    className="chapter-pill flex items-center justify-center bg-[var(--surface-container-lowest)] text-[var(--on-surface)] font-sans text-[0.85rem] max-sm:text-[0.8rem] font-semibold aspect-square rounded-xl no-underline active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+                    className="chapter-pill flex items-center justify-center bg-[var(--surface-container-lowest)] text-[var(--on-surface)] font-sans text-[0.85rem] max-sm:text-[0.8rem] font-semibold aspect-square rounded-xl no-underline active:scale-[0.96] tabular-nums focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
                     id={`c${chapter}`}
                     key={`k${chapter}`}
                     to={`/${volumeSlug}/${book.urlPath}/${chapter}`}

@@ -29,7 +29,7 @@ function BookCard({ volume, book }: {
 }) {
     return (
         <Link
-            className="book-card flex flex-col bg-[var(--surface-container-lowest)] px-5 pt-5 pb-4 rounded-xl no-underline text-[var(--on-surface)] text-left relative overflow-hidden active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+            className="book-card flex flex-col bg-[var(--surface-container-lowest)] px-5 pt-5 pb-4 rounded-xl no-underline text-[var(--on-surface)] text-left relative overflow-hidden active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
             id={String(book.id)}
             to={`/${volume.urlPath}/${book.urlPath}`}
         >

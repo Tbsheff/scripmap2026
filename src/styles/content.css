@@ -33,6 +33,7 @@ div.chapterheading .big {
     padding: 0.2em 0;
     color: var(--on-surface);
     text-transform: none;
+    font-variant-numeric: tabular-nums;
 }
 
 div.navheading {
@@ -149,7 +150,7 @@ nav .btn {
 }
 
 nav .btn:active {
-    transform: scale(0.97);
+    transform: scale(0.96);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -207,7 +208,7 @@ nav .btn:active {
 }
 
 .map-toggle-btn:active {
-    transform: scale(0.92);
+    transform: scale(0.96);
 }
 
 .map-toggle-btn:focus-visible {
@@ -322,9 +323,7 @@ header a:hover {
     left: env(safe-area-inset-left);
 }
 
-header {
-    grid-area: header;
-}
+/* header grid-area set via inline style in Header.tsx */
 
 .next-prev-wrapper {
     grid-area: nextprev;
@@ -540,6 +539,7 @@ section.MapDisplay {
     border: 1px solid var(--outline-variant);
     border-radius: var(--radius-sm);
     padding: 0.375rem 0.625rem;
+    min-height: 2.5rem;
     font-family: "Manrope", sans-serif;
     font-size: 0.7rem;
     font-weight: 500;
