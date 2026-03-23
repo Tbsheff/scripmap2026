@@ -9,9 +9,9 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { useMemo } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
-import { Map, MapControls, MapMarker, MarkerContent, MarkerPopup, MarkerTooltip } from "@/components/ui/map";
+import { Map, MapControls, MapMarker, MarkerContent, MarkerPopup, MarkerTooltip, useMap, type MapRef } from "@/components/ui/map";
 import { MapBoundsUpdaterMapLibre } from "./MapBoundsUpdaterMapLibre";
 import { MapTerrainLayer } from "./MapTerrainLayer";
 import { useGeoplacesContext, useFocusedGeoplaceContext } from "../context/MapDataContextHook";
@@ -22,10 +22,80 @@ import "./MapDisplay.css";
  */
 const DEFAULT_ZOOM = 8;
 const JERUSALEM_CENTER: [number, number] = [35.234725, 31.778407]; // [lng, lat] for MapLibre
-const STYLES = {
-    light: "https://tiles.openfreemap.org/styles/liberty",
-    dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
-};
+const STYLE_KEY = "scripmap-map-style";
+
+type MapStyle = "terrain" | "clean";
+
+const STYLE_CONFIG = {
+    terrain: {
+        light: "https://tiles.openfreemap.org/styles/liberty",
+        dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+    },
+    clean: {
+        light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+        dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+    },
+} as const;
+
+function getStoredStyle(): MapStyle {
+    try {
+        const stored = localStorage.getItem(STYLE_KEY);
+        if (stored === "clean") return "clean";
+    } catch { /* localStorage unavailable */ }
+    return "terrain";
+}
+
+/*----------------------------------------------------------------------
+ *                      COMPONENT
+ */
+/*----------------------------------------------------------------------
+ *                      STYLE SWITCHER (child of Map)
+ */
+function MapStyleSwitcher({ mapStyle, onToggle }: { mapStyle: MapStyle; onToggle: () => void }) {
+    return (
+        <div className="map-style-switcher">
+            <button
+                onClick={onToggle}
+                aria-label={`Switch to ${mapStyle === "terrain" ? "clean" : "terrain"} map`}
+                title={mapStyle === "terrain" ? "Clean view" : "Terrain view"}
+            >
+                {mapStyle === "terrain" ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M3 12h18" />
+                    </svg>
+                ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                        <path d="m8 3 4 8 5-5 2 15H2L8 3z" />
+                    </svg>
+                )}
+                <span>{mapStyle === "terrain" ? "Clean" : "Terrain"}</span>
+            </button>
+        </div>
+    );
+}
+
+/*----------------------------------------------------------------------
+ *                      PITCH HANDLER (child of Map)
+ */
+function PitchTransition({ mapStyle }: { mapStyle: MapStyle }) {
+    const { map, isLoaded } = useMap();
+    const prevStyle = useRef(mapStyle);
+
+    if (map && isLoaded && prevStyle.current !== mapStyle) {
+        prevStyle.current = mapStyle;
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const targetPitch = mapStyle === "terrain" ? 40 : 0;
+
+        if (prefersReducedMotion) {
+            map.jumpTo({ pitch: targetPitch });
+        } else {
+            map.easeTo({ pitch: targetPitch, duration: 600 });
+        }
+    }
+
+    return null;
+}
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
@@ -33,8 +103,18 @@ const STYLES = {
 export default function MapDisplayMapLibre() {
     const { geoplaces } = useGeoplacesContext();
     const { focusedGeoplace } = useFocusedGeoplaceContext();
+    const [mapStyle, setMapStyle] = useState<MapStyle>(getStoredStyle);
+    const mapRef = useRef<MapRef>(null);
 
     const hasFocus = focusedGeoplace !== null;
+
+    const toggleStyle = useCallback(() => {
+        setMapStyle((prev) => {
+            const next = prev === "terrain" ? "clean" : "terrain";
+            try { localStorage.setItem(STYLE_KEY, next); } catch { /* noop */ }
+            return next;
+        });
+    }, []);
 
     const markers = useMemo(
         () =>
@@ -77,14 +157,17 @@ export default function MapDisplayMapLibre() {
     return (
         <section className="MapDisplay" aria-label="Map of scripture locations">
             <Map
+                ref={mapRef}
                 center={JERUSALEM_CENTER}
                 zoom={DEFAULT_ZOOM}
-                styles={STYLES}
+                styles={STYLE_CONFIG[mapStyle]}
             >
                 {markers}
                 <MapControls position="bottom-right" showZoom showCompass />
+                <MapStyleSwitcher mapStyle={mapStyle} onToggle={toggleStyle} />
                 <MapBoundsUpdaterMapLibre />
-                <MapTerrainLayer />
+                <MapTerrainLayer enabled={mapStyle === "terrain"} />
+                <PitchTransition mapStyle={mapStyle} />
             </Map>
             {showEmptyState && (
                 <div className="map-empty-state">
