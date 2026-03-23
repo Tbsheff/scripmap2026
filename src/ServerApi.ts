@@ -12,6 +12,7 @@
 import { useEffect, useState } from "react";
 import { Book, Books, Volume } from "./Types";
 import { replaceHtmlEntities } from "./scripturesUtils";
+import { initSlugMaps } from "./utils/scriptureNavigation";
 
 /*----------------------------------------------------------------------
  *                      CONSTANTS
@@ -106,6 +107,7 @@ export function useFetchScripturesData() {
                 Object.freeze(enrichedVolumes);
                 setVolumes(enrichedVolumes);
                 setBooks(jsonBooks);
+                initSlugMaps(enrichedVolumes, jsonBooks);
                 setIsLoading(false);
             })
             .catch((err: unknown) => {
