@@ -20,7 +20,7 @@
 
 .volume {
     animation: fadeIn 350ms var(--ease-out) both;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1.25rem;
 }
 
 .volume:nth-child(1) { animation-delay: 0ms; }
@@ -43,9 +43,12 @@
 }
 
 .volume h5 {
-    font-size: 1.24em;
-    font-weight: normal;
-    margin: 0.72em 0 0.556em 0;
-    padding-bottom: 0.3em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin: 0 0 0.5rem 0;
+    padding-bottom: 0.35rem;
     border-bottom: 1px solid var(--border-nav-map-color);
 }

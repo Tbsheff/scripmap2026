@@ -1,31 +1,34 @@
 .crumbs-wrapper {
-    flex: 1 1 30%;
-    z-index: var(--z-nav-overlay);
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .crumbs {
-    padding-inline-start: 1rem;
+    font-size: 0.8rem;
     font-weight: 400;
-    letter-spacing: 0.03em;
-}
-
-@media screen and (max-width: 44rem) {
-    header .crumbs {
-        margin: 0.56rem 0;
-    }
+    letter-spacing: 0.02em;
 }
 
 .crumbs ul {
-    padding: 0;
-    margin: 0;
-    line-height: 1;
-}
-
-.crumbs li {
+    display: flex;
+    align-items: center;
     padding: 0;
     margin: 0;
     list-style: none;
-    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.crumbs li {
+    display: inline;
+}
+
+.crumbs li:not(:first-child)::before {
+    content: "\203A";
+    padding: 0 0.35em;
+    opacity: 0.5;
 }
 
 header a:link,
@@ -33,17 +36,15 @@ header a:visited,
 header a:active {
     color: var(--header-text-color);
     text-decoration: none;
-    transition: color 150ms ease;
+    transition: opacity 150ms ease;
 }
 
 header a:hover {
-    color: var(--header-hover-color);
-    text-decoration: underline;
+    opacity: 0.8;
 }
 
-.crumbs li:not(:first-child)::before {
-    content: "\203A";
-    padding: 0.3em;
-    opacity: 0.6;
-    font-size: 1.1em;
+@media screen and (max-width: 44rem) {
+    .crumbs {
+        font-size: 0.75rem;
+    }
 }

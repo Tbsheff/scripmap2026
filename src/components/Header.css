@@ -2,49 +2,47 @@ header {
     grid-area: header;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
     background-color: var(--header-background-color);
     color: var(--header-text-color);
     z-index: var(--z-header);
-    box-shadow: 0 1px 3px 0 var(--header-shadow-1), 0 1px 6px 0 var(--header-shadow-2);
-    padding: 0 0.5rem;
+    box-shadow: 0 1px 2px 0 var(--header-shadow-1);
+    padding: 0 0.75rem;
 }
 
 .centerhead {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    font-weight: normal;
-    z-index: var(--z-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: nowrap;
 }
 
 .title {
-    display: block;
-    font-size: larger;
+    font-size: 0.9rem;
     font-weight: 600;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
 }
 
 .subtitle {
-    display: block;
-    font-size: smaller;
+    font-size: 0.65rem;
+    opacity: 0.7;
+    letter-spacing: 0.02em;
 }
 
-@media screen and (max-width: 67rem) {
-    .centerhead {
-        right: 1rem;
-        width: auto;
-    }
-
+@media screen and (max-width: 64rem) {
     .centerhead .subtitle {
         display: none;
     }
 }
 
 @media screen and (max-width: 44rem) {
-    header .centerhead {
-        align-items: center;
-        padding: 0;
+    .centerhead {
         display: none;
+    }
+
+    header {
+        padding: 0 0.5rem;
     }
 }
 
@@ -56,11 +54,9 @@ header {
     border: none;
     color: var(--header-text-color);
     cursor: pointer;
-    padding: 0.5rem;
-    margin-inline-end: 0.5rem;
+    padding: 0.4rem;
     border-radius: var(--radius-md, 0.5rem);
     transition: background-color 150ms ease, color 150ms ease;
-    z-index: var(--z-nav-overlay);
     flex-shrink: 0;
 }
 
@@ -77,6 +73,8 @@ header {
 
 .map-toggle-btn svg {
     display: block;
+    width: 18px;
+    height: 18px;
 }
 
 @keyframes subtlePulse {

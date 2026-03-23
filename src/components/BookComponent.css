@@ -8,5 +8,10 @@
 }
 
 nav .btn.chapter-btn {
-    flex: 0 0 4em;
+    flex: 0 0 3rem;
+    min-width: 3rem;
+    padding: 0;
+    font-size: 0.75rem;
+    height: 2rem;
+    line-height: 2rem;
 }
