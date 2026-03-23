@@ -86,6 +86,32 @@ section.MapDisplay {
     transition: color 150ms ease;
 }
 
+.map-error-boundary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted-foreground, #888);
+    font-size: 0.9rem;
+}
+
+.map-error-boundary svg {
+    margin-bottom: 0.75rem;
+    opacity: 0.5;
+}
+
+.map-error-boundary p {
+    margin: 0;
+}
+
+.map-error-boundary p + p {
+    margin: 0.25rem 0 0;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
 .pin {
     width: 20px;
     height: 28px;

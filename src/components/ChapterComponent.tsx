@@ -9,12 +9,12 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Link, useLoaderData, useParams } from "react-router-dom";
 import { ANIMATION_MARKER_DELAY } from "../Constants";
 import { ChapterCacheEntry } from "../Types";
 import { NextSideComponent, PreviousSideComponent } from "./NextPreviousComponent";
-import { useMapContext } from "../context/MapDataContextHook";
+import { useGeoplacesContext, useFocusedGeoplaceContext } from "../context/MapDataContextHook";
 import "./ChapterComponent.css";
 
 /*----------------------------------------------------------------------
@@ -22,7 +22,8 @@ import "./ChapterComponent.css";
  */
 export default function ChapterComponent() {
     const { bookId, chapter } = useParams();
-    const { setFocusedGeoplace, setGeoplaces } = useMapContext();
+    const { setGeoplaces } = useGeoplacesContext();
+    const { setFocusedGeoplace } = useFocusedGeoplaceContext();
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const loaderData = useLoaderData() as ChapterCacheEntry | undefined;
     const cachedDataRef = useRef(loaderData);
@@ -46,36 +47,13 @@ export default function ChapterComponent() {
     }, [loaderData, setFocusedGeoplace, setGeoplaces]);
 
     const html = loaderData?.html ?? cachedDataRef.current?.html;
+    const innerHtml = useMemo(() => ({ __html: html ?? "" }), [html]);
 
     if (!html) {
         return (
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "100%",
-                    gap: "1rem",
-                    padding: "2rem",
-                    textAlign: "center",
-                    color: "var(--body-text-color)",
-                }}
-            >
-                <p style={{ margin: 0 }}>No content available for this chapter.</p>
-                <Link
-                    to="/"
-                    style={{
-                        color: "var(--header-text-color)",
-                        backgroundColor: "var(--header-background-color)",
-                        padding: "0.4rem 1rem",
-                        borderRadius: "4px",
-                        textDecoration: "none",
-                        fontWeight: "bold",
-                    }}
-                >
-                    Return to All Volumes
-                </Link>
+            <div className="chapter-empty">
+                <p>No content available for this chapter.</p>
+                <Link to="/">Return to All Volumes</Link>
             </div>
         );
     }
@@ -83,7 +61,7 @@ export default function ChapterComponent() {
     return (
         <div className="with-nav-buttons">
             <PreviousSideComponent bookId={bookId} chapter={chapter} />
-            <div className="chapter-content" dangerouslySetInnerHTML={{ __html: html }} />
+            <div className="chapter-content" dangerouslySetInnerHTML={innerHtml} />
             <NextSideComponent bookId={bookId} chapter={chapter} />
         </div>
     );

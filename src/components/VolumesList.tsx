@@ -28,7 +28,7 @@ export default function VolumesList() {
     }
 
     if (error) {
-        return <div role="alert" style={{ padding: "2rem", textAlign: "center" }}>{error}</div>;
+        return <div role="alert" className="volumes-error">{error}</div>;
     }
 
     return (

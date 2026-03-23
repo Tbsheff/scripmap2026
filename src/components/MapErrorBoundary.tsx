@@ -1,4 +1,5 @@
 import { Component, ReactNode } from "react";
+import "./MapDisplay.css";
 
 interface Props {
     children: ReactNode;
@@ -19,24 +20,15 @@ export class MapErrorBoundary extends Component<Props, State> {
     render() {
         if (this.state.hasError) {
             return (
-                <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "100%",
-                    padding: "2rem",
-                    textAlign: "center",
-                    color: "var(--muted-foreground, #888)",
-                    fontSize: "0.9rem",
-                }}>
+                <div className="map-error-boundary">
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="32" height="32" style={{ marginBottom: "0.75rem", opacity: 0.5 }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="32" height="32">
                             <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
                             <line x1="8" y1="2" x2="8" y2="18" />
                             <line x1="16" y1="6" x2="16" y2="22" />
                         </svg>
-                        <p style={{ margin: 0 }}>Map unavailable</p>
-                        <p style={{ margin: "0.25rem 0 0", fontSize: "0.8rem", opacity: 0.7 }}>{this.state.message}</p>
+                        <p>Map unavailable</p>
+                        <p>{this.state.message}</p>
                     </div>
                 </div>
             );
