@@ -44,6 +44,75 @@ function encodedScripturesUrl(
     return `${URL_SCRIPTURES}?book=${bookId}&chap=${chapter}&verses${options}`;
 }
 
+let dataPromise: Promise<{ volumes: Volume[]; books: Books }> | null = null;
+
+/*----------------------------------------------------------------------
+ *                      PUBLIC FUNCTIONS
+ */
+export function getScripturesData(): Promise<{ volumes: Volume[]; books: Books }> {
+    if (!dataPromise) {
+        dataPromise = Promise.all([
+            fetch(URL_VOLUMES).then((r) => {
+                if (!r.ok) throw new Error(`Failed to fetch ${URL_VOLUMES}: ${r.status}`);
+                return r.json() as Promise<unknown>;
+            }),
+            fetch(URL_BOOKS).then((r) => {
+                if (!r.ok) throw new Error(`Failed to fetch ${URL_BOOKS}: ${r.status}`);
+                return r.json() as Promise<unknown>;
+            }),
+        ]).then(([rawVolumes, rawBooks]) => {
+            if (
+                !Array.isArray(rawVolumes) ||
+                typeof (rawVolumes[0] as Record<string, unknown> | undefined)?.id !== "number" ||
+                typeof rawBooks !== "object" ||
+                rawBooks === null
+            ) {
+                throw new Error("Unexpected API response shape from scriptures server");
+            }
+
+            const stripTrailingSlash = (s: string) => s.replace(/\/+$/, "");
+
+            const jsonVolumes = rawVolumes as Volume[];
+            const jsonBooks = rawBooks as Books;
+
+            replaceHtmlEntities(jsonVolumes, jsonBooks);
+
+            for (const book of Object.values(jsonBooks)) {
+                book.urlPath = stripTrailingSlash(book.urlPath);
+            }
+
+            for (const volume of jsonVolumes) {
+                volume.urlPath = stripTrailingSlash(volume.urlPath);
+            }
+
+            const enrichedVolumes = jsonVolumes.map((volume: Volume) => {
+                const volumeBooks: Book[] = [];
+                let bookId = volume.minBookId;
+
+                while (bookId <= volume.maxBookId) {
+                    const book = jsonBooks[bookId];
+
+                    if (book) {
+                        volumeBooks.push(book);
+                    }
+
+                    bookId += 1;
+                }
+
+                return { ...volume, books: volumeBooks };
+            });
+
+            Object.freeze(jsonBooks);
+            Object.freeze(enrichedVolumes);
+            initSlugMaps(enrichedVolumes, jsonBooks);
+
+            return { volumes: enrichedVolumes, books: jsonBooks };
+        });
+    }
+
+    return dataPromise;
+}
+
 /*----------------------------------------------------------------------
  *                      PUBLIC HOOKS
  */
@@ -54,84 +123,17 @@ export function useFetchScripturesData() {
     const [volumes, setVolumes] = useState<Volume[]>([]);
 
     useEffect(() => {
-        const controller = new AbortController();
-
-        Promise.all(
-            [URL_VOLUMES, URL_BOOKS].map((url) =>
-                fetch(url, { signal: controller.signal }).then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch ${url}: ${response.status}`);
-                    }
-                    return response.json() as Promise<unknown>;
-                })
-            )
-        )
-            .then(([rawVolumes, rawBooks]) => {
-                if (
-                    !Array.isArray(rawVolumes) ||
-                    typeof (rawVolumes[0] as Record<string, unknown> | undefined)?.id !==
-                        "number" ||
-                    typeof rawBooks !== "object" ||
-                    rawBooks === null
-                ) {
-                    throw new Error("Unexpected API response shape from scriptures server");
-                }
-
-                const stripTrailingSlash = (s: string) => s.replace(/\/+$/, "");
-
-                const jsonVolumes = rawVolumes as Volume[];
-                const jsonBooks = rawBooks as Books;
-
-                replaceHtmlEntities(jsonVolumes, jsonBooks);
-
-                for (const book of Object.values(jsonBooks)) {
-                    book.urlPath = stripTrailingSlash(book.urlPath);
-                }
-
-                for (const volume of jsonVolumes) {
-                    volume.urlPath = stripTrailingSlash(volume.urlPath);
-                }
-
-                // Build an array of books for each volume so it's easy to get
-                // the books when we have a volume object.  This is helpful,
-                // for example, when building the navigation grid of books for
-                // a given volume.
-                const enrichedVolumes = jsonVolumes.map((volume: Volume) => {
-                    const volumeBooks: Book[] = [];
-                    let bookId = volume.minBookId;
-
-                    while (bookId <= volume.maxBookId) {
-                        const book = jsonBooks[bookId];
-
-                        if (book) {
-                            volumeBooks.push(book);
-                        }
-
-                        bookId += 1;
-                    }
-
-                    return { ...volume, books: volumeBooks };
-                });
-
-                Object.freeze(jsonBooks);
-                Object.freeze(enrichedVolumes);
-                setVolumes(enrichedVolumes);
-                setBooks(jsonBooks);
-                initSlugMaps(enrichedVolumes, jsonBooks);
+        getScripturesData()
+            .then(({ volumes, books }) => {
+                setVolumes(volumes);
+                setBooks(books);
                 setIsLoading(false);
             })
             .catch((err: unknown) => {
-                if (err instanceof Error && err.name === "AbortError") {
-                    return;
-                }
                 console.error("Error loading scriptures data:", err);
                 setError("Failed to load scripture data. Please refresh the page.");
                 setIsLoading(false);
             });
-
-        return () => {
-            controller.abort();
-        };
     }, []);
 
     return { books, error, isLoading, volumes };

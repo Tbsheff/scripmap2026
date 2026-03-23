@@ -13,7 +13,7 @@ import { LRUCache } from "lru-cache";
 import { LoaderFunctionArgs } from "react-router-dom";
 import { MS_PER_HOUR } from "../Constants";
 import extractGeoplaces from "./MapHelper";
-import { fetchChapterHtml } from "../ServerApi";
+import { fetchChapterHtml, getScripturesData } from "../ServerApi";
 import { ChapterCacheEntry } from "../Types";
 import { bookBySlug } from "../utils/scriptureNavigation";
 
@@ -50,6 +50,8 @@ function prefetchAdjacentChapters(bookId: number, chapter: number): void {
  *                      LOADER
  */
 export default async function chapterLoader({ params, request }: LoaderFunctionArgs) {
+    await getScripturesData();
+
     const { bookSlug, chapter } = params;
     const book = bookBySlug(bookSlug ?? "");
     if (!book) {
