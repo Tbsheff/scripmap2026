@@ -5,8 +5,8 @@ header {
     justify-content: space-between;
     gap: 1rem;
     background-color: rgba(249, 249, 248, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--on-surface);
     z-index: var(--z-header);
     padding: 0 1.5rem;
@@ -39,10 +39,6 @@ header {
     .title {
         color: var(--surface);
     }
-}
-
-.subtitle {
-    display: none;
 }
 
 @media screen and (max-width: 44rem) {

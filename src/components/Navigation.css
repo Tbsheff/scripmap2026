@@ -84,24 +84,6 @@ div.books a.chapter {
     flex: 0 0 4em;
 }
 
-.books li {
-    flex: 0 0 5.4em;
-    align-content: center;
-    list-style: none;
-    height: 24px;
-    min-width: 5em;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    padding: 0.5em 0.5em 0 0.5em;
-    margin: 0;
-    color: var(--on-surface);
-    font-size: 11pt;
-    font-weight: normal;
-    text-shadow: none;
-    background-color: var(--surface);
-}
-
 /* ── Scrollable Content Area ── */
 
 .nav-content {

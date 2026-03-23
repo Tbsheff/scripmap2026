@@ -29,7 +29,6 @@ export default memo(function Header({ mapOpen = false, onToggleMap }: HeaderProp
         <header>
             <div className="centerhead">
                 <div className="title">The Scriptures Mapped</div>
-                <div className="subtitle">By Stephen W. Liddle</div>
             </div>
             <Breadcrumbs />
             {onToggleMap && (
