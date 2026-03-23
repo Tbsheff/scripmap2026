@@ -13,20 +13,6 @@
     padding-right: env(safe-area-inset-right);
 }
 
-.previous-link {
-    flex: 1 1 50%;
-    justify-content: flex-end;
-    text-align: right;
-    padding-inline-end: 1.25rem;
-}
-
-.next-link {
-    flex: 1 1 50%;
-    justify-content: flex-start;
-    text-align: left;
-    padding-inline-start: 1.25rem;
-}
-
 .next-prev-wrapper a:link,
 .next-prev-wrapper a:visited,
 .next-prev-wrapper a:active {

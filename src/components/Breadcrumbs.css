@@ -1,26 +1,9 @@
-.crumbs-wrapper {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
-}
-
 .crumbs {
     font-family: "Manrope", sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-}
-
-.crumbs ul {
-    display: flex;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .crumbs li {
@@ -69,3 +52,4 @@ header a:hover {
         font-size: 0.65rem;
     }
 }
+

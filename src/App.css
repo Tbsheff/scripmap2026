@@ -87,32 +87,3 @@ main[data-map-open] .map-panel {
     }
 }
 
-.error-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 50vh;
-    padding: 2rem;
-    text-align: center;
-    background-color: var(--body-background-color);
-    color: var(--body-text-color);
-}
-
-.error-page h2 {
-    margin: 0;
-    color: var(--header-background-color);
-}
-
-.error-page p {
-    margin: 0;
-}
-
-.error-page a {
-    color: var(--header-text-color);
-    background-color: var(--header-background-color);
-    padding: 0.5rem 1.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    margin-top: 1rem;
-}
