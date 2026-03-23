@@ -1,7 +1,21 @@
+.skip-to-content {
+    position: absolute;
+    left: -9999px;
+    z-index: var(--z-modal);
+    padding: 0.5rem 1rem;
+    background: var(--header-background-color);
+    color: var(--header-text-color);
+}
+
+.skip-to-content:focus {
+    left: 0;
+    top: 0;
+}
+
 main {
-    background-color: antiquewhite;
+    background-color: var(--body-background-color);
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     display: grid;
     grid-template-columns: 30% 70%;
     grid-template-rows: 4em auto 2em;
@@ -9,6 +23,12 @@ main {
         "header header"
         "nav map"
         "nextprev map";
+}
+
+@media screen and (max-width: 64rem) {
+  main {
+    grid-template-columns: 40% 60%;
+  }
 }
 
 @media screen and (max-width: 44rem) {

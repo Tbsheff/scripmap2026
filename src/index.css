@@ -31,6 +31,11 @@
 
     --nav-hover-color: rgba(0, 0, 0, 0.05);
 
+    --z-base: 0;
+    --z-nav-overlay: 10;
+    --z-header: 20;
+    --z-modal: 30;
+
     --text-shadow-color: #fff;
     --map-text-color: #201500;
     --map-text-shadow-color: #fff8f0;
@@ -48,7 +53,7 @@
         --header-shadow-2: rgba(255, 255, 255, 0.08);
 
         --button-background-color: rgba(75, 75, 75, 0.75);
-        --button-text-color: #ccc;
+        --button-text-color: #e0e0e0;
         --button-shadow-1: rgba(255, 255, 255, 0.2);
         --button-shadow-2: rgba(255, 255, 255, 0.12);
         --button-shadow-3: rgba(255, 255, 255, 0.14);
@@ -71,6 +76,19 @@
     }
 }
 
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--header-hover-color, #d0d0ff);
+  outline-offset: 2px;
+}
+
 html {
     width: 100%;
     height: 100%;
@@ -85,6 +103,18 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cross-fade-enter-active,
+  .cross-fade-exit-active,
+  .slide-left-enter-active,
+  .slide-left-exit-active,
+  .slide-right-enter-active,
+  .slide-right-exit-active {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
 }
 
 @media screen and (max-width: 44rem) {

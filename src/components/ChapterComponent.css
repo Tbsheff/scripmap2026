@@ -9,17 +9,18 @@
     position: fixed;
     top: 4em;
     height: calc(100% - 6em);
-    width: 1.5em;
+    width: 2.75em;
     color: var(--body-text-color);
-    z-index: 5;
+    z-index: var(--z-nav-overlay);
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 .nav-next a {
-    right: 70%;
+    right: calc(70% - 1.25em);
 }
 
 .nav-previous a {
-    left: 0;
+    left: env(safe-area-inset-left);
 }
 
 .nav-next:hover a,
@@ -55,23 +56,6 @@
     fill: var(--active-hover-color);
 }
 
-fade-enter {
-    opacity: 0;
-}
-
-fade-enter-active {
-    opacity: 1;
-    transition: opacity 350ms;
-}
-
-fade-exit {
-    opacity: 1;
-}
-
-fade-exit-active {
-    opacity: 0;
-    transition: opacity 350ms;
-}
 
 @media screen and (max-width: 44rem) {
     .nav-next a,
