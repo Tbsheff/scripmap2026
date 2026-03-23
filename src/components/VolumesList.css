@@ -2,7 +2,9 @@
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    padding: 1.5rem 2rem 4rem;
+    padding: 2rem 2.5rem 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .volumes-error {
@@ -15,27 +17,56 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Volume Section ── */
+/* ── Hub Header ── */
 
-.volume {
+.hub-header {
+    margin-bottom: 3.5rem;
+    animation: fadeIn 500ms var(--ease-out) both;
+}
+
+.hub-title {
+    font-family: "Noto Serif", serif;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--on-surface);
+    margin: 0 0 1rem;
+}
+
+.hub-subtitle {
+    font-family: "Noto Serif", serif;
+    font-size: 1.05rem;
+    color: var(--on-surface-variant);
+    max-width: 36rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.hub-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+/* ── Volume Section (Standard) ── */
+
+.vol-section {
     animation: fadeIn 400ms var(--ease-out) both;
-    margin-bottom: 3rem;
 }
 
-.volume:nth-child(1) { animation-delay: 0ms; }
-.volume:nth-child(2) { animation-delay: 80ms; }
-.volume:nth-child(3) { animation-delay: 160ms; }
-.volume:nth-child(4) { animation-delay: 240ms; }
-.volume:nth-child(5) { animation-delay: 320ms; }
-
-.volume-header {
-    margin-bottom: 1.25rem;
+.vol-section__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--outline-variant, rgba(171, 180, 179, 0.15));
 }
 
-.volume-label {
+.vol-label {
     display: block;
     font-family: "Manrope", sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -43,34 +74,69 @@
     margin-bottom: 0.25rem;
 }
 
-.volume-title {
+.vol-title {
     font-family: "Noto Serif", serif;
-    font-size: 1.75rem;
+    font-size: 1.875rem;
     font-weight: 700;
     color: var(--on-surface);
     margin: 0;
     letter-spacing: -0.01em;
 }
 
-/* ── Book Cards Grid ── */
-
-.book-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
-    gap: 0.625rem;
+.vol-title--sm {
+    font-size: 1.5rem;
 }
+
+/* ── Standard Grid ── */
+
+.vol-grid--standard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+@media screen and (min-width: 30rem) {
+    .vol-grid--standard {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 48rem) {
+    .vol-grid--standard {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media screen and (min-width: 64rem) {
+    .vol-grid--standard {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+/* ── Book Cards ── */
 
 .book-card {
     display: flex;
     flex-direction: column;
     background-color: var(--surface-container-lowest);
-    padding: 1rem 1rem 0.875rem;
+    padding: 1.25rem 1.25rem 1rem;
     border-radius: 0.75rem;
     text-decoration: none;
     color: var(--on-surface);
+    text-align: left;
     transition: background-color 300ms ease, color 300ms ease, transform 160ms var(--ease-out);
     position: relative;
     overflow: hidden;
+}
+
+.book-card--surface {
+    background-color: var(--surface-container);
+}
+
+.book-card--glass {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -91,62 +157,176 @@
 
 .book-abbr {
     font-family: "Manrope", sans-serif;
-    font-size: 0.55rem;
+    font-size: 0.6rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    opacity: 0.45;
-    margin-bottom: 0.2rem;
+    opacity: 0.5;
+    margin-bottom: 0.25rem;
     transition: opacity 300ms ease, color 300ms ease;
 }
 
 .book-name {
     font-family: "Noto Serif", serif;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.25;
+}
+
+/* ── Asymmetric Layout (New Testament) ── */
+
+.vol-section--asymmetric {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media screen and (min-width: 64rem) {
+    .vol-section--asymmetric {
+        grid-template-columns: 3fr 9fr;
+        gap: 3rem;
+    }
+}
+
+.vol-aside {
+    display: flex;
+    flex-direction: column;
+}
+
+.vol-description {
+    font-family: "Noto Serif", serif;
+    font-size: 0.9rem;
+    color: var(--on-surface-variant);
+    line-height: 1.6;
+    margin: 0.75rem 0 0;
+}
+
+.vol-grid--asymmetric {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+@media screen and (min-width: 30rem) {
+    .vol-grid--asymmetric {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 80rem) {
+    .vol-grid--asymmetric {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ── Paired Layout (BoM + D&C/PGP) ── */
+
+.vol-section--paired {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media screen and (min-width: 64rem) {
+    .vol-section--paired {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.vol-paired-stack {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 2rem;
+}
+
+/* ── Compact Volume Cards ── */
+
+.vol-compact {
+    padding: 2rem;
+    border-radius: 1.5rem;
+}
+
+.vol-compact--tinted {
+    background-color: rgba(215, 230, 219, 0.4);
+}
+
+.vol-compact--neutral {
+    background-color: var(--surface-container-high, #e3e9e8);
+}
+
+.vol-compact__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.vol-icon {
+    color: var(--primary);
+    font-size: 1.75rem;
+}
+
+.vol-grid--compact {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+@media screen and (min-width: 30rem) {
+    .vol-grid--compact {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.vol-compact .book-card {
+    padding: 0.75rem 1rem;
+}
+
+.vol-compact .book-name {
+    font-size: 0.85rem;
+}
+
+.vol-compact .book-abbr {
+    font-size: 0.5rem;
 }
 
 /* ── Responsive ── */
 
-@media screen and (max-width: 64rem) {
-    .book-cards {
-        grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
-    }
-
-    .volume-title {
-        font-size: 1.5rem;
-    }
-}
-
 @media screen and (max-width: 44rem) {
     .volumesListComponent {
-        padding: 1rem 1rem 3rem;
+        padding: 1.25rem 1rem 4rem;
     }
 
-    .book-cards {
-        grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-        gap: 0.5rem;
+    .hub-title {
+        font-size: 2rem;
+    }
+
+    .hub-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .hub-header {
+        margin-bottom: 2rem;
+    }
+
+    .hub-content {
+        gap: 2.5rem;
+    }
+
+    .vol-title {
+        font-size: 1.5rem;
     }
 
     .book-card {
-        padding: 0.75rem 0.75rem 0.625rem;
+        padding: 1rem;
     }
 
     .book-name {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
 
-    .volume-title {
-        font-size: 1.25rem;
+    .vol-compact {
+        padding: 1.25rem;
+        border-radius: 1rem;
     }
-
-    .volume {
-        margin-bottom: 2rem;
-    }
-}
-
-/* Legacy compat — hide old h5 if still rendered */
-.volume > h5 {
-    display: none;
 }

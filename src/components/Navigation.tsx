@@ -25,7 +25,7 @@ import "./Navigation.css";
 /*----------------------------------------------------------------------
  *                      PRIVATE VARIABLES
  */
-const nodeRefCache = new LRUCache<string, RefObject<HTMLDivElement>>({
+const nodeRefCache = new LRUCache<string, RefObject<HTMLDivElement | null>>({
     max: 30,
     ttl: 8 * MS_PER_HOUR,
     updateAgeOnGet: true

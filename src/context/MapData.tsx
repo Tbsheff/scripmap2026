@@ -10,9 +10,20 @@
  *                      IMPORTS
  */
 import { createContext } from "react";
-import { MapContextType } from "../Types";
+import { GeoPlace, GeoPlaces } from "../Types";
 
 /*----------------------------------------------------------------------
- *                      PUBLIC VARIABLE
+ *                      PUBLIC VARIABLES
  */
-export const MapDataContext = createContext<MapContextType | null>(null);
+export type GeoplacesContextType = {
+    geoplaces: GeoPlaces | null;
+    setGeoplaces: (geoplaces: GeoPlaces | null) => void;
+};
+
+export type FocusedGeoplaceContextType = {
+    focusedGeoplace: GeoPlace | null;
+    setFocusedGeoplace: (geoplace: GeoPlace | null) => void;
+};
+
+export const GeoplacesContext = createContext<GeoplacesContextType | null>(null);
+export const FocusedGeoplaceContext = createContext<FocusedGeoplaceContextType | null>(null);

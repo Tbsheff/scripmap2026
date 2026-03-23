@@ -52,12 +52,6 @@ export interface Volume extends Book {
     books: Book[];
 }
 
-export type MapContextType = {
-    focusedGeoplace: GeoPlace | null;
-    geoplaces: GeoPlaces | null;
-    setFocusedGeoplace: (geoplace: GeoPlace | null) => void;
-    setGeoplaces: (geoplaces: GeoPlaces | null) => void;
-};
 
 export type ScripturesContextType = {
     books: Books;

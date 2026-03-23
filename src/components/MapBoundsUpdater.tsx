@@ -11,7 +11,7 @@
  */
 import { useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
-import { useMapContext } from "../context/MapDataContextHook";
+import { useGeoplacesContext, useFocusedGeoplaceContext } from "../context/MapDataContextHook";
 import { GeoPlace } from "../Types";
 
 /*----------------------------------------------------------------------
@@ -51,7 +51,8 @@ function zoomLevelForAltitude(viewAltitude: number) {
  */
 export function MapBoundsUpdater() {
     const map = useMap();
-    const { focusedGeoplace, geoplaces } = useMapContext();
+    const { geoplaces } = useGeoplacesContext();
+    const { focusedGeoplace } = useFocusedGeoplaceContext();
 
     useEffect(() => {
         if (!map || typeof google === "undefined") {

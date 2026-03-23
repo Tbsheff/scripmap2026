@@ -9,14 +9,14 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import Header from "./Header";
 import { MapErrorBoundary } from "./MapErrorBoundary";
 
 const MapDisplay = lazy(() => import("./MapDisplay"));
 import Navigation from "./Navigation";
 import NextPreviousComponent from "./NextPreviousComponent";
-import { MapDataContext } from "../context/MapData";
+import { GeoplacesContext, FocusedGeoplaceContext } from "../context/MapData";
 import { GeoPlace, GeoPlaces } from "../Types";
 
 /*----------------------------------------------------------------------
@@ -27,7 +27,7 @@ export default function MainPage() {
     const [geoplaces, setGeoplaces] = useState<GeoPlaces | null>(null);
     const [mapOpen, setMapOpen] = useState(false);
 
-    const toggleMap = () => setMapOpen((prev) => !prev);
+    const toggleMap = useCallback(() => setMapOpen((prev) => !prev), []);
 
     useEffect(() => {
         window.showLocation = (_id, placename, latitude, longitude, viewAltitude) => {
@@ -39,26 +39,26 @@ export default function MainPage() {
         };
     }, []);
 
-    const mapContextValue = useMemo(
-        () => ({ focusedGeoplace, geoplaces, setFocusedGeoplace, setGeoplaces }),
-        [focusedGeoplace, geoplaces, setFocusedGeoplace, setGeoplaces]
-    );
+    const geoplacesValue = useMemo(() => ({ geoplaces, setGeoplaces }), [geoplaces, setGeoplaces]);
+    const focusedValue = useMemo(() => ({ focusedGeoplace, setFocusedGeoplace }), [focusedGeoplace, setFocusedGeoplace]);
 
     return (
-        <MapDataContext value={mapContextValue}>
-            <a className="skip-to-content" href="#scripture-content">Skip to content</a>
-            <main data-map-open={mapOpen || undefined}>
-                <Header mapOpen={mapOpen} onToggleMap={toggleMap} />
-                <Navigation />
-                <NextPreviousComponent />
-                <div className="map-panel">
-                    <MapErrorBoundary>
-                        <Suspense fallback={null}>
-                            <MapDisplay />
-                        </Suspense>
-                    </MapErrorBoundary>
-                </div>
-            </main>
-        </MapDataContext>
+        <GeoplacesContext value={geoplacesValue}>
+            <FocusedGeoplaceContext value={focusedValue}>
+                <a className="skip-to-content" href="#scripture-content">Skip to content</a>
+                <main data-map-open={mapOpen || undefined}>
+                    <Header mapOpen={mapOpen} onToggleMap={toggleMap} />
+                    <Navigation />
+                    <NextPreviousComponent />
+                    <div className="map-panel">
+                        <MapErrorBoundary>
+                            <Suspense fallback={null}>
+                                <MapDisplay />
+                            </Suspense>
+                        </MapErrorBoundary>
+                    </div>
+                </main>
+            </FocusedGeoplaceContext>
+        </GeoplacesContext>
     );
 }

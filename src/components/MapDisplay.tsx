@@ -12,7 +12,7 @@
 import { useMemo } from "react";
 import { AdvancedMarker, APIProvider, ControlPosition, Map } from "@vis.gl/react-google-maps";
 import { MapBoundsUpdater } from "./MapBoundsUpdater";
-import { useMapContext } from "../context/MapDataContextHook";
+import { useGeoplacesContext } from "../context/MapDataContextHook";
 import "./MapDisplay.css";
 
 /*----------------------------------------------------------------------
@@ -34,7 +34,7 @@ const ZOOM_CONTROL_OPTIONS = { position: ControlPosition.RIGHT_BOTTOM };
  *                      COMPONENT
  */
 export default function MapDisplay() {
-    const { geoplaces } = useMapContext();
+    const { geoplaces } = useGeoplacesContext();
 
     if (!API_KEY) {
         throw new Error("Unable to display Google Map.");
