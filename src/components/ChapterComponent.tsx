@@ -14,9 +14,7 @@ import { Link, useLoaderData, useParams } from "react-router-dom";
 import {
     ANIMATION_KEY_NEXT,
     ANIMATION_KEY_PREVIOUS,
-    ANIMATION_MARKER_DELAY,
-    ICON_NEXT_SMALL,
-    ICON_PREVIOUS_SMALL
+    ANIMATION_MARKER_DELAY
 } from "../Constants";
 import { ChapterCacheEntry } from "../Types";
 import { nextChapter, NextSideComponent, previousChapter, PreviousSideComponent } from "./NextPreviousComponent";
@@ -82,9 +80,9 @@ export default function ChapterComponent() {
                             <Link
                                 to={`/${prev.volumeSlug}/${prev.bookSlug}/${prev.chapter}`}
                                 state={{ animationKey: ANIMATION_KEY_PREVIOUS }}
-                                className="inline-flex items-center gap-2 text-sm text-[var(--on-surface-variant)] hover:text-[var(--primary)] transition-colors group"
+                                className="inline-flex items-center gap-1 text-sm text-[var(--on-surface-variant)] hover:text-[var(--primary)] transition-colors"
                             >
-                                {ICON_PREVIOUS_SMALL}
+                                <span aria-hidden="true">‹</span>
                                 <span className="font-medium">{prev.title}</span>
                             </Link>
                         )}
@@ -94,10 +92,10 @@ export default function ChapterComponent() {
                             <Link
                                 to={`/${next.volumeSlug}/${next.bookSlug}/${next.chapter}`}
                                 state={{ animationKey: ANIMATION_KEY_NEXT }}
-                                className="inline-flex items-center gap-2 text-sm text-[var(--on-surface-variant)] hover:text-[var(--primary)] transition-colors group"
+                                className="inline-flex items-center gap-1 text-sm text-[var(--on-surface-variant)] hover:text-[var(--primary)] transition-colors"
                             >
                                 <span className="font-medium">{next.title}</span>
-                                {ICON_NEXT_SMALL}
+                                <span aria-hidden="true">›</span>
                             </Link>
                         )}
                     </div>
