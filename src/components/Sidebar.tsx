@@ -84,8 +84,15 @@ export default function Sidebar({ open = true }: { open?: boolean }) {
             <div className={`transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
                 {/* Logo / Title */}
                 <div className="flex h-12 shrink-0 items-center px-3">
-                    <Link to="/" className="flex items-center gap-2 no-underline text-[var(--on-surface)]">
-                        <BookOpen className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                    <Link to="/" className="flex items-center gap-2.5 no-underline text-[var(--on-surface)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" className="shrink-0">
+                            <rect width="32" height="32" rx="6" fill="var(--primary)"/>
+                            <g transform="translate(6 5)" fill="none" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                <polygon points="0 4 0 20 6.5 16.5 13.5 20 20 16.5 20 0.5 13.5 4 6.5 0 0 4"/>
+                                <line x1="6.5" y1="0" x2="6.5" y2="16.5"/>
+                                <line x1="13.5" y1="4" x2="13.5" y2="20"/>
+                            </g>
+                        </svg>
                         <span className="truncate font-semibold text-sm">
                             The Scriptures Mapped
                         </span>
