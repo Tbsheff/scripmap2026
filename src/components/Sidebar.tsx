@@ -31,7 +31,7 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
         <div>
             <button
                 className={`flex items-center gap-2 w-full px-6 py-2 border-none bg-transparent cursor-pointer
-                    font-[Manrope] text-sm font-medium text-left
+                    font-[Manrope] text-[0.9rem] font-medium text-left
                     rounded-r-full transition-all duration-200
                     ${isActive
                         ? "bg-[var(--surface-container)] text-[var(--on-surface)] font-semibold"
@@ -52,7 +52,7 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
                         return (
                             <li key={book.id}>
                                 <Link
-                                    className={`block py-1.5 pl-12 pr-6 mr-3 text-sm no-underline
+                                    className={`block py-1.5 pl-12 pr-6 mr-3 text-[0.9rem] no-underline
                                         rounded-r-full transition-all duration-200
                                         ${active
                                             ? "text-[var(--primary)] font-semibold bg-[var(--surface-container)]"
@@ -79,7 +79,7 @@ export default function Sidebar({ open = true }: { open?: boolean }) {
         <aside
             className={`hidden lg:flex flex-col shrink-0 overflow-y-auto overflow-x-hidden px-3 py-2
                         transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-                        ${open ? "w-56" : "w-0 px-0"}`}
+                        ${open ? "w-60" : "w-0 px-0"}`}
         >
             <div className={`transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
                 {/* Logo / Title */}
@@ -93,7 +93,7 @@ export default function Sidebar({ open = true }: { open?: boolean }) {
                                 <line x1="13.5" y1="4" x2="13.5" y2="20"/>
                             </g>
                         </svg>
-                        <span className="truncate font-semibold text-sm">
+                        <span className="truncate font-semibold text-[0.9rem]">
                             The Scriptures Mapped
                         </span>
                     </Link>
