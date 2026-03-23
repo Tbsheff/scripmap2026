@@ -53,9 +53,11 @@ export function useFetchScripturesData() {
     const [volumes, setVolumes] = useState<Volume[]>([]);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         Promise.all(
             [URL_VOLUMES, URL_BOOKS].map((url) =>
-                fetch(url).then((response) => {
+                fetch(url, { signal: controller.signal }).then((response) => {
                     if (!response.ok) {
                         throw new Error(`Failed to fetch ${url}: ${response.status}`);
                     }
@@ -107,10 +109,17 @@ export function useFetchScripturesData() {
                 setIsLoading(false);
             })
             .catch((err: unknown) => {
+                if (err instanceof Error && err.name === "AbortError") {
+                    return;
+                }
                 console.error("Error loading scriptures data:", err);
                 setError("Failed to load scripture data. Please refresh the page.");
                 setIsLoading(false);
             });
+
+        return () => {
+            controller.abort();
+        };
     }, []);
 
     return { books, error, isLoading, volumes };
@@ -119,8 +128,8 @@ export function useFetchScripturesData() {
 /*----------------------------------------------------------------------
  *                      PUBLIC FUNCTIONS
  */
-export async function fetchChapterHtml(bookId: number, chapter: number) {
-    const response = await fetch(encodedScripturesUrl(bookId, chapter));
+export async function fetchChapterHtml(bookId: number, chapter: number, signal?: AbortSignal) {
+    const response = await fetch(encodedScripturesUrl(bookId, chapter), { signal });
 
     if (!response.ok) {
         throw new Error(`Failed to fetch chapter: ${response.status}`);

@@ -1,6 +1,7 @@
 :root {
     /* Keep in sync with ANIMATION_DURATION in Constants.tsx */
-    --animation-duration: 280ms;
+    --animation-duration: 320ms;
+    --fade-duration: 250ms;
 }
 
 nav.container {
@@ -105,71 +106,85 @@ div.books a.chapter {
 
 .cross-fade-enter {
     opacity: 0;
-    transform: scale(0.98);
+    transform: scale(0.99);
 }
 
 .cross-fade-enter-active {
     opacity: 1;
     transform: scale(1);
-    transition: opacity var(--animation-duration) var(--ease-out), transform var(--animation-duration) var(--ease-out);
+    transition: opacity var(--fade-duration) var(--ease-out), transform var(--fade-duration) var(--ease-out);
 }
 
 .cross-fade-exit {
     opacity: 1;
+    transform: scale(1);
 }
 
 .cross-fade-exit-active {
     opacity: 0;
-    transition: opacity var(--animation-duration) var(--ease-out);
+    transform: scale(1.01);
+    filter: blur(1px);
+    transition: opacity var(--fade-duration) var(--ease-out), transform var(--fade-duration) var(--ease-out), filter var(--fade-duration) var(--ease-out);
 }
 
 .slide-left-enter {
-    transform: translateX(100%);
+    transform: translateX(40%);
+    opacity: 0;
 }
 
 .slide-left-enter-active {
     transform: translateX(0%);
-    transition: transform var(--animation-duration) var(--ease-out);
+    opacity: 1;
+    transition: transform var(--animation-duration) var(--ease-out), opacity var(--animation-duration) var(--ease-out);
 }
 
 .slide-left-exit-active {
-    transform: translateX(-100%);
-    transition: transform var(--animation-duration) var(--ease-out);
+    transform: translateX(-30%);
+    opacity: 0;
+    filter: blur(1px);
+    transition: transform var(--animation-duration) var(--ease-out), opacity var(--animation-duration) var(--ease-out), filter var(--animation-duration) var(--ease-out);
 }
 
 .slide-right-enter {
-    transform: translateX(-100%);
+    transform: translateX(-40%);
+    opacity: 0;
 }
 
 .slide-right-enter-active {
     transform: translateX(0%);
-    transition: transform var(--animation-duration) var(--ease-out);
+    opacity: 1;
+    transition: transform var(--animation-duration) var(--ease-out), opacity var(--animation-duration) var(--ease-out);
 }
 
 .slide-right-exit-active {
-    transform: translateX(100%);
-    transition: transform var(--animation-duration) var(--ease-out);
+    transform: translateX(30%);
+    opacity: 0;
+    filter: blur(1px);
+    transition: transform var(--animation-duration) var(--ease-out), opacity var(--animation-duration) var(--ease-out), filter var(--animation-duration) var(--ease-out);
 }
 
 .slide-right-enter-active + .slide-left-exit-active,
 .slide-right-enter-active + .cross-fade-exit-active {
-    opacity: 1;
-    transform: translateX(100%);
-    transition: transform var(--animation-duration) var(--ease-out);
+    transform: translateX(30%);
+    opacity: 0;
+    filter: blur(1px);
+    transition: transform var(--animation-duration) var(--ease-out), opacity var(--animation-duration) var(--ease-out), filter var(--animation-duration) var(--ease-out);
 }
 
 .slide-left-enter-active + .slide-right-exit-active,
 .slide-left-enter-active + .cross-fade-exit-active {
-    opacity: 1;
-    transform: translateX(-100%);
-    transition: transform var(--animation-duration) var(--ease-out);
+    transform: translateX(-30%);
+    opacity: 0;
+    filter: blur(1px);
+    transition: transform var(--animation-duration) var(--ease-out), opacity var(--animation-duration) var(--ease-out), filter var(--animation-duration) var(--ease-out);
 }
 
 .cross-fade-enter-active + .slide-left-exit-active,
 .cross-fade-enter-active + .slide-right-exit-active {
     transform: translateX(0);
     opacity: 0;
-    transition: opacity var(--animation-duration) var(--ease-out);
+    filter: blur(1px);
+    transition: opacity var(--fade-duration) var(--ease-out), filter var(--fade-duration) var(--ease-out);
 }
 
 .slide-right-enter-active .nav-previous .icon svg,
