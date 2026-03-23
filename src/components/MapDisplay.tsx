@@ -50,16 +50,18 @@ export default function MapDisplay() {
                 title={geoplace.placename}
             >
                 <div className={CLASS_GEOPLACE_MARKER}>
-                    <div className={CLASS_PIN}></div>
+                    <div className={CLASS_PIN} aria-hidden="true"></div>
                     <div className={CLASS_LABEL}>{geoplace.placename}</div>
                 </div>
             </AdvancedMarker>
         ));
     }, [geoplaces]);
 
+    const showEmptyState = geoplaces !== null && Object.keys(geoplaces).length === 0;
+
     return (
         <APIProvider apiKey={API_KEY}>
-            <section className="MapDisplay">
+            <section className="MapDisplay" aria-label="Map of scripture locations">
                 <Map
                     defaultCenter={JERUSALEM_LOCATION}
                     defaultZoom={DEFAULT_ZOOM}
@@ -80,6 +82,11 @@ export default function MapDisplay() {
                     {markers}
                 </Map>
                 <MapBoundsUpdater />
+                {showEmptyState && (
+                    <div className="map-empty-state">
+                        No geographic locations in this chapter
+                    </div>
+                )}
             </section>
         </APIProvider>
     );

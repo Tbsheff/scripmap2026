@@ -10,7 +10,7 @@
  *                      IMPORTS
  */
 import { useEffect, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 import { ANIMATION_MARKER_DELAY } from "../Constants";
 import { ChapterCacheEntry } from "../Types";
 import { NextSideComponent, PreviousSideComponent } from "./NextPreviousComponent";
@@ -47,7 +47,36 @@ export default function ChapterComponent() {
     const html = loaderData?.html ?? cachedData?.html;
 
     if (!html) {
-        return null;
+        return (
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100%",
+                    gap: "1rem",
+                    padding: "2rem",
+                    textAlign: "center",
+                    color: "var(--body-text-color)",
+                }}
+            >
+                <p style={{ margin: 0 }}>No content available for this chapter.</p>
+                <Link
+                    to="/"
+                    style={{
+                        color: "var(--header-text-color)",
+                        backgroundColor: "var(--header-background-color)",
+                        padding: "0.4rem 1rem",
+                        borderRadius: "4px",
+                        textDecoration: "none",
+                        fontWeight: "bold",
+                    }}
+                >
+                    Return to All Volumes
+                </Link>
+            </div>
+        );
     }
 
     return (

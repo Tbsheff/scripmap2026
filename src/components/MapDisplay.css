@@ -1,6 +1,23 @@
 section.MapDisplay {
-    background-color: bisque;
+    background-color: var(--body-background-color);
     grid-area: map;
+    position: relative;
+}
+
+.map-empty-state {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--button-background-color);
+    color: var(--body-text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 1px 4px var(--button-shadow-1);
 }
 
 .geoplace-marker {
