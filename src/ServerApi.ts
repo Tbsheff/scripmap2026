@@ -77,10 +77,20 @@ export function useFetchScripturesData() {
                     throw new Error("Unexpected API response shape from scriptures server");
                 }
 
+                const stripTrailingSlash = (s: string) => s.replace(/\/+$/, "");
+
                 const jsonVolumes = rawVolumes as Volume[];
                 const jsonBooks = rawBooks as Books;
 
                 replaceHtmlEntities(jsonVolumes, jsonBooks);
+
+                for (const book of Object.values(jsonBooks)) {
+                    book.urlPath = stripTrailingSlash(book.urlPath);
+                }
+
+                for (const volume of jsonVolumes) {
+                    volume.urlPath = stripTrailingSlash(volume.urlPath);
+                }
 
                 // Build an array of books for each volume so it's easy to get
                 // the books when we have a volume object.  This is helpful,
