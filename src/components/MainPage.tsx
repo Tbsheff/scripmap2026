@@ -59,7 +59,7 @@ export default function MainPage() {
                     <Header mapOpen={isChapterView && mapOpen} onToggleMap={isChapterView ? toggleMap : undefined} />
                     <Navigation />
                     <NextPreviousComponent />
-                    <div className="map-panel">
+                    <div className="map-panel p-3 max-sm:pl-3 sm:pl-0 bg-[var(--surface)]">
                         <MapErrorBoundary>
                             <Suspense fallback={null}>
                                 <MapDisplay />

@@ -41,6 +41,9 @@ section.MapDisplay {
     background-color: var(--body-background-color);
     position: relative;
     height: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-ambient);
 }
 
 .map-empty-state {
