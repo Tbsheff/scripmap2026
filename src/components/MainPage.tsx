@@ -58,8 +58,19 @@ export default function MainPage() {
             setFocusedGeoplace({ latitude, longitude, placename, viewAltitude });
             setMapOpen(true);
         };
+
+        const handleScriptureClick = (e: MouseEvent) => {
+            const target = (e.target as HTMLElement).closest?.('.scripturewrapper a');
+            if (target) {
+                document.querySelectorAll('.place-active').forEach(el => el.classList.remove('place-active'));
+                target.classList.add('place-active');
+            }
+        };
+        document.addEventListener('click', handleScriptureClick);
+
         return () => {
             delete window.showLocation;
+            document.removeEventListener('click', handleScriptureClick);
         };
     }, []);
 

@@ -76,12 +76,28 @@ span.verse {
 .scripturewrapper li a:visited,
 .scripturewrapper li a:active {
     color: var(--scripture-link-color);
-    text-decoration: none;
-    transition: color var(--transition-slow);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: var(--scripture-link-color);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    cursor: pointer;
+    transition: color var(--transition-slow), text-decoration-color var(--transition-slow);
+    border-radius: 2px;
+    padding: 0 2px;
+    margin: 0 -2px;
 }
 
 .scripturewrapper li a:hover {
-    color: var(--scripture-hover-color);
+    color: var(--primary);
+    text-decoration-color: var(--primary);
+    background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.scripturewrapper li a.place-active {
+    background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+    text-decoration-color: var(--primary);
+    color: var(--primary);
 }
 
 .scripturecontent {
