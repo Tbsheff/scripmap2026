@@ -6,9 +6,9 @@
 
 .nav-next a,
 .nav-previous a {
-    position: fixed;
-    top: 4em;
-    height: calc(100% - 6em);
+    position: absolute;
+    top: 0;
+    height: 100%;
     width: 2.75em;
     color: var(--body-text-color);
     z-index: var(--z-nav-overlay);
@@ -17,7 +17,7 @@
 }
 
 .nav-next a {
-    right: calc(70% - 1.25em);
+    right: 0;
     border-radius: var(--radius-md, 0.5rem) 0 0 var(--radius-md, 0.5rem);
 }
 
@@ -67,7 +67,6 @@
 @media screen and (max-width: 44rem) {
     .nav-next a,
     .nav-previous a {
-        position: absolute;
         top: 0;
         height: 100%;
     }

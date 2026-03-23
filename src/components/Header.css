@@ -6,6 +6,7 @@ header {
     color: var(--header-text-color);
     z-index: var(--z-header);
     box-shadow: 0 1px 3px 0 var(--header-shadow-1), 0 1px 6px 0 var(--header-shadow-2);
+    padding: 0 0.5rem;
 }
 
 .centerhead {
@@ -45,4 +46,35 @@ header {
         padding: 0;
         display: none;
     }
+}
+
+.map-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--header-text-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-inline-end: 0.5rem;
+    border-radius: var(--radius-md, 0.5rem);
+    transition: background-color 150ms ease, color 150ms ease;
+    z-index: var(--z-nav-overlay);
+    flex-shrink: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .map-toggle-btn:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: var(--header-hover-color);
+    }
+}
+
+.map-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.map-toggle-btn svg {
+    display: block;
 }

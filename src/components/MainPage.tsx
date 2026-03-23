@@ -25,10 +25,14 @@ import { GeoPlace, GeoPlaces } from "../Types";
 export default function MainPage() {
     const [focusedGeoplace, setFocusedGeoplace] = useState<GeoPlace | null>(null);
     const [geoplaces, setGeoplaces] = useState<GeoPlaces | null>(null);
+    const [mapOpen, setMapOpen] = useState(false);
+
+    const toggleMap = () => setMapOpen((prev) => !prev);
 
     useEffect(() => {
         window.showLocation = (_id, placename, latitude, longitude, viewAltitude) => {
             setFocusedGeoplace({ latitude, longitude, placename, viewAltitude });
+            setMapOpen(true);
         };
         return () => {
             delete window.showLocation;
@@ -43,8 +47,8 @@ export default function MainPage() {
     return (
         <MapDataContext value={mapContextValue}>
             <a className="skip-to-content" href="#scripture-content">Skip to content</a>
-            <main>
-                <Header />
+            <main data-map-open={mapOpen || undefined}>
+                <Header mapOpen={mapOpen} onToggleMap={toggleMap} />
                 <Navigation />
                 <NextPreviousComponent />
                 <MapErrorBoundary>
