@@ -31,7 +31,7 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
         <div>
             <button
                 className={`flex items-center gap-2 w-full px-6 py-2 border-none bg-transparent cursor-pointer
-                    font-[Manrope] text-xs font-medium text-left
+                    font-[Manrope] text-sm font-medium text-left
                     rounded-r-full transition-all duration-200
                     ${isActive
                         ? "bg-[var(--surface-container)] text-[var(--on-surface)] font-semibold"
@@ -52,7 +52,7 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
                         return (
                             <li key={book.id}>
                                 <Link
-                                    className={`block py-1.5 pl-12 pr-6 mr-3 text-[0.8rem] no-underline
+                                    className={`block py-1.5 pl-12 pr-6 mr-3 text-sm no-underline
                                         rounded-r-full transition-all duration-200
                                         ${active
                                             ? "text-[var(--primary)] font-semibold bg-[var(--surface-container)]"
@@ -86,7 +86,7 @@ export default function Sidebar({ open = true }: { open?: boolean }) {
                 <div className="flex h-12 shrink-0 items-center px-3">
                     <Link to="/" className="flex items-center gap-2 no-underline text-[var(--on-surface)]">
                         <BookOpen className="h-4 w-4 shrink-0" strokeWidth={1.5} />
-                        <span className="truncate font-semibold text-xs">
+                        <span className="truncate font-semibold text-sm">
                             The Scriptures Mapped
                         </span>
                     </Link>
