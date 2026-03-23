@@ -19,7 +19,7 @@ export class MapErrorBoundary extends Component<Props, State> {
     render() {
         if (this.state.hasError) {
             return (
-                <div style={{ padding: "2rem", textAlign: "center", gridArea: "map" }}>
+                <div style={{ padding: "2rem", textAlign: "center" }}>
                     Map unavailable: {this.state.message}
                 </div>
             );

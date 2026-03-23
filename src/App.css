@@ -26,9 +26,10 @@ main {
     transition: grid-template-columns 350ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-main > section.MapDisplay,
-main > .map-error-boundary-wrapper {
+.map-panel {
+    grid-area: map;
     display: none;
+    overflow: hidden;
 }
 
 main[data-map-open] {
@@ -40,8 +41,7 @@ main[data-map-open] {
         "nextprev map";
 }
 
-main[data-map-open] > section.MapDisplay,
-main[data-map-open] > .map-error-boundary-wrapper {
+main[data-map-open] .map-panel {
     display: block;
 }
 

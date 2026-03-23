@@ -51,11 +51,13 @@ export default function MainPage() {
                 <Header mapOpen={mapOpen} onToggleMap={toggleMap} />
                 <Navigation />
                 <NextPreviousComponent />
-                <MapErrorBoundary>
-                    <Suspense fallback={<div style={{ gridArea: "map" }} />}>
-                        <MapDisplay />
-                    </Suspense>
-                </MapErrorBoundary>
+                <div className="map-panel">
+                    <MapErrorBoundary>
+                        <Suspense fallback={null}>
+                            <MapDisplay />
+                        </Suspense>
+                    </MapErrorBoundary>
+                </div>
             </main>
         </MapDataContext>
     );

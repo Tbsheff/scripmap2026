@@ -26,8 +26,8 @@
 
 section.MapDisplay {
     background-color: var(--body-background-color);
-    grid-area: map;
     position: relative;
+    height: 100%;
 }
 
 .map-empty-state {
