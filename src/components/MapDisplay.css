@@ -1,3 +1,29 @@
+@keyframes markerDrop {
+    0% {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.8);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(2px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
 section.MapDisplay {
     background-color: var(--body-background-color);
     grid-area: map;
@@ -18,6 +44,8 @@ section.MapDisplay {
     white-space: nowrap;
     z-index: 10;
     box-shadow: 0 1px 4px var(--button-shadow-1);
+    animation: fadeInSlide 400ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: 200ms;
 }
 
 .geoplace-marker {
@@ -26,6 +54,26 @@ section.MapDisplay {
     align-items: center;
     text-align: center;
     font-family: "Roboto", Arial, sans-serif;
+    cursor: pointer;
+    animation: markerDrop 400ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.geoplace-marker:nth-child(1) { animation-delay: 0ms; }
+.geoplace-marker:nth-child(2) { animation-delay: 60ms; }
+.geoplace-marker:nth-child(3) { animation-delay: 120ms; }
+.geoplace-marker:nth-child(4) { animation-delay: 180ms; }
+.geoplace-marker:nth-child(5) { animation-delay: 240ms; }
+.geoplace-marker:nth-child(n+6) { animation-delay: 300ms; }
+
+@media (hover: hover) and (pointer: fine) {
+    .geoplace-marker:hover {
+        transform: translateY(-3px);
+    }
+
+    .geoplace-marker:hover .label {
+        color: var(--active-hover-color);
+    }
 }
 
 .label {
@@ -35,6 +83,7 @@ section.MapDisplay {
     text-shadow: 1px 1px 1px white, -1px -1px 1px white, 1px -1px 1px white, -1px 1px 1px white;
     white-space: nowrap;
     margin-bottom: 5px;
+    transition: color 150ms ease;
 }
 
 .pin {
