@@ -19,6 +19,7 @@ import {
     ANIMATION_KEY_PREVIOUS,
     MS_PER_HOUR
 } from "../Constants";
+import { AnimationState } from "../Types";
 import "./Navigation.css";
 
 /*----------------------------------------------------------------------
@@ -33,7 +34,7 @@ const nodeRefCache = new LRUCache<string, RefObject<HTMLDivElement>>({
 /*----------------------------------------------------------------------
  *                      PRIVATE HELPERS
  */
-function classNamesFor(state: { animationKey: string } | null) {
+function classNamesFor(state: AnimationState | null) {
     if (state && state.animationKey) {
         if (state.animationKey === ANIMATION_KEY_NEXT) {
             return "slide-left";
@@ -51,7 +52,7 @@ function classNamesFor(state: { animationKey: string } | null) {
 export default function Navigation() {
     const location = useLocation();
     const { pathname } = location;
-    const state = location.state as { animationKey: string } | null;
+    const state = location.state as AnimationState | null;
     const currentOutlet = useOutlet();
 
     if (!nodeRefCache.has(pathname)) {
@@ -61,7 +62,7 @@ export default function Navigation() {
     const nodeRef = nodeRefCache.get(pathname);
 
     return (
-        <nav className="container">
+        <nav aria-label="Scripture navigation" className="container">
             <TransitionGroup>
                 <CSSTransition
                     key={pathname}
