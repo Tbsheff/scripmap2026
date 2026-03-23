@@ -25,6 +25,8 @@ interface HeaderProps {
  *                      COMPONENT
  */
 export default memo(function Header({ mapOpen = false, onToggleMap }: HeaderProps) {
+    const prefetchMap = () => void import("./MapDisplay");
+
     return (
         <header>
             <div className="centerhead">
@@ -35,6 +37,8 @@ export default memo(function Header({ mapOpen = false, onToggleMap }: HeaderProp
                 <button
                     className="map-toggle-btn"
                     onClick={onToggleMap}
+                    onMouseEnter={prefetchMap}
+                    onFocus={prefetchMap}
                     aria-label={mapOpen ? "Close map" : "Open map"}
                     title={mapOpen ? "Close map" : "Open map"}
                 >

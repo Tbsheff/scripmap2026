@@ -23,6 +23,22 @@ export default function BookComponent() {
     const { bookId } = useParams();
     const book = bookId ? books[bookId] : undefined;
 
+    const chaptersList = useMemo(() =>
+        book
+            ? Array.from({ length: book.numChapters }, (_, i) => i + 1).map((chapter) => (
+                <Link
+                    className="chapter-pill"
+                    id={`c${chapter}`}
+                    key={`k${chapter}`}
+                    to={`/${book.parentBookId}/${book.id}/${chapter}`}
+                >
+                    {chapter}
+                </Link>
+            ))
+            : [],
+        [book, bookId]
+    );
+
     if (isLoading || !book) {
         return <LoadingIndicator />;
     }
@@ -30,20 +46,6 @@ export default function BookComponent() {
     if (book.numChapters <= 1) {
         return <Navigate to={`/${book.parentBookId}/${book.id}/${book.numChapters}`} replace />;
     }
-
-    const chaptersList = useMemo(() =>
-        Array.from({ length: book.numChapters }, (_, i) => i + 1).map((chapter) => (
-            <Link
-                className="chapter-pill"
-                id={`c${chapter}`}
-                key={`k${chapter}`}
-                to={`/${book.parentBookId}/${book.id}/${chapter}`}
-            >
-                {chapter}
-            </Link>
-        )),
-        [book, bookId]
-    );
 
     return (
         <div className="booksContainer">

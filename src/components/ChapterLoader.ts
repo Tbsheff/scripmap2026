@@ -19,16 +19,36 @@ import { ChapterCacheEntry } from "../Types";
 /*----------------------------------------------------------------------
  *                      PRIVATE VARIABLES
  */
-const chapterDataCache = new LRUCache<string, ChapterCacheEntry>({
-    max: 20,
+export const chapterDataCache = new LRUCache<string, ChapterCacheEntry>({
+    max: 50,
     ttl: 8 * MS_PER_HOUR,
     updateAgeOnGet: true
 });
 
 /*----------------------------------------------------------------------
+ *                      PRIVATE FUNCTIONS
+ */
+function prefetchAdjacentChapters(bookId: number, chapter: number): void {
+    const prefetch = (ch: number) => {
+        const key = `${bookId}:${ch}`;
+        if (!chapterDataCache.has(key)) {
+            fetchChapterHtml(bookId, ch)
+                .then((html) => {
+                    if (html) {
+                        chapterDataCache.set(key, { html, geoplaces: extractGeoplaces(html) });
+                    }
+                })
+                .catch(() => {});
+        }
+    };
+    prefetch(chapter + 1);
+    if (chapter > 1) prefetch(chapter - 1);
+}
+
+/*----------------------------------------------------------------------
  *                      LOADER
  */
-export default async function chapterLoader({ params }: LoaderFunctionArgs) {
+export default async function chapterLoader({ params, request }: LoaderFunctionArgs) {
     const { bookId, chapter } = params;
     const key = `${bookId}:${chapter}`;
 
@@ -36,7 +56,7 @@ export default async function chapterLoader({ params }: LoaderFunctionArgs) {
         return chapterDataCache.get(key);
     }
 
-    const html = await fetchChapterHtml(Number(bookId), Number(chapter));
+    const html = await fetchChapterHtml(Number(bookId), Number(chapter), request.signal);
 
     if (!html) {
         // eslint-disable-next-line @typescript-eslint/only-throw-error
@@ -44,8 +64,10 @@ export default async function chapterLoader({ params }: LoaderFunctionArgs) {
     }
 
     const geoplaces = extractGeoplaces(html);
+    const entry = { html, geoplaces };
 
-    chapterDataCache.set(key, { html, geoplaces });
+    chapterDataCache.set(key, entry);
+    void prefetchAdjacentChapters(Number(bookId), Number(chapter));
 
-    return chapterDataCache.get(key);
+    return entry;
 }

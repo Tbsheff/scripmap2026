@@ -22,6 +22,9 @@ import {
 import { Book, Books } from "../Types";
 import "./NextPreviousComponent.css";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
+import { chapterDataCache } from "./ChapterLoader";
+import extractGeoplaces from "./MapHelper";
+import { fetchChapterHtml } from "../ServerApi";
 
 /*----------------------------------------------------------------------
  *                      CONSTANTS
@@ -58,6 +61,16 @@ function chapterNavigationNode(
             title={title}
             aria-label={title}
             state={isNext ? NEXT_STATE : PREV_STATE}
+            onMouseEnter={() => {
+                const key = `${bookId}:${chapter}`;
+                if (!chapterDataCache.has(key)) {
+                    void fetchChapterHtml(bookId, chapter).then((html) => {
+                        if (html) {
+                            chapterDataCache.set(key, { html, geoplaces: extractGeoplaces(html) });
+                        }
+                    }).catch(() => {});
+                }
+            }}
         >
             {textBefore !== "" ? <div className="nav-text">{textBefore}</div> : null}
             <div className="icon waves-effect">{icon}</div>
