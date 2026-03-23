@@ -18,10 +18,12 @@
 
 .nav-next a {
     right: calc(70% - 1.25em);
+    border-radius: var(--radius-md, 0.5rem) 0 0 var(--radius-md, 0.5rem);
 }
 
 .nav-previous a {
     left: env(safe-area-inset-left);
+    border-radius: 0 var(--radius-md, 0.5rem) var(--radius-md, 0.5rem) 0;
 }
 
 .nav-next:hover a,

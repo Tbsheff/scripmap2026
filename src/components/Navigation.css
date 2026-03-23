@@ -28,7 +28,7 @@ nav .btn {
     color: var(--button-text-color);
     outline: 0;
     border: none;
-    border-radius: 2px;
+    border-radius: var(--radius-md, 0.5rem);
     height: 2.5em;
     line-height: 2.5em;
     padding: 0 0.2em;

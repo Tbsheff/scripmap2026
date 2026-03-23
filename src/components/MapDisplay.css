@@ -38,7 +38,7 @@ section.MapDisplay {
     background-color: var(--button-background-color);
     color: var(--body-text-color);
     padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-radius: var(--radius-lg, 0.625rem);
     font-size: 0.85rem;
     pointer-events: none;
     white-space: nowrap;

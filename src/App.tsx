@@ -53,7 +53,7 @@ function ErrorPage() {
                     color: "var(--header-text-color)",
                     backgroundColor: "var(--header-background-color)",
                     padding: "0.5rem 1.25rem",
-                    borderRadius: "4px",
+                    borderRadius: "0.5rem",
                     textDecoration: "none",
                     fontWeight: "bold",
                 }}
