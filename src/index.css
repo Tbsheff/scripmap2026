@@ -21,7 +21,7 @@
     --outline-variant: #abb4b3;
 
     /* Signature Sage */
-    --primary: #546259;
+    --primary: #3e4f44;
     --primary-container: #d7e6db;
     --on-primary: #f9f9f8;
 
@@ -170,5 +170,11 @@ body {
 @layer base {
     * {
         border-color: var(--border-nav-map-color);
+    }
+  .maplibregl-popup-content {
+    @apply bg-transparent! shadow-none! p-0! rounded-none!;
+    }
+  .maplibregl-popup-tip {
+    @apply hidden!;
     }
 }

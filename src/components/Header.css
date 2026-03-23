@@ -59,7 +59,9 @@ header {
     border: none;
     color: var(--primary);
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.625rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
     border-radius: var(--radius-full);
     transition: background-color var(--transition-slow), transform 160ms var(--ease-out);
     flex-shrink: 0;
@@ -73,6 +75,11 @@ header {
 
 .map-toggle-btn:active {
     transform: scale(0.92);
+}
+
+.map-toggle-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
 }
 
 .map-toggle-btn svg {

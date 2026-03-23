@@ -65,6 +65,11 @@
     transform: scale(0.95);
 }
 
+.chapter-pill:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
 @keyframes chapterFadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to   { opacity: 1; transform: scale(1); }

@@ -28,11 +28,10 @@ nav .btn {
     text-transform: uppercase;
     background-color: var(--surface-container-lowest);
     color: var(--on-surface);
-    outline: 0;
     border: none;
     border-radius: var(--radius-full);
-    height: 2.125rem;
-    line-height: 2.125rem;
+    height: 2.75rem;
+    line-height: 2.75rem;
     padding: 0 0.875rem;
     box-shadow: none;
     transition: background-color var(--transition-slow), color var(--transition-slow), transform 160ms var(--ease-out);
@@ -292,6 +291,13 @@ span.verse {
     max-width: 36rem;
     padding-inline-start: 3rem;
     padding-inline-end: 3rem;
+}
+
+@media screen and (max-width: 44rem) {
+    .scripturecontent {
+        padding-inline-start: 1.25rem;
+        padding-inline-end: 1.25rem;
+    }
 }
 
 .scripturecontent ul {
