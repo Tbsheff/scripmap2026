@@ -21,7 +21,7 @@ const VOLUME_LABELS = ["Volume I", "Volume II", "Volume III", "Volume IV", "Volu
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
-export default function VolumeComponent({ volume }: VolumeProps) {
+export default memo(function VolumeComponent({ volume }: VolumeProps) {
     if (!volume) {
         return null;
     }
@@ -51,4 +51,4 @@ export default function VolumeComponent({ volume }: VolumeProps) {
             </div>
         </section>
     );
-}
+});

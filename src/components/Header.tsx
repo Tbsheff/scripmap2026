@@ -24,7 +24,7 @@ interface HeaderProps {
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
-export default function Header({ mapOpen = false, onToggleMap }: HeaderProps) {
+export default memo(function Header({ mapOpen = false, onToggleMap }: HeaderProps) {
     return (
         <header>
             <div className="centerhead">
@@ -54,4 +54,4 @@ export default function Header({ mapOpen = false, onToggleMap }: HeaderProps) {
             )}
         </header>
     );
-}
+});

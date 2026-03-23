@@ -16,47 +16,51 @@ import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import "./Breadcrumbs.css";
 
 /*----------------------------------------------------------------------
- *                      PRIVATE HELPERS
+ *                      COMPONENT
  */
-function BreadcrumbsContent() {
+export default function Breadcrumbs() {
     const { volumeId, bookId, chapter } = useParams();
     const { volumes, books } = useScripturesDataContext();
     const volume = volumes.find((v) => v.id === Number(volumeId));
     const book = books[bookId ?? ""];
 
-    const crumbs = [];
+    const crumbs = useMemo(() => {
+        const items = [];
 
-    if (volume === undefined) {
-        crumbs.push(<li key="t" aria-current="page">{HOME_BREADCRUMB}</li>);
-    } else {
-        crumbs.push(
-            <li key="t">
-                <Link to="/">{HOME_BREADCRUMB}</Link>
-            </li>
-        );
-
-        if (book === undefined) {
-            crumbs.push(<li key={`v${volume.id}`} aria-current="page">{volume.fullName}</li>);
+        if (volume === undefined) {
+            items.push(<li key="t" aria-current="page">{HOME_BREADCRUMB}</li>);
         } else {
-            crumbs.push(
-                <li key={`v${volume.id}`}>
-                    <Link to={`/${volume.id}`}>{volume.fullName}</Link>
+            items.push(
+                <li key="t">
+                    <Link to="/">{HOME_BREADCRUMB}</Link>
                 </li>
             );
 
-            if (chapter === undefined || Number(chapter) <= 0) {
-                crumbs.push(<li key={`b${book.id}`} aria-current="page">{book.tocName}</li>);
+            if (book === undefined) {
+                items.push(<li key={`v${volume.id}`} aria-current="page">{volume.fullName}</li>);
             } else {
-                crumbs.push(
-                    <li key={`b${book.id}`}>
-                        <Link to={`/${volume.id}/${book.id}`}>{book.tocName}</Link>
+                items.push(
+                    <li key={`v${volume.id}`}>
+                        <Link to={`/${volume.id}`}>{volume.fullName}</Link>
                     </li>
                 );
 
-                crumbs.push(<li key={`c${chapter}`} aria-current="page">{chapter}</li>);
+                if (chapter === undefined || Number(chapter) <= 0) {
+                    items.push(<li key={`b${book.id}`} aria-current="page">{book.tocName}</li>);
+                } else {
+                    items.push(
+                        <li key={`b${book.id}`}>
+                            <Link to={`/${volume.id}/${book.id}`}>{book.tocName}</Link>
+                        </li>
+                    );
+
+                    items.push(<li key={`c${chapter}`} aria-current="page">{chapter}</li>);
+                }
             }
         }
-    }
+
+        return items;
+    }, [volumeId, bookId, chapter, volumes, books]);
 
     return (
         <div className="crumbs-wrapper">
@@ -65,11 +69,4 @@ function BreadcrumbsContent() {
             </div>
         </div>
     );
-}
-
-/*----------------------------------------------------------------------
- *                      COMPONENT
- */
-export default function Breadcrumbs() {
-    return <BreadcrumbsContent />;
 }

@@ -31,8 +31,8 @@ export default function BookComponent() {
         return <Navigate to={`/${book.parentBookId}/${book.id}/${book.numChapters}`} replace />;
     }
 
-    const chaptersList = Array.from({ length: book.numChapters }, (_, i) => i + 1).map(
-        (chapter) => (
+    const chaptersList = useMemo(() =>
+        Array.from({ length: book.numChapters }, (_, i) => i + 1).map((chapter) => (
             <Link
                 className="chapter-pill"
                 id={`c${chapter}`}
@@ -41,7 +41,8 @@ export default function BookComponent() {
             >
                 {chapter}
             </Link>
-        )
+        )),
+        [book, bookId]
     );
 
     return (

@@ -60,11 +60,12 @@ export default function Navigation() {
         navRef.current?.focus();
     }, [pathname]);
 
-    if (!nodeRefCache.has(pathname)) {
-        nodeRefCache.set(pathname, createRef() as RefObject<HTMLDivElement>);
-    }
-
-    const nodeRef = nodeRefCache.get(pathname);
+    const nodeRef = useMemo(() => {
+        if (!nodeRefCache.has(pathname)) {
+            nodeRefCache.set(pathname, createRef<HTMLDivElement>());
+        }
+        return nodeRefCache.get(pathname)!;
+    }, [pathname]);
 
     return (
         <nav id="scripture-content" ref={navRef} tabIndex={-1} aria-label="Scripture navigation" className="container">

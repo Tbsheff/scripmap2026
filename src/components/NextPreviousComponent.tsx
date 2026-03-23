@@ -24,6 +24,12 @@ import "./NextPreviousComponent.css";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 
 /*----------------------------------------------------------------------
+ *                      CONSTANTS
+ */
+const NEXT_STATE = { animationKey: ANIMATION_KEY_NEXT };
+const PREV_STATE = { animationKey: ANIMATION_KEY_PREVIOUS };
+
+/*----------------------------------------------------------------------
  *                      PRIVATE TYPES
  */
 interface NextPreviousParameters {
@@ -43,10 +49,7 @@ function chapterNavigationNode(
     textBefore: string,
     textAfter: string
 ) {
-    const animationKey =
-        icon === ICON_NEXT || icon === ICON_NEXT_SMALL
-            ? ANIMATION_KEY_NEXT
-            : ANIMATION_KEY_PREVIOUS;
+    const isNext = icon === ICON_NEXT || icon === ICON_NEXT_SMALL;
 
     return (
         <Link
@@ -54,9 +57,7 @@ function chapterNavigationNode(
             key={`np${bookId}-${chapter}`}
             title={title}
             aria-label={title}
-            state={{
-                animationKey
-            }}
+            state={isNext ? NEXT_STATE : PREV_STATE}
         >
             {textBefore !== "" ? <div className="nav-text">{textBefore}</div> : null}
             <div className="icon waves-effect">{icon}</div>
@@ -193,7 +194,7 @@ export default function NextPreviousComponent() {
     );
 }
 
-export function PreviousSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
+export const PreviousSideComponent = memo(function PreviousSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
     const { books } = useScripturesDataContext();
 
     return (
@@ -201,9 +202,9 @@ export function PreviousSideComponent({ bookId, chapter }: { bookId?: string; ch
             {previousMarkup(previousChapter(Number(bookId), Number(chapter), books))}
         </div>
     );
-}
+});
 
-export function NextSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
+export const NextSideComponent = memo(function NextSideComponent({ bookId, chapter }: { bookId?: string; chapter?: string }) {
     const { books } = useScripturesDataContext();
 
     return (
@@ -211,4 +212,4 @@ export function NextSideComponent({ bookId, chapter }: { bookId?: string; chapte
             {nextMarkup(nextChapter(Number(bookId), Number(chapter), books))}
         </div>
     );
-}
+});
