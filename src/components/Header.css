@@ -24,6 +24,9 @@ header {
     flex-direction: column;
     align-items: flex-start;
     white-space: nowrap;
+    padding-right: 1rem;
+    border-right: 1px solid var(--outline-variant, rgba(171, 180, 179, 0.3));
+    margin-right: 0.5rem;
 }
 
 .title {
