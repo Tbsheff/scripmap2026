@@ -9,10 +9,11 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import Header from "./Header";
-import MapDisplay from "./MapDisplay";
 import { MapErrorBoundary } from "./MapErrorBoundary";
+
+const MapDisplay = lazy(() => import("./MapDisplay"));
 import Navigation from "./Navigation";
 import NextPreviousComponent from "./NextPreviousComponent";
 import { MapDataContext } from "../context/MapData";
@@ -34,15 +35,22 @@ export default function MainPage() {
         };
     }, []);
 
+    const mapContextValue = useMemo(
+        () => ({ focusedGeoplace, geoplaces, setFocusedGeoplace, setGeoplaces }),
+        [focusedGeoplace, geoplaces, setFocusedGeoplace, setGeoplaces]
+    );
+
     return (
-        <MapDataContext value={{ focusedGeoplace, geoplaces, setFocusedGeoplace, setGeoplaces }}>
+        <MapDataContext value={mapContextValue}>
             <a className="skip-to-content" href="#scripture-content">Skip to content</a>
             <main>
                 <Header />
                 <Navigation />
                 <NextPreviousComponent />
                 <MapErrorBoundary>
-                    <MapDisplay />
+                    <Suspense fallback={<div style={{ gridArea: "map" }} />}>
+                        <MapDisplay />
+                    </Suspense>
                 </MapErrorBoundary>
             </main>
         </MapDataContext>

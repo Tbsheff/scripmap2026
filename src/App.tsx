@@ -9,14 +9,16 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
-import BookComponent from "./components/BookComponent";
-import ChapterComponent from "./components/ChapterComponent";
 import chapterLoader from "./components/ChapterLoader";
 import LoadingIndicator from "./components/LoadingIndicator";
 import MainPage from "./components/MainPage";
 import { ScripturesDataProvider } from "./context/ScripturesDataProvider";
-import VolumesList from "./components/VolumesList";
+
+const BookComponent = lazy(() => import("./components/BookComponent"));
+const ChapterComponent = lazy(() => import("./components/ChapterComponent"));
+const VolumesList = lazy(() => import("./components/VolumesList"));
 import "./App.css";
 import "./Waves.js";
 import "./Waves.css";
@@ -71,12 +73,12 @@ const router = createBrowserRouter([
         element: <MainPage />,
         errorElement: <ErrorPage />,
         children: [
-            { path: "", element: <VolumesList /> },
-            { path: ":volumeId", element: <VolumesList /> },
-            { path: ":volumeId/:bookId", element: <BookComponent /> },
+            { path: "", element: <Suspense fallback={<LoadingIndicator />}><VolumesList /></Suspense> },
+            { path: ":volumeId", element: <Suspense fallback={<LoadingIndicator />}><VolumesList /></Suspense> },
+            { path: ":volumeId/:bookId", element: <Suspense fallback={<LoadingIndicator />}><BookComponent /></Suspense> },
             {
                 path: ":volumeId/:bookId/:chapter",
-                element: <ChapterComponent />,
+                element: <Suspense fallback={<LoadingIndicator />}><ChapterComponent /></Suspense>,
                 hydrateFallbackElement: <LoadingIndicator />,
                 loader: chapterLoader
             }
