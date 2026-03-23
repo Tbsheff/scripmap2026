@@ -1,82 +1,11 @@
-.booksContainer {
-    width: 100%;
-    overflow-y: auto;
-    height: 100%;
-    padding: 2rem 2.5rem 4rem;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.book-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--outline-variant, rgba(171, 180, 179, 0.15));
-}
-
-.book-header-label {
-    display: block;
-    font-family: "Manrope", sans-serif;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--primary);
-    margin-bottom: 0.25rem;
-}
-
-.book-header-title {
-    font-family: "Noto Serif", serif;
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: var(--on-surface);
-    margin: 0;
-    letter-spacing: -0.01em;
-}
-
-.chapter-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr));
-    gap: 0.625rem;
-}
-
 .chapter-pill {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--surface-container-lowest);
-    color: var(--on-surface);
-    font-family: "Manrope", sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    aspect-ratio: 1;
-    border-radius: 0.75rem;
-    text-decoration: none;
     transition: background-color 300ms ease, color 300ms ease, transform 160ms var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .chapter-pill:hover {
-        background-color: var(--primary);
-        color: var(--on-primary);
-    }
-}
-
-.chapter-pill:active {
-    transform: scale(0.95);
-}
-
-.chapter-pill:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
+    animation: chapterFadeIn 250ms var(--ease-out) both;
 }
 
 @keyframes chapterFadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to   { opacity: 1; transform: scale(1); }
-}
-
-.chapter-pill {
-    animation: chapterFadeIn 250ms var(--ease-out) both;
 }
 
 .chapter-pill:nth-child(n+1)  { animation-delay: calc(var(--i, 0) * 15ms); }
@@ -92,21 +21,9 @@
 .chapter-pill:nth-child(10) { --i: 9; }
 .chapter-pill:nth-child(n+11) { animation-delay: 150ms; }
 
-@media screen and (max-width: 44rem) {
-    .booksContainer {
-        padding: 1.25rem 1rem 3rem;
-    }
-
-    .chapter-grid {
-        grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
-        gap: 0.5rem;
-    }
-
-    .chapter-pill {
-        font-size: 0.8rem;
-    }
-
-    .book-header-title {
-        font-size: 1.5rem;
+@media (hover: hover) and (pointer: fine) {
+    .chapter-pill:hover {
+        background-color: var(--primary);
+        color: var(--on-primary);
     }
 }
