@@ -34,10 +34,9 @@ const VOLUME_ICONS: Record<number, string> = {
 function BookCard({ volume, book, variant = "default" }: {
     volume: Volume;
     book: { id: number; citeAbbr: string; fullName: string; urlPath: string };
-    variant?: "default" | "surface" | "glass";
+    variant?: "default" | "surface";
 }) {
     const cls = variant === "surface" ? "book-card book-card--surface"
-        : variant === "glass" ? "book-card book-card--glass"
         : "book-card";
 
     return (
@@ -101,7 +100,7 @@ function VolumeCompact({ volume, label, tinted = false }: {
             </div>
             <div className="vol-grid vol-grid--compact">
                 {volume.books.map((book) => (
-                    <BookCard volume={volume} book={book} variant="glass" key={book.id} />
+                    <BookCard volume={volume} book={book} variant="surface" key={book.id} />
                 ))}
             </div>
         </div>
@@ -141,11 +140,8 @@ export default function VolumesList() {
     return (
         <div className="volumesListComponent">
             <header className="hub-header">
-                <h1 className="hub-title">Scripture Selection Hub</h1>
-                <p className="hub-subtitle">
-                    A curated bridge between the sacred word and the maps of time.
-                    Choose a volume to begin your geographic and spiritual exploration.
-                </p>
+                <h1 className="hub-title">The Scriptures</h1>
+                <p className="hub-subtitle">Explore scripture and geography together.</p>
             </header>
 
             <div className="hub-content">

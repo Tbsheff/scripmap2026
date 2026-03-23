@@ -60,7 +60,9 @@
     justify-content: space-between;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--outline-variant, rgba(171, 180, 179, 0.15));
+    border-bottom: 1px solid var(--outline-variant);
+    border-left: 3px solid var(--primary);
+    padding-left: 1rem;
 }
 
 .vol-label {
@@ -95,7 +97,7 @@
     gap: 1rem;
 }
 
-@media screen and (min-width: 30rem) {
+@media screen and (min-width: 36rem) {
     .vol-grid--standard {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -109,7 +111,7 @@
 
 @media screen and (min-width: 64rem) {
     .vol-grid--standard {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(5, 1fr);
     }
 }
 
@@ -133,11 +135,6 @@
     background-color: var(--surface-container);
 }
 
-.book-card--glass {
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
 
 @media (hover: hover) and (pointer: fine) {
     .book-card:hover {
@@ -170,7 +167,7 @@
 .book-name {
     font-family: "Noto Serif", serif;
     font-size: 1.05rem;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.25;
 }
 

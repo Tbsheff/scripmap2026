@@ -29,6 +29,18 @@
     --secondary-container: #e0e3e6;
     --on-secondary: #2c3433;
 
+    /* Accent */
+    --accent: #7a6348;
+    --accent-container: #f0e6d8;
+
+    /* Type scale */
+    --text-xs: 0.6875rem;
+    --text-sm: 0.8125rem;
+    --text-base: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.875rem;
+    --text-2xl: 2.5rem;
+
     /* Legacy compatibility tokens */
     --body-background-color: var(--surface);
     --body-text-color: var(--on-surface);
@@ -95,6 +107,9 @@
 
         --secondary-container: #333837;
         --on-secondary: #e0e4e3;
+
+        --accent: #c4a882;
+        --accent-container: #3d3228;
 
         --chapter-background-color: var(--surface-container-lowest);
         --header-shadow-1: rgba(0, 0, 0, 0.15);
