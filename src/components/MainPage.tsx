@@ -28,10 +28,24 @@ export default function MainPage() {
     const [focusedGeoplace, setFocusedGeoplace] = useState<GeoPlace | null>(null);
     const [geoplaces, setGeoplaces] = useState<GeoPlaces | null>(null);
     const [mapOpen, setMapOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
     const { chapter } = useParams();
     const isChapterView = Boolean(chapter);
 
     const toggleMap = useCallback(() => setMapOpen((prev) => !prev), []);
+    const toggleSidebar = useCallback(() => setSidebarOpen((prev) => !prev), []);
+
+    // Cmd/Ctrl+B to toggle sidebar
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "b" && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                toggleSidebar();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [toggleSidebar]);
 
     useEffect(() => {
         if (!isChapterView) {
@@ -59,8 +73,8 @@ export default function MainPage() {
 
                 {/* Outer shell — full viewport, flex row */}
                 <div className="flex h-dvh w-full overflow-hidden bg-[var(--surface-container-low)]">
-                    {/* Sidebar — desktop only */}
-                    <Sidebar />
+                    {/* Sidebar — desktop only, collapsible */}
+                    <Sidebar open={sidebarOpen} />
 
                     {/* Main area — flex column with inset container */}
                     <div className="flex min-h-0 flex-1 flex-col p-0 lg:p-2 lg:pl-0">
@@ -70,6 +84,7 @@ export default function MainPage() {
                             <Header
                                 mapOpen={isChapterView && mapOpen}
                                 onToggleMap={isChapterView ? toggleMap : undefined}
+                                onToggleSidebar={toggleSidebar}
                             />
 
                             {/* Content + optional map */}

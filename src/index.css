@@ -7,31 +7,32 @@
 :root {
     color-scheme: light dark;
 
-    /* Surface Hierarchy (stacked fine papers) */
-    --surface: #f9f9f8;
-    --surface-container-low: #f1f4f3;
-    --surface-container: #e8eceb;
-    --surface-container-high: #dfe3e2;
+    /* Surface Hierarchy — Neutral #F7F8F7 base */
+    --surface: #ffffff;
+    --surface-container-low: #eaebea;
+    --surface-container: #e0e2e0;
+    --surface-container-high: #d6d8d7;
     --surface-container-lowest: #ffffff;
 
-    /* Text & Content */
-    --on-surface: #2c3433;
-    --on-surface-variant: #5a6665;
-    --outline: #8a9392;
-    --outline-variant: #abb4b3;
+    /* Text & Content — Secondary #373B3E */
+    --on-surface: #373B3E;
+    --on-surface-variant: #5a5e60;
+    --outline: #8C9BA5;
+    --outline-variant: #c2c8cc;
 
-    /* Signature Sage */
-    --primary: #3e4f44;
+    /* Primary — Sage #5F6D64 */
+    --primary: #5F6D64;
     --primary-container: #d7e6db;
-    --on-primary: #f9f9f8;
+    --on-primary: #ffffff;
 
-    /* Secondary (neutral) */
+    /* Secondary — Charcoal #373B3E */
+    --secondary: #373B3E;
     --secondary-container: #e0e3e6;
-    --on-secondary: #2c3433;
+    --on-secondary: #ffffff;
 
-    /* Accent */
-    --accent: #7a6348;
-    --accent-container: #f0e6d8;
+    /* Tertiary — Steel #8C9BA5 */
+    --tertiary: #8C9BA5;
+    --tertiary-container: #e3edf5;
 
     /* Type scale */
     --text-xs: 0.6875rem;
@@ -55,7 +56,7 @@
     --border-nav-map-color: rgba(171, 180, 179, 0.35);
     --nav-hover-color: var(--surface-container-low);
     --scripture-link-color: var(--primary);
-    --scripture-hover-color: #3d4a42;
+    --scripture-hover-color: #4a5850;
     --volume-hover-color: var(--primary);
     --match-background-color: #e8ecd8;
     --active-hover-color: var(--primary);

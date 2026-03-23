@@ -72,31 +72,35 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
     );
 }
 
-export default function Sidebar() {
+export default function Sidebar({ open = true }: { open?: boolean }) {
     const { isLoading, volumes } = useScripturesDataContext();
     const { volumeSlug } = useParams();
 
     return (
-        <aside className="hidden lg:flex flex-col w-[18rem] shrink-0 overflow-y-auto overflow-x-hidden pt-6"
+        <aside
+            className={`hidden lg:flex flex-col shrink-0 overflow-y-auto overflow-x-hidden pt-6
+                        transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+                        ${open ? "w-[18rem]" : "w-0"}`}
         >
+            <div className={`transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                <div className="px-6 pb-6">
+                    <span className="block font-serif text-lg italic text-[var(--on-surface)] whitespace-nowrap">
+                        The Scriptures Mapped
+                    </span>
+                </div>
 
-            <div className="px-6 pb-6">
-                <span className="block font-serif text-lg italic text-[var(--on-surface)]">
-                    The Scriptures Mapped
-                </span>
+                {!isLoading && volumes.length > 0 && (
+                    <nav className="flex flex-col gap-0.5 pr-3" aria-label="Scripture volumes">
+                        {volumes.map((volume) => (
+                            <VolumeTree
+                                key={volume.id}
+                                volume={volume}
+                                isActive={volumeSlug === volume.urlPath}
+                            />
+                        ))}
+                    </nav>
+                )}
             </div>
-
-            {!isLoading && volumes.length > 0 && (
-                <nav className="flex flex-col gap-0.5 pr-3" aria-label="Scripture volumes">
-                    {volumes.map((volume) => (
-                        <VolumeTree
-                            key={volume.id}
-                            volume={volume}
-                            isActive={volumeSlug === volume.urlPath}
-                        />
-                    ))}
-                </nav>
-            )}
         </aside>
     );
 }
