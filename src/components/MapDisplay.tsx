@@ -27,6 +27,8 @@ const DEFAULT_MAP_TYPE_ID = "terrain";
 const DEFAULT_ZOOM = 8;
 const JERUSALEM_LOCATION = { lat: 31.778407, lng: 35.234725 };
 const MAP_ID = "dd27f636464f8569";
+const MAP_TYPE_CONTROL_OPTIONS = { position: ControlPosition.TOP_RIGHT };
+const ZOOM_CONTROL_OPTIONS = { position: ControlPosition.RIGHT_BOTTOM };
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
@@ -68,16 +70,12 @@ export default function MapDisplay() {
                     mapId={MAP_ID}
                     gestureHandling={DEFAULT_GESTURE_HANDLING}
                     mapTypeControl={true}
-                    mapTypeControlOptions={{
-                        position: ControlPosition.TOP_RIGHT
-                    }}
+                    mapTypeControlOptions={MAP_TYPE_CONTROL_OPTIONS}
                     mapTypeId={DEFAULT_MAP_TYPE_ID}
                     streetViewControl={false}
                     fullscreenControl={false}
                     zoomControl={true}
-                    zoomControlOptions={{
-                        position: ControlPosition.RIGHT_BOTTOM
-                    }}
+                    zoomControlOptions={ZOOM_CONTROL_OPTIONS}
                 >
                     {markers}
                 </Map>

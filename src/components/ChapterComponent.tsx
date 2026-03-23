@@ -9,7 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useLoaderData, useParams } from "react-router-dom";
 import { ANIMATION_MARKER_DELAY } from "../Constants";
 import { ChapterCacheEntry } from "../Types";
@@ -25,12 +25,13 @@ export default function ChapterComponent() {
     const { setFocusedGeoplace, setGeoplaces } = useMapContext();
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const loaderData = useLoaderData() as ChapterCacheEntry | undefined;
-    const [cachedData, setCachedData] = useState(loaderData);
+    const cachedDataRef = useRef(loaderData);
+    if (loaderData) {
+        cachedDataRef.current = loaderData;
+    }
 
     useEffect(() => {
         if (loaderData) {
-            setCachedData(loaderData);
-
             const timer = setTimeout(() => {
                 setGeoplaces(loaderData.geoplaces);
                 setFocusedGeoplace(null);
@@ -42,9 +43,9 @@ export default function ChapterComponent() {
         } else {
             setGeoplaces(null);
         }
-    }, [loaderData, setCachedData, setFocusedGeoplace, setGeoplaces]);
+    }, [loaderData, setFocusedGeoplace, setGeoplaces]);
 
-    const html = loaderData?.html ?? cachedData?.html;
+    const html = loaderData?.html ?? cachedDataRef.current?.html;
 
     if (!html) {
         return (
