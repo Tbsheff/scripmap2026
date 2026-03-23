@@ -12,7 +12,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import chapterLoader from "./components/ChapterLoader";
-import LoadingIndicator from "./components/LoadingIndicator";
+import LoadingIndicator, { ChapterLoadingIndicator, ScriptureLoadingIndicator } from "./components/LoadingIndicator";
 import MainPage from "./components/MainPage";
 import { ScripturesDataProvider } from "./context/ScripturesDataProvider";
 
@@ -47,11 +47,11 @@ const router = createBrowserRouter([
         children: [
             { path: "", element: <Suspense fallback={<LoadingIndicator />}><VolumesList /></Suspense> },
             { path: ":volumeId", element: <Suspense fallback={<LoadingIndicator />}><VolumesList /></Suspense> },
-            { path: ":volumeId/:bookId", element: <Suspense fallback={<LoadingIndicator />}><BookComponent /></Suspense> },
+            { path: ":volumeId/:bookId", element: <Suspense fallback={<ChapterLoadingIndicator />}><BookComponent /></Suspense> },
             {
                 path: ":volumeId/:bookId/:chapter",
-                element: <Suspense fallback={<LoadingIndicator />}><ChapterComponent /></Suspense>,
-                hydrateFallbackElement: <LoadingIndicator />,
+                element: <Suspense fallback={<ScriptureLoadingIndicator />}><ChapterComponent /></Suspense>,
+                hydrateFallbackElement: <ScriptureLoadingIndicator />,
                 loader: chapterLoader
             }
         ]

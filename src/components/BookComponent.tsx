@@ -11,7 +11,7 @@
  */
 import { useMemo } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import LoadingIndicator from "./LoadingIndicator";
+import { ChapterLoadingIndicator } from "./LoadingIndicator";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import "./BookComponent.css";
 
@@ -40,7 +40,7 @@ export default function BookComponent() {
     );
 
     if (isLoading || !book) {
-        return <LoadingIndicator />;
+        return <ChapterLoadingIndicator />;
     }
 
     if (book.numChapters <= 1) {

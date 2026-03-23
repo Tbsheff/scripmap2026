@@ -1,38 +1,11 @@
-.loading-skeleton {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-    padding: 1rem;
-    width: 100%;
-    box-sizing: border-box;
-}
+/* ============================================================
+   EDITORIAL LOADING STATES
+   Skeletons that mirror the actual content layout
+   ============================================================ */
 
-.loading-skeleton__pill {
-    height: 2.5rem;
-    border-radius: 9999px;
-    background: linear-gradient(
-        90deg,
-        var(--button-background-color) 25%,
-        var(--body-background-color) 50%,
-        var(--button-background-color) 75%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.8s ease-in-out infinite;
-}
+/* ── Shared ── */
 
-.loading-skeleton__pill:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.loading-skeleton__pill:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-.loading-skeleton__pill:nth-child(4) {
-    animation-delay: 0.6s;
-}
-
-.loading-skeleton__sr-only {
+.sr-only {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -44,27 +17,148 @@
     border: 0;
 }
 
-@keyframes skeleton-pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.4;
-    }
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
+@keyframes fadeInSkeleton {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--surface-container-low) 25%,
+        var(--surface-container) 50%,
+        var(--surface-container-low) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite, fadeInSkeleton 400ms var(--ease-out) both;
+    border-radius: 0.5rem;
+}
+
+/* ── Hub Loading (Volume/Book Grid) ── */
+
+.loading-hub {
+    width: 100%;
+    padding: 2rem 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.loading-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.skeleton--label {
+    width: 5rem;
+    height: 0.65rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.skeleton--title {
+    width: 14rem;
+    height: 1.75rem;
+    border-radius: 0.375rem;
+}
+
+.loading-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+@media screen and (min-width: 30rem) {
+    .loading-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media screen and (min-width: 48rem) {
+    .loading-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media screen and (min-width: 64rem) {
+    .loading-grid { grid-template-columns: repeat(6, 1fr); }
+}
+
+.skeleton--card {
+    aspect-ratio: 4 / 3;
+    border-radius: 0.75rem;
+}
+
+/* ── Chapter Grid Loading ── */
+
+.loading-chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr));
+    gap: 0.625rem;
+}
+
+.skeleton--chapter {
+    aspect-ratio: 1;
+    border-radius: 0.75rem;
+}
+
+/* ── Scripture Reading Loading ── */
+
+.loading-scripture {
+    width: 100%;
+    max-width: 36rem;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+}
+
+.loading-scripture__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+}
+
+.skeleton--label-centered {
+    width: 12rem;
+    height: 0.6rem;
+    border-radius: 0.25rem;
+}
+
+.skeleton--display {
+    width: 10rem;
+    height: 3rem;
+    border-radius: 0.375rem;
+}
+
+.loading-scripture__lines {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.skeleton--line {
+    height: 0.85rem;
+    border-radius: 0.25rem;
+}
+
+/* ── Reduced Motion ── */
 
 @media (prefers-reduced-motion: reduce) {
-    .loading-skeleton__pill {
-        animation: none;
-        background: var(--button-background-color);
+    .skeleton {
+        animation: fadeInSkeleton 400ms var(--ease-out) both;
+        background: var(--surface-container-low);
+    }
+}
+
+/* ── Mobile ── */
+
+@media screen and (max-width: 44rem) {
+    .loading-hub {
+        padding: 1.25rem 1rem;
+    }
+
+    .loading-scripture {
+        padding: 2rem 1.5rem;
     }
 }
