@@ -1,15 +1,13 @@
-/* The Reflection Tray — bottom navigation */
 .next-prev-wrapper {
     grid-area: nextprev;
     display: flex;
     align-items: center;
     font-family: "Manrope", sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.06em;
-    background-color: var(--on-surface);
-    color: var(--surface);
+    background-color: var(--surface-container-low);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
@@ -32,18 +30,17 @@
 .next-prev-wrapper a:link,
 .next-prev-wrapper a:visited,
 .next-prev-wrapper a:active {
-    color: var(--surface);
+    color: var(--on-surface-variant);
     text-decoration: none;
-    transition: opacity var(--transition-slow);
-    opacity: 0.7;
+    transition: color var(--transition-slow);
 }
 
 .next-prev-wrapper a:hover {
-    opacity: 1;
+    color: var(--primary);
 }
 
 .next-prev-wrapper .nav-icon {
-    stroke: var(--surface);
+    stroke: var(--on-surface-variant);
     transition: stroke var(--transition-slow);
 }
 
@@ -74,5 +71,5 @@
 }
 
 .next-prev-wrapper a:hover .nav-icon {
-    stroke: var(--surface);
+    stroke: var(--primary);
 }

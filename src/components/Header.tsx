@@ -9,6 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
+import { memo } from "react";
 import Breadcrumbs from "./Breadcrumbs";
 import "./Header.css";
 

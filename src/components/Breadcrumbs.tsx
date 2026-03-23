@@ -9,6 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
+import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { HOME_BREADCRUMB } from "../Constants";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";

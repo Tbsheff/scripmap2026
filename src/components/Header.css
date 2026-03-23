@@ -4,38 +4,45 @@ header {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    background-color: var(--on-surface);
-    color: var(--surface);
+    background-color: rgba(249, 249, 248, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: var(--on-surface);
     z-index: var(--z-header);
-    padding: 0 1.25rem;
+    padding: 0 1.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    header {
+        background-color: rgba(26, 31, 30, 0.85);
+        color: var(--surface);
+    }
 }
 
 .centerhead {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     white-space: nowrap;
 }
 
 .title {
     font-family: "Noto Serif", serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0;
+    color: var(--on-surface);
+}
+
+@media (prefers-color-scheme: dark) {
+    .title {
+        color: var(--surface);
+    }
 }
 
 .subtitle {
-    font-size: 0.6rem;
-    opacity: 0.5;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    font-weight: 500;
-}
-
-@media screen and (max-width: 64rem) {
-    .centerhead .subtitle {
-        display: none;
-    }
+    display: none;
 }
 
 @media screen and (max-width: 44rem) {
@@ -44,7 +51,7 @@ header {
     }
 
     header {
-        padding: 0 0.75rem;
+        padding: 0 1rem;
     }
 }
 
@@ -54,28 +61,26 @@ header {
     justify-content: center;
     background: none;
     border: none;
-    color: var(--surface);
+    color: var(--primary);
     cursor: pointer;
-    padding: 0.4rem;
+    padding: 0.5rem;
     border-radius: var(--radius-full);
-    transition: background-color var(--transition-slow), opacity var(--transition-slow);
+    transition: background-color var(--transition-slow), transform 160ms var(--ease-out);
     flex-shrink: 0;
-    opacity: 0.7;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .map-toggle-btn:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        opacity: 1;
+        background-color: var(--surface-container-low);
     }
 }
 
 .map-toggle-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.92);
 }
 
 .map-toggle-btn svg {
     display: block;
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
 }

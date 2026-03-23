@@ -9,8 +9,8 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
+import { useMemo } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { CLASS_BUTTON } from "../Constants";
 import LoadingIndicator from "./LoadingIndicator";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import "./BookComponent.css";
@@ -34,7 +34,7 @@ export default function BookComponent() {
     const chaptersList = Array.from({ length: book.numChapters }, (_, i) => i + 1).map(
         (chapter) => (
             <Link
-                className={`${CLASS_BUTTON} chapter-btn`}
+                className="chapter-pill"
                 id={`c${chapter}`}
                 key={`k${chapter}`}
                 to={`/${book.parentBookId}/${book.id}/${chapter}`}
@@ -46,10 +46,11 @@ export default function BookComponent() {
 
     return (
         <div className="booksContainer">
-            <div className="volume">
-                <h5>{book.fullName}</h5>
+            <div className="book-header">
+                <span className="book-header-label">Chapters</span>
+                <h2 className="book-header-title">{book.fullName}</h2>
             </div>
-            <div className="books padded">{chaptersList}</div>
+            <div className="chapter-grid">{chaptersList}</div>
         </div>
     );
 }

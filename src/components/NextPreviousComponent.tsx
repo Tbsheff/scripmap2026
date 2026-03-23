@@ -9,7 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
     ANIMATION_KEY_NEXT,

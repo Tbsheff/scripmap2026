@@ -6,9 +6,10 @@
 
 .crumbs {
     font-family: "Manrope", sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
 .crumbs ul {
@@ -27,27 +28,44 @@
 }
 
 .crumbs li:not(:first-child)::before {
-    content: "/";
-    padding: 0 0.5em;
-    opacity: 0.35;
-    font-weight: 400;
+    content: "";
+    display: inline-block;
+    width: 0.35em;
+    height: 0.35em;
+    border-right: 1.5px solid var(--on-surface-variant);
+    border-top: 1.5px solid var(--on-surface-variant);
+    transform: rotate(45deg);
+    margin: 0 0.6em;
+    opacity: 0.3;
+    vertical-align: middle;
+}
+
+.crumbs li[aria-current="page"] {
+    color: var(--primary);
 }
 
 header a:link,
 header a:visited,
 header a:active {
-    color: var(--surface);
+    color: var(--on-surface-variant);
     text-decoration: none;
-    transition: opacity var(--transition-slow);
-    opacity: 0.7;
+    transition: color var(--transition-slow);
 }
 
 header a:hover {
-    opacity: 1;
+    color: var(--primary);
+}
+
+@media (prefers-color-scheme: dark) {
+    header a:link,
+    header a:visited,
+    header a:active {
+        color: var(--outline);
+    }
 }
 
 @media screen and (max-width: 44rem) {
     .crumbs {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
 }

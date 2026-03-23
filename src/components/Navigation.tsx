@@ -9,7 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { createRef, RefObject, useEffect, useRef } from "react";
+import { createRef, RefObject, useEffect, useMemo, useRef } from "react";
 import { useLocation, useOutlet } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { LRUCache } from "lru-cache";
