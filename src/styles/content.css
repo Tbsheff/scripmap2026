@@ -277,6 +277,56 @@ header a:hover {
     stroke: var(--primary);
 }
 
+.nav-icon {
+    stroke: var(--on-surface-variant);
+    transition: stroke var(--transition-slow);
+}
+
+.icon {
+    display: inline-block;
+}
+
+.icon svg {
+    width: 0.5em;
+    margin: 0.5em;
+    transition: transform 160ms var(--ease-out), fill 160ms var(--ease-out);
+}
+
+.next-prev-wrapper .icon svg {
+    height: 0.6em;
+    margin: 0.4em;
+}
+
+.nav-next a,
+.nav-previous a {
+    position: absolute;
+    top: 0;
+    width: 2.75em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    opacity: 0.4;
+    z-index: var(--z-nav-overlay, 10);
+    transition: opacity 200ms var(--ease-out), background-color 200ms var(--ease-out);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-next a {
+    right: 0;
+    justify-content: flex-end;
+}
+
+.nav-previous a {
+    left: env(safe-area-inset-left, 0);
+    justify-content: flex-start;
+}
+
+.nav-next a .icon,
+.nav-previous a .icon {
+    position: relative;
+    top: 45%;
+}
+
 @media (hover: hover) and (pointer: fine) {
     .next-prev-wrapper .previous-link:hover .icon svg {
         transform: translateX(-2px);
@@ -309,6 +359,11 @@ header a:hover {
 }
 
 .next-prev-wrapper {
+    display: flex;
+    align-items: center;
+    height: 2.75rem;
+    background-color: var(--surface-container-low);
+    font-size: 0.75rem;
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);

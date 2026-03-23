@@ -209,7 +209,7 @@ export default function NextPreviousComponent() {
     }
 
     return (
-        <div className="next-prev-wrapper">
+        <div className="next-prev-wrapper shrink-0">
             <div className="previous-link flex-1 basis-1/2 text-right pe-5">
                 {previousMarkup(
                     previousChapter(numericBookId, Number(chapter), books, volumes),
