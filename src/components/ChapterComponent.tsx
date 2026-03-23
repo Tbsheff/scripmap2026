@@ -51,15 +51,15 @@ export default function ChapterComponent() {
 
     if (!html) {
         return (
-            <div className="chapter-empty">
-                <p>No content available for this chapter.</p>
-                <Link to="/">Return to All Volumes</Link>
+            <div className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center">
+                <p className="m-0">No content available for this chapter.</p>
+                <Link to="/" className="text-[var(--header-text-color)] bg-[var(--header-background-color)] px-6 py-2 rounded text-decoration-none mt-4 no-underline">Return to All Volumes</Link>
             </div>
         );
     }
 
     return (
-        <div className="with-nav-buttons">
+        <div className="relative w-full h-full">
             <PreviousSideComponent bookSlug={bookSlug} chapter={chapter} />
             <div className="chapter-content" dangerouslySetInnerHTML={innerHtml} />
             <NextSideComponent bookSlug={bookSlug} chapter={chapter} />

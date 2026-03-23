@@ -26,10 +26,10 @@ import "./App.css";
  */
 function ErrorPage() {
     return (
-        <div role="alert" className="error-page">
-            <h2>Something went wrong</h2>
-            <p>Unable to load this page.</p>
-            <Link to="/">Return to All Volumes</Link>
+        <div role="alert" className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center bg-[var(--body-background-color)] text-[var(--body-text-color)]">
+            <h2 className="m-0 text-[var(--header-background-color)]">Something went wrong</h2>
+            <p className="m-0">Unable to load this page.</p>
+            <Link to="/" className="text-[var(--header-text-color)] bg-[var(--header-background-color)] px-6 py-2 rounded no-underline mt-4">Return to All Volumes</Link>
         </div>
     );
 }

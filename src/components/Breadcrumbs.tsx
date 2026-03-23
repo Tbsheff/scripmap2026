@@ -62,9 +62,9 @@ export default function Breadcrumbs() {
     }, [volumeSlug, bookSlug, chapter, volume, book]);
 
     return (
-        <div className="crumbs-wrapper">
+        <div className="flex-auto min-w-0 overflow-hidden">
             <div className="crumbs">
-                <ul>{crumbs}</ul>
+                <ul className="flex items-center p-0 m-0 list-none whitespace-nowrap overflow-hidden text-ellipsis">{crumbs}</ul>
             </div>
         </div>
     );

@@ -87,7 +87,7 @@ export default function VolumesList() {
     return (
         <div className="max-w-[75rem] mx-auto px-4 pt-5 pb-16 sm:px-10 sm:pt-8 sm:pb-24">
             <header className="hub-header mb-14 max-sm:mb-8">
-                <h1 className="font-serif text-5xl max-sm:text-[2rem] font-bold tracking-tight text-[var(--on-surface)] m-0 mb-4">{`The Scriptures`}</h1>
+                <h1 className="font-serif text-5xl max-sm:text-[2rem] font-bold tracking-tight text-[var(--on-surface)] m-0 mb-4">{`The Scriptures Mapped`}</h1>
                 <p className="font-serif text-[1.05rem] max-sm:text-[0.9rem] text-[var(--on-surface-variant)] max-w-[36rem] leading-relaxed m-0">Explore scripture and geography together.</p>
             </header>
 

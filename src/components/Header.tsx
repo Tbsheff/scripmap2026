@@ -29,20 +29,20 @@ export default memo(function Header({ mapOpen = false, onToggleMap }: HeaderProp
 
     return (
         <header>
-            <div className="centerhead">
-                <div className="title">The Scriptures Mapped</div>
+            <div className="centerhead hidden sm:flex flex-col items-start whitespace-nowrap pr-4 mr-2 border-r border-[rgba(171,180,179,0.15)]">
+                <div className="font-['Noto_Serif'] text-base font-normal italic tracking-normal text-[var(--on-surface)]">The Scriptures Mapped</div>
             </div>
             <Breadcrumbs />
             {onToggleMap && (
                 <button
-                    className="map-toggle-btn"
+                    className="map-toggle-btn flex items-center justify-center bg-none border-none text-[var(--primary)] cursor-pointer p-[0.625rem] min-w-[2.75rem] min-h-[2.75rem] rounded-full transition-[background-color,transform] flex-shrink-0 active:scale-[0.92]"
                     onClick={onToggleMap}
                     onMouseEnter={prefetchMap}
                     onFocus={prefetchMap}
                     aria-label={mapOpen ? "Close map" : "Open map"}
                     title={mapOpen ? "Close map" : "Open map"}
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="block w-[22px] h-[22px]">
                         {mapOpen ? (
                             <path d="M18 6L6 18M6 6l12 12" />
                         ) : (

@@ -210,7 +210,7 @@ export default function NextPreviousComponent() {
 
     return (
         <div className="next-prev-wrapper">
-            <div className="previous-link">
+            <div className="previous-link flex-1 basis-1/2 text-right pe-5">
                 {previousMarkup(
                     previousChapter(numericBookId, Number(chapter), books, volumes),
                     "",
@@ -218,7 +218,7 @@ export default function NextPreviousComponent() {
                     true
                 )}
             </div>
-            <div className="next-link">
+            <div className="next-link flex-1 basis-1/2 text-left ps-5">
                 {nextMarkup(nextChapter(numericBookId, Number(chapter), books, volumes), "Next", "", true)}
             </div>
         </div>
