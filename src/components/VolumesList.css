@@ -17,8 +17,6 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Hub Header ── */
-
 .hub-header {
     margin-bottom: 3.5rem;
     animation: fadeIn 500ms var(--ease-out) both;
@@ -47,8 +45,6 @@
     flex-direction: column;
     gap: 4rem;
 }
-
-/* ── Volume Section (Standard) ── */
 
 .vol-section {
     animation: fadeIn 400ms var(--ease-out) both;
@@ -85,37 +81,29 @@
     letter-spacing: -0.01em;
 }
 
-.vol-title--sm {
-    font-size: 1.5rem;
-}
-
-/* ── Standard Grid ── */
-
-.vol-grid--standard {
+.vol-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
 }
 
 @media screen and (min-width: 36rem) {
-    .vol-grid--standard {
+    .vol-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media screen and (min-width: 48rem) {
-    .vol-grid--standard {
+    .vol-grid {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
 @media screen and (min-width: 64rem) {
-    .vol-grid--standard {
+    .vol-grid {
         grid-template-columns: repeat(5, 1fr);
     }
 }
-
-/* ── Book Cards ── */
 
 .book-card {
     display: flex;
@@ -131,11 +119,6 @@
     overflow: hidden;
 }
 
-.book-card--surface {
-    background-color: var(--surface-container);
-}
-
-
 @media (hover: hover) and (pointer: fine) {
     .book-card:hover {
         background-color: var(--primary);
@@ -150,6 +133,11 @@
 
 .book-card:active {
     transform: scale(0.97);
+}
+
+.book-card:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 .book-abbr {
@@ -170,130 +158,6 @@
     font-weight: 500;
     line-height: 1.25;
 }
-
-/* ── Asymmetric Layout (New Testament) ── */
-
-.vol-section--asymmetric {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-}
-
-@media screen and (min-width: 64rem) {
-    .vol-section--asymmetric {
-        grid-template-columns: 3fr 9fr;
-        gap: 3rem;
-    }
-}
-
-.vol-aside {
-    display: flex;
-    flex-direction: column;
-}
-
-.vol-description {
-    font-family: "Noto Serif", serif;
-    font-size: 0.9rem;
-    color: var(--on-surface-variant);
-    line-height: 1.6;
-    margin: 0.75rem 0 0;
-}
-
-.vol-grid--asymmetric {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-@media screen and (min-width: 30rem) {
-    .vol-grid--asymmetric {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media screen and (min-width: 80rem) {
-    .vol-grid--asymmetric {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-/* ── Paired Layout (BoM + D&C/PGP) ── */
-
-.vol-section--paired {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-}
-
-@media screen and (min-width: 64rem) {
-    .vol-section--paired {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-.vol-paired-stack {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 2rem;
-}
-
-/* ── Compact Volume Cards ── */
-
-.vol-compact {
-    padding: 2rem;
-    border-radius: 1.5rem;
-}
-
-.vol-compact--tinted {
-    background-color: rgba(215, 230, 219, 0.4);
-}
-
-.vol-compact--neutral {
-    background-color: var(--surface-container-high, #e3e9e8);
-}
-
-.vol-compact__header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-}
-
-.vol-icon {
-    color: var(--primary);
-    font-size: 1.75rem;
-}
-
-.vol-grid--compact {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-}
-
-@media screen and (min-width: 30rem) {
-    .vol-grid--compact {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-.vol-compact .book-card {
-    padding: 0.75rem 1rem;
-}
-
-.vol-compact .book-name {
-    font-size: 0.85rem;
-}
-
-.vol-compact .book-abbr {
-    font-size: 0.65rem;
-}
-
-.book-card:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-}
-
-/* ── Responsive ── */
 
 @media screen and (max-width: 44rem) {
     .volumesListComponent {
@@ -326,10 +190,5 @@
 
     .book-name {
         font-size: 0.9rem;
-    }
-
-    .vol-compact {
-        padding: 1.25rem;
-        border-radius: 1rem;
     }
 }

@@ -20,34 +20,23 @@ import "./VolumesList.css";
  *                      CONSTANTS
  */
 const VOLUME_LABELS = ["Volume I", "Volume II", "Volume III", "Volume IV", "Volume V"];
-const VOLUME_ICONS: Record<number, string> = {
-    1: "menu_book",
-    2: "auto_stories",
-    3: "history_edu",
-    4: "church",
-    5: "star",
-};
 
 /*----------------------------------------------------------------------
  *                      SUB-COMPONENTS
  */
-function BookCard({ volume, book, variant = "default" }: {
+function BookCard({ volume, book }: {
     volume: Volume;
     book: { id: number; citeAbbr: string; fullName: string; urlPath: string };
-    variant?: "default" | "surface";
 }) {
-    const cls = variant === "surface" ? "book-card book-card--surface"
-        : "book-card";
-
     return (
-        <Link className={cls} id={String(book.id)} to={`/${volume.urlPath}/${book.urlPath}`}>
+        <Link className="book-card" id={String(book.id)} to={`/${volume.urlPath}/${book.urlPath}`}>
             <span className="book-abbr">{book.citeAbbr}</span>
             <span className="book-name">{book.fullName}</span>
         </Link>
     );
 }
 
-function VolumeStandard({ volume, label }: { volume: Volume; label: string }) {
+function VolumeSection({ volume, label }: { volume: Volume; label: string }) {
     return (
         <section className="vol-section">
             <div className="vol-section__header">
@@ -56,54 +45,12 @@ function VolumeStandard({ volume, label }: { volume: Volume; label: string }) {
                     <h2 className="vol-title">{volume.fullName}</h2>
                 </div>
             </div>
-            <div className="vol-grid vol-grid--standard">
+            <div className="vol-grid">
                 {volume.books.map((book) => (
                     <BookCard volume={volume} book={book} key={book.id} />
                 ))}
             </div>
         </section>
-    );
-}
-
-function VolumeAsymmetric({ volume, label, description }: {
-    volume: Volume; label: string; description: string;
-}) {
-    return (
-        <section className="vol-section vol-section--asymmetric">
-            <div className="vol-aside">
-                <span className="vol-label">{label}</span>
-                <h2 className="vol-title">{volume.fullName}</h2>
-                <p className="vol-description">{description}</p>
-            </div>
-            <div className="vol-grid vol-grid--asymmetric">
-                {volume.books.map((book) => (
-                    <BookCard volume={volume} book={book} variant="surface" key={book.id} />
-                ))}
-            </div>
-        </section>
-    );
-}
-
-function VolumeCompact({ volume, label, tinted = false }: {
-    volume: Volume; label: string; tinted?: boolean;
-}) {
-    const icon = VOLUME_ICONS[volume.id] ?? "book";
-
-    return (
-        <div className={`vol-compact ${tinted ? "vol-compact--tinted" : "vol-compact--neutral"}`}>
-            <div className="vol-compact__header">
-                <div>
-                    <span className="vol-label">{label}</span>
-                    <h2 className="vol-title vol-title--sm">{volume.fullName}</h2>
-                </div>
-                <span className="material-symbols-outlined vol-icon">{icon}</span>
-            </div>
-            <div className="vol-grid vol-grid--compact">
-                {volume.books.map((book) => (
-                    <BookCard volume={volume} book={book} variant="surface" key={book.id} />
-                ))}
-            </div>
-        </div>
     );
 }
 
@@ -122,20 +69,16 @@ export default function VolumesList() {
         return <div role="alert" className="volumes-error">{error}</div>;
     }
 
-    // Single volume view
     if (volumeSlug) {
         const volume = volumeBySlug(volumeSlug);
         if (!volume) return null;
         const label = VOLUME_LABELS[volume.id - 1] ?? `Volume ${volume.id}`;
         return (
             <div className="volumesListComponent">
-                <VolumeStandard volume={volume} label={label} />
+                <VolumeSection volume={volume} label={label} />
             </div>
         );
     }
-
-    // All volumes — bento layout
-    const [ot, nt, bom, dc, pgp] = volumes;
 
     return (
         <div className="volumesListComponent">
@@ -145,23 +88,13 @@ export default function VolumesList() {
             </header>
 
             <div className="hub-content">
-                {ot && <VolumeStandard volume={ot} label="Volume I" />}
-
-                {nt && (
-                    <VolumeAsymmetric
-                        volume={nt}
-                        label="Volume II"
-                        description="From the humble birth in Bethlehem to the revelations on Patmos. Explore the covenant fulfilled."
+                {volumes.map((volume, i) => (
+                    <VolumeSection
+                        key={volume.id}
+                        volume={volume}
+                        label={VOLUME_LABELS[i] ?? `Volume ${volume.id}`}
                     />
-                )}
-
-                <section className="vol-section--paired">
-                    {bom && <VolumeCompact volume={bom} label="Volume III" tinted />}
-                    <div className="vol-paired-stack">
-                        {dc && <VolumeCompact volume={dc} label="Volume IV" />}
-                        {pgp && <VolumeCompact volume={pgp} label="Volume V" />}
-                    </div>
-                </section>
+                ))}
             </div>
         </div>
     );
