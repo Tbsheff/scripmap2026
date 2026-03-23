@@ -138,7 +138,7 @@ export default function MainPage() {
 
                                 {/* Map panel */}
                                 {isChapterView && mapOpen && (
-                                    <div className="hidden sm:flex w-[45%] min-w-[300px] max-w-[55%] border-l border-[var(--outline-variant)] p-2 pl-0">
+                                    <div className="hidden sm:flex w-[45%] min-w-[300px] max-w-[55%] p-2 pl-0 shadow-[inset_8px_0_16px_-8px_rgba(0,0,0,0.06)]">
                                         <div className="flex-1 overflow-hidden rounded-lg">
                                             <MapErrorBoundary>
                                                 <Suspense fallback={null}>
