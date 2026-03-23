@@ -10,8 +10,14 @@
 .loading-skeleton__pill {
     height: 2.5rem;
     border-radius: 9999px;
-    background-color: var(--button-background-color);
-    animation: skeleton-pulse 1.4s ease-in-out infinite;
+    background: linear-gradient(
+        90deg,
+        var(--button-background-color) 25%,
+        var(--body-background-color) 50%,
+        var(--button-background-color) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
 }
 
 .loading-skeleton__pill:nth-child(2) {
@@ -47,8 +53,18 @@
     }
 }
 
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .loading-skeleton__pill {
         animation: none;
+        background: var(--button-background-color);
     }
 }

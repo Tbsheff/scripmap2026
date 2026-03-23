@@ -42,6 +42,8 @@ header a:hover {
 }
 
 .crumbs li:not(:first-child)::before {
-    content: ">";
+    content: "\203A";
     padding: 0.3em;
+    opacity: 0.6;
+    font-size: 1.1em;
 }
