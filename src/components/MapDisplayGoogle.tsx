@@ -81,7 +81,7 @@ export default function MapDisplayGoogle() {
                 <MapBoundsUpdater />
                 {showEmptyState && (
                     <div className="map-empty-state">
-                        Select a chapter to explore locations on the map
+                        No geographic locations in this chapter
                     </div>
                 )}
             </section>

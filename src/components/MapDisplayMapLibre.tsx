@@ -186,7 +186,7 @@ export default function MapDisplayMapLibre() {
             )}
             {showEmptyState && (
                 <div className="map-empty-state">
-                    Select a chapter to explore locations on the map
+                    No geographic locations in this chapter
                 </div>
             )}
         </section>
