@@ -77,9 +77,8 @@ export default function Sidebar() {
     const { volumeSlug } = useParams();
 
     return (
-        <aside className="hidden lg:flex flex-col overflow-y-auto overflow-x-hidden pt-6
-                          bg-[var(--surface-container-low)] border-r border-[var(--outline-variant)]"
-               style={{ gridArea: "sidebar" }}>
+        <aside className="hidden lg:flex flex-col w-[18rem] shrink-0 overflow-y-auto overflow-x-hidden pt-6"
+        >
 
             <div className="px-6 pb-6">
                 <span className="block font-serif text-lg italic text-[var(--on-surface)]">
