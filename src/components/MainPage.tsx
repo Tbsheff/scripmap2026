@@ -3,7 +3,7 @@
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2026
  *
- * DESCRIPTION: Component with major high-level components of app.
+ * DESCRIPTION: App shell with sidebar + inset main container.
  */
 
 /*----------------------------------------------------------------------
@@ -56,19 +56,47 @@ export default function MainPage() {
         <GeoplacesContext value={geoplacesValue}>
             <FocusedGeoplaceContext value={focusedValue}>
                 <a className="skip-to-content" href="#scripture-content">Skip to content</a>
-                <main data-map-open={(isChapterView && mapOpen) || undefined}>
-                    <Header mapOpen={isChapterView && mapOpen} onToggleMap={isChapterView ? toggleMap : undefined} />
+
+                {/* Outer shell — full viewport, flex row */}
+                <div className="flex h-dvh w-full overflow-hidden bg-[var(--surface-container-low)]">
+                    {/* Sidebar — desktop only */}
                     <Sidebar />
-                    <Navigation />
-                    <NextPreviousComponent />
-                    <div className="map-panel p-3 max-sm:pl-3 sm:pl-0 bg-[var(--surface)]">
-                        <MapErrorBoundary>
-                            <Suspense fallback={null}>
-                                <MapDisplay />
-                            </Suspense>
-                        </MapErrorBoundary>
+
+                    {/* Main area — flex column with inset container */}
+                    <div className="flex min-h-0 flex-1 flex-col p-0 lg:p-2 lg:pl-0">
+                        {/* Inset card container */}
+                        <div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:rounded-xl bg-[var(--surface)]">
+                            {/* Header */}
+                            <Header
+                                mapOpen={isChapterView && mapOpen}
+                                onToggleMap={isChapterView ? toggleMap : undefined}
+                            />
+
+                            {/* Content + optional map */}
+                            <div className="flex min-h-0 flex-1 overflow-hidden"
+                                 data-map-open={(isChapterView && mapOpen) || undefined}>
+                                {/* Scripture content */}
+                                <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+                                    <Navigation />
+                                    <NextPreviousComponent />
+                                </div>
+
+                                {/* Map panel */}
+                                {isChapterView && mapOpen && (
+                                    <div className="hidden sm:flex w-[45%] min-w-[300px] max-w-[55%] border-l border-[var(--outline-variant)] p-2 pl-0">
+                                        <div className="flex-1 overflow-hidden rounded-lg">
+                                            <MapErrorBoundary>
+                                                <Suspense fallback={null}>
+                                                    <MapDisplay />
+                                                </Suspense>
+                                            </MapErrorBoundary>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
-                </main>
+                </div>
             </FocusedGeoplaceContext>
         </GeoplacesContext>
     );

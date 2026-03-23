@@ -27,8 +27,7 @@ export default memo(function Header({ mapOpen = false, onToggleMap }: HeaderProp
     const prefetchMap = () => void import("./MapDisplay");
 
     return (
-        <header className="flex items-center justify-between gap-4 px-6 backdrop-blur-xl z-20"
-                style={{ gridArea: "header", backgroundColor: "rgba(249, 249, 248, 0.85)" }}>
+        <header className="flex items-center justify-between gap-4 px-6 h-14 shrink-0 border-b border-[var(--outline-variant)]">
             {/* Title — visible on mobile (no sidebar), hidden on desktop (sidebar has it) */}
             <div className="flex lg:hidden items-center whitespace-nowrap pr-4 mr-1 border-r border-[var(--outline-variant)]">
                 <span className="font-serif text-base italic text-[var(--on-surface)]">

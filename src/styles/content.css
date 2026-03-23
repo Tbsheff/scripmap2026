@@ -323,11 +323,7 @@ header a:hover {
     left: env(safe-area-inset-left);
 }
 
-/* header grid-area set via inline style in Header.tsx */
-
-.next-prev-wrapper {
-    grid-area: nextprev;
-}
+/* Layout uses flexbox — no grid-areas needed */
 
 @keyframes markerAppear {
     0% {

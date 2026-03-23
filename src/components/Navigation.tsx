@@ -68,7 +68,7 @@ export default function Navigation() {
 
     return (
         <nav id="scripture-content" ref={navRef} tabIndex={-1} aria-label="Scripture navigation"
-             className="grid overflow-hidden" style={{ gridArea: 'nav' }}>
+             className="grid overflow-hidden flex-1 min-h-0">
             <TransitionGroup>
                 <CSSTransition
                     key={pathname}

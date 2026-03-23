@@ -1,3 +1,4 @@
+/* Skip-to-content accessibility link */
 .skip-to-content {
     position: absolute;
     left: -9999px;
@@ -12,78 +13,4 @@
     top: 0;
 }
 
-main {
-    background-color: var(--body-background-color);
-    width: 100%;
-    height: 100dvh;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 3.5rem 1fr auto;
-    grid-template-areas:
-        "header"
-        "nav"
-        "nextprev";
-    overflow: hidden;
-}
-
-@media screen and (min-width: 64rem) {
-    main {
-        grid-template-columns: 18rem 1fr;
-        grid-template-areas:
-            "sidebar header"
-            "sidebar nav"
-            "sidebar nextprev";
-    }
-}
-
-.map-panel {
-    grid-area: map;
-    display: none;
-    overflow: hidden;
-}
-
-main[data-map-open] {
-    grid-template-columns: 1fr minmax(300px, 45%);
-    grid-template-rows: 3.5rem 1fr auto;
-    grid-template-areas:
-        "header map"
-        "nav map"
-        "nextprev map";
-}
-
-main[data-map-open] .map-panel {
-    display: block;
-}
-
-@media screen and (min-width: 64rem) {
-    main[data-map-open] {
-        grid-template-columns: 18rem 1fr minmax(300px, 40%);
-        grid-template-areas:
-            "sidebar header map"
-            "sidebar nav map"
-            "sidebar nextprev map";
-    }
-}
-
-@media screen and (max-width: 64rem) {
-    main[data-map-open] {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media screen and (max-width: 44rem) {
-    main {
-        grid-template-rows: 2.75rem 1fr auto;
-    }
-
-    main[data-map-open] {
-        grid-template-columns: 1fr;
-        grid-template-rows: 2.75rem 1fr 45vh auto;
-        grid-template-areas:
-            "header"
-            "nav"
-            "map"
-            "nextprev";
-    }
-}
-
+/* Layout is now flexbox-based in MainPage.tsx — no grid needed here */
