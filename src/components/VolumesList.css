@@ -7,9 +7,27 @@
     padding-block-end: 4em;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .volume {
+    animation: fadeIn 350ms var(--ease-out) both;
     padding: 0.5em;
 }
+
+.volume:nth-child(1) { animation-delay: 0ms; }
+.volume:nth-child(2) { animation-delay: 60ms; }
+.volume:nth-child(3) { animation-delay: 120ms; }
+.volume:nth-child(4) { animation-delay: 180ms; }
+.volume:nth-child(5) { animation-delay: 240ms; }
 
 .volume a:has(> h5):link,
 .volume a:has(> h5):visited,

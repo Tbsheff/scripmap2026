@@ -52,6 +52,17 @@ nav .btn:active {
     transition-duration: 100ms;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -208,6 +219,8 @@ div.books a.chapter {
 }
 
 .scripturewrapper {
+    animation: fadeIn 400ms var(--ease-out) both;
+    animation-delay: 100ms;
     min-height: 100%;
     overflow-x: hidden;
     background-color: var(--chapter-background-color);
@@ -225,6 +238,8 @@ div.books a.chapter {
 }
 
 div.chapterheading {
+    animation: fadeIn 500ms var(--ease-out) both;
+    animation-delay: 150ms;
     font-size: 110%;
     font-weight: 500;
     letter-spacing: 0.09em;

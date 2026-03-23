@@ -50,11 +50,15 @@
 .icon svg {
     width: 0.5em;
     margin: 0.5em;
+    transition: transform 200ms var(--ease-out);
 }
 
-.nav-next:hover .icon svg,
-.nav-previous:hover .icon svg {
-    fill: var(--active-hover-color);
+@media (hover: hover) and (pointer: fine) {
+    .nav-next:hover .icon svg,
+    .nav-previous:hover .icon svg {
+        fill: var(--active-hover-color);
+        transform: scale(1.15);
+    }
 }
 
 
