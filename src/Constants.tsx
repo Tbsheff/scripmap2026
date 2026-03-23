@@ -12,7 +12,7 @@
 export const ANIMATION_KEY_NEXT = "n";
 export const ANIMATION_KEY_PREVIOUS = "p";
 // Keep in sync with --animation-duration in Navigation.css
-export const ANIMATION_DURATION = 500;
+export const ANIMATION_DURATION = 280;
 export const ANIMATION_MARKER_DELAY = 300;
 export const CLASS_BUTTON = "waves-effect waves-custom waves-ripple btn";
 export const HOME_BREADCRUMB = "The Scriptures";
