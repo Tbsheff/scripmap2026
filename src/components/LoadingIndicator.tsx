@@ -15,19 +15,17 @@ import "./LoadingIndicator.css";
 /** Default loading — book card grid skeleton */
 export default function LoadingIndicator() {
     return (
-        <div role="status" aria-live="polite" className="loading-hub">
+        <div role="status" aria-live="polite" className="w-full px-10 py-8 max-w-[1400px] mx-auto max-[44rem]:px-4 max-[44rem]:py-5">
             <span className="sr-only">Loading...</span>
 
-            {/* Volume header skeleton */}
-            <div className="loading-header">
-                <div className="skeleton skeleton--label" />
-                <div className="skeleton skeleton--title" />
+            <div className="mb-8 pb-4">
+                <div className="skeleton w-20 h-[0.65rem] rounded-sm mb-3" />
+                <div className="skeleton w-56 h-7 rounded-md" />
             </div>
 
-            {/* Book card grid skeleton */}
-            <div className="loading-grid">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {Array.from({ length: 12 }, (_, i) => (
-                    <div key={i} className="skeleton skeleton--card" style={{ animationDelay: `${i * 60}ms` }} />
+                    <div key={i} className="skeleton aspect-[4/3] rounded-xl" style={{ animationDelay: `${i * 60}ms` }} />
                 ))}
             </div>
         </div>
@@ -37,17 +35,17 @@ export default function LoadingIndicator() {
 /** Chapter grid loading skeleton */
 export function ChapterLoadingIndicator() {
     return (
-        <div role="status" aria-live="polite" className="loading-hub">
+        <div role="status" aria-live="polite" className="w-full px-10 py-8 max-w-[1400px] mx-auto max-[44rem]:px-4 max-[44rem]:py-5">
             <span className="sr-only">Loading chapters...</span>
 
-            <div className="loading-header">
-                <div className="skeleton skeleton--label" />
-                <div className="skeleton skeleton--title" />
+            <div className="mb-8 pb-4">
+                <div className="skeleton w-20 h-[0.65rem] rounded-sm mb-3" />
+                <div className="skeleton w-56 h-7 rounded-md" />
             </div>
 
-            <div className="loading-chapter-grid">
+            <div className="grid gap-[0.625rem]" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(3.5rem, 1fr))" }}>
                 {Array.from({ length: 20 }, (_, i) => (
-                    <div key={i} className="skeleton skeleton--chapter" style={{ animationDelay: `${i * 30}ms` }} />
+                    <div key={i} className="skeleton aspect-square rounded-xl" style={{ animationDelay: `${i * 30}ms` }} />
                 ))}
             </div>
         </div>
@@ -57,22 +55,20 @@ export function ChapterLoadingIndicator() {
 /** Scripture reading loading skeleton */
 export function ScriptureLoadingIndicator() {
     return (
-        <div role="status" aria-live="polite" className="loading-scripture">
+        <div role="status" aria-live="polite" className="w-full max-w-[36rem] mx-auto px-10 py-12 max-[44rem]:px-6 max-[44rem]:py-8">
             <span className="sr-only">Loading scripture...</span>
 
-            {/* Chapter heading skeleton */}
-            <div className="loading-scripture__heading">
-                <div className="skeleton skeleton--label-centered" />
-                <div className="skeleton skeleton--display" />
-                <div className="skeleton skeleton--label-centered" />
+            <div className="flex flex-col items-center gap-3 mb-12">
+                <div className="skeleton w-48 h-[0.6rem] rounded-sm" />
+                <div className="skeleton w-40 h-12 rounded-md" />
+                <div className="skeleton w-48 h-[0.6rem] rounded-sm" />
             </div>
 
-            {/* Verse line skeletons */}
-            <div className="loading-scripture__lines">
+            <div className="flex flex-col gap-4">
                 {Array.from({ length: 8 }, (_, i) => (
                     <div
                         key={i}
-                        className="skeleton skeleton--line"
+                        className="skeleton h-[0.85rem] rounded-sm"
                         style={{
                             animationDelay: `${200 + i * 50}ms`,
                             width: `${75 + Math.sin(i * 1.7) * 20}%`,

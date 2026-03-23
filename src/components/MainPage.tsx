@@ -17,6 +17,7 @@ import { MapErrorBoundary } from "./MapErrorBoundary";
 const MapDisplay = lazy(() => import("./MapDisplay"));
 import Navigation from "./Navigation";
 import NextPreviousComponent from "./NextPreviousComponent";
+import Sidebar from "./Sidebar";
 import { GeoplacesContext, FocusedGeoplaceContext } from "../context/MapData";
 import { GeoPlace, GeoPlaces } from "../Types";
 
@@ -57,6 +58,7 @@ export default function MainPage() {
                 <a className="skip-to-content" href="#scripture-content">Skip to content</a>
                 <main data-map-open={(isChapterView && mapOpen) || undefined}>
                     <Header mapOpen={isChapterView && mapOpen} onToggleMap={isChapterView ? toggleMap : undefined} />
+                    <Sidebar />
                     <Navigation />
                     <NextPreviousComponent />
                     <div className="map-panel p-3 max-sm:pl-3 sm:pl-0 bg-[var(--surface)]">
