@@ -12,11 +12,7 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { VolumeProps } from "../Types";
-
-/*----------------------------------------------------------------------
- *                      CONSTANTS
- */
-const VOLUME_LABELS = ["Volume I", "Volume II", "Volume III", "Volume IV", "Volume V"];
+import { VOLUME_LABELS } from "../Constants";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT

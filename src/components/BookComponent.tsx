@@ -36,7 +36,7 @@ export default function BookComponent() {
                 </Link>
             ))
             : [],
-        [book, bookSlug, volumeSlug]
+        [book, volumeSlug]
     );
 
     if (isLoading || !book) {

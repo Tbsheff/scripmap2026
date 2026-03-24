@@ -14,11 +14,7 @@ import LoadingIndicator from "./LoadingIndicator";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import { Volume } from "../Types";
 import { volumeBySlug } from "../utils/scriptureNavigation";
-
-/*----------------------------------------------------------------------
- *                      CONSTANTS
- */
-const VOLUME_LABELS = ["Volume I", "Volume II", "Volume III", "Volume IV", "Volume V"];
+import { VOLUME_LABELS } from "../Constants";
 
 /*----------------------------------------------------------------------
  *                      SUB-COMPONENTS

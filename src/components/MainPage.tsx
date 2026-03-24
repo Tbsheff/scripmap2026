@@ -36,11 +36,11 @@ export default function MainPage() {
     const isChapterView = Boolean(chapter);
     const navigate = useNavigate();
     const { books, volumes } = useScripturesDataContext();
-    const book = bookBySlug(bookSlug ?? "");
+    const book = useMemo(() => bookBySlug(bookSlug ?? ""), [bookSlug]);
     const numericBookId = book?.id ?? 0;
     const chapterNum = Number(chapter);
-    const prev = previousChapter(numericBookId, chapterNum, books, volumes);
-    const next = nextChapter(numericBookId, chapterNum, books, volumes);
+    const prev = useMemo(() => previousChapter(numericBookId, chapterNum, books, volumes), [numericBookId, chapterNum, books, volumes]);
+    const next = useMemo(() => nextChapter(numericBookId, chapterNum, books, volumes), [numericBookId, chapterNum, books, volumes]);
 
     const toggleMap = useCallback(() => setMapOpen((prev) => !prev), []);
     const toggleSidebar = useCallback(() => setSidebarOpen((prev) => !prev), []);

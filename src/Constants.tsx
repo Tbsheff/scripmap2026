@@ -15,5 +15,6 @@ export const ANIMATION_KEY_PREVIOUS = "p";
 export const ANIMATION_DURATION = 320;
 export const ANIMATION_MARKER_DELAY = 250;
 export const HOME_BREADCRUMB = "Home";
+export const VOLUME_LABELS = ["Volume I", "Volume II", "Volume III", "Volume IV", "Volume V"];
 
 export const MS_PER_HOUR = 1000 * 60 * 60;
