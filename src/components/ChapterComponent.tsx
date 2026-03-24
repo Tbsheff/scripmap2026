@@ -26,7 +26,7 @@ export default function ChapterComponent() {
 	const { setGeoplaces } = useGeoplacesContext();
 	const { setFocusedGeoplace } = useFocusedGeoplaceContext();
 	const { books, volumes } = useScripturesDataContext();
-	const book = useMemo(() => bookBySlug(bookSlug ?? ""), [bookSlug]);
+	const book = useMemo(() => bookBySlug(bookSlug ?? ""), [bookSlug, books]);
 	const numericBookId = book?.id ?? 0;
 	const chapterNum = Number(chapter);
 	const prev = useMemo(

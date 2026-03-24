@@ -37,7 +37,7 @@ export default function MainPage() {
 	const isChapterView = Boolean(chapter);
 	const navigate = useNavigate();
 	const { books, volumes } = useScripturesDataContext();
-	const book = useMemo(() => bookBySlug(bookSlug ?? ""), [bookSlug]);
+	const book = useMemo(() => bookBySlug(bookSlug ?? ""), [bookSlug, books]);
 	const numericBookId = book?.id ?? 0;
 	const chapterNum = Number(chapter);
 	const prev = useMemo(

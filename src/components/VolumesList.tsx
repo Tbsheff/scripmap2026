@@ -78,7 +78,17 @@ export default function VolumesList() {
 	if (volumeSlug) {
 		const volume = volumeBySlug(volumeSlug);
 		if (!volume) {
-			return null;
+			return (
+				<div className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center">
+					<p className="m-0">Volume not found.</p>
+					<Link
+						to="/"
+						className="text-[var(--header-text-color)] bg-[var(--header-background-color)] px-6 py-2.5 min-h-[2.5rem] rounded-xl mt-4 no-underline inline-flex items-center"
+					>
+						Return to All Volumes
+					</Link>
+				</div>
+			);
 		}
 		const label = VOLUME_LABELS[volume.id - 1] ?? `Volume ${volume.id}`;
 		return (

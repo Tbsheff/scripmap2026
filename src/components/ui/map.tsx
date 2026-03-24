@@ -117,7 +117,7 @@ type MapViewport = {
 
 type MapStyleOption = string | MapLibreGL.StyleSpecification;
 
-type MapRef = MapLibreGL.Map;
+type MapRef = MapLibreGL.Map | null;
 
 type MapProps = {
 	children?: ReactNode;
@@ -202,7 +202,7 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
 	);
 
 	// Expose the map instance to the parent component
-	useImperativeHandle(ref, () => mapInstance as MapLibreGL.Map, [mapInstance]);
+	useImperativeHandle(ref, () => mapInstance, [mapInstance]);
 
 	const clearStyleTimeout = useCallback(() => {
 		if (styleTimeoutRef.current) {
@@ -780,27 +780,29 @@ function MapControls({
 	}, [map]);
 
 	const handleLocate = useCallback(() => {
-		setWaitingForLocation(true);
-		if ("geolocation" in navigator) {
-			navigator.geolocation.getCurrentPosition(
-				(pos) => {
-					const coords = {
-						longitude: pos.coords.longitude,
-						latitude: pos.coords.latitude,
-					};
-					map?.flyTo({
-						center: [coords.longitude, coords.latitude],
-						zoom: 14,
-						duration: 1500,
-					});
-					onLocate?.(coords);
-					setWaitingForLocation(false);
-				},
-				(_error) => {
-					setWaitingForLocation(false);
-				},
-			);
+		if (!("geolocation" in navigator)) {
+			setWaitingForLocation(false);
+			return;
 		}
+		setWaitingForLocation(true);
+		navigator.geolocation.getCurrentPosition(
+			(pos) => {
+				const coords = {
+					longitude: pos.coords.longitude,
+					latitude: pos.coords.latitude,
+				};
+				map?.flyTo({
+					center: [coords.longitude, coords.latitude],
+					zoom: 14,
+					duration: 1500,
+				});
+				onLocate?.(coords);
+				setWaitingForLocation(false);
+			},
+			(_error) => {
+				setWaitingForLocation(false);
+			},
+		);
 	}, [map, onLocate]);
 
 	const handleFullscreen = useCallback(() => {
