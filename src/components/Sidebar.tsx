@@ -6,7 +6,7 @@
  * DESCRIPTION: Left sidebar with scripture tree navigation.
  */
 
-import { useState, useCallback, type ReactNode } from "react";
+import { useState, useCallback, useEffect, memo, type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BookOpen, ChevronDown, Church, Layers, ScrollText, Star } from "lucide-react";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
@@ -22,6 +22,11 @@ const VOLUME_ICONS: Record<number, ReactNode> = {
 
 function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean }) {
     const [expanded, setExpanded] = useState(isActive);
+
+    // Sync expanded state when active volume changes (e.g., navigation)
+    useEffect(() => {
+        if (isActive) setExpanded(true);
+    }, [isActive]);
     const { bookSlug } = useParams();
 
     const toggle = useCallback(() => setExpanded((prev) => !prev), []);
@@ -71,7 +76,7 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
     );
 }
 
-export default function Sidebar({ open = true }: { open?: boolean }) {
+export default memo(function Sidebar({ open = true }: { open?: boolean }) {
     const { isLoading, volumes } = useScripturesDataContext();
     const { volumeSlug } = useParams();
 
@@ -114,4 +119,4 @@ export default function Sidebar({ open = true }: { open?: boolean }) {
             </div>
         </aside>
     );
-}
+})

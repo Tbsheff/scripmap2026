@@ -30,11 +30,11 @@ export default function ChapterComponent() {
     const { setGeoplaces } = useGeoplacesContext();
     const { setFocusedGeoplace } = useFocusedGeoplaceContext();
     const { books, volumes } = useScripturesDataContext();
-    const book = bookBySlug(bookSlug ?? "");
+    const book = useMemo(() => bookBySlug(bookSlug ?? ""), [bookSlug]);
     const numericBookId = book?.id ?? 0;
     const chapterNum = Number(chapter);
-    const prev = previousChapter(numericBookId, chapterNum, books, volumes);
-    const next = nextChapter(numericBookId, chapterNum, books, volumes);
+    const prev = useMemo(() => previousChapter(numericBookId, chapterNum, books, volumes), [numericBookId, chapterNum, books, volumes]);
+    const next = useMemo(() => nextChapter(numericBookId, chapterNum, books, volumes), [numericBookId, chapterNum, books, volumes]);
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const loaderData = useLoaderData() as ChapterCacheEntry | undefined;
     const cachedDataRef = useRef(loaderData);

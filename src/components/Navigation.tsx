@@ -12,23 +12,17 @@
 import { createRef, RefObject, useEffect, useMemo, useRef } from "react";
 import { useLocation, useOutlet } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { LRUCache } from "lru-cache";
 import {
     ANIMATION_DURATION,
     ANIMATION_KEY_NEXT,
     ANIMATION_KEY_PREVIOUS,
-    MS_PER_HOUR
 } from "../Constants";
 import { AnimationState } from "../Types";
 
 /*----------------------------------------------------------------------
  *                      PRIVATE VARIABLES
  */
-const nodeRefCache = new LRUCache<string, RefObject<HTMLDivElement | null>>({
-    max: 30,
-    ttl: 8 * MS_PER_HOUR,
-    updateAgeOnGet: true
-});
+const nodeRefCache = new Map<string, RefObject<HTMLDivElement | null>>();
 
 /*----------------------------------------------------------------------
  *                      PRIVATE HELPERS
