@@ -12,8 +12,8 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 
 import {
-	Map,
 	MapControls,
+	Map as MapLibreMap,
 	MapMarker,
 	type MapRef,
 	MarkerContent,
@@ -67,6 +67,7 @@ function MapStyleSwitcher({ mapStyle, onToggle }: { mapStyle: MapStyle; onToggle
 	return (
 		<div className="map-style-switcher">
 			<button
+				type="button"
 				onClick={onToggle}
 				aria-label={`Switch to ${mapStyle === "terrain" ? "clean" : "terrain"} map`}
 				title={mapStyle === "terrain" ? "Clean view" : "Terrain view"}
@@ -82,6 +83,7 @@ function MapStyleSwitcher({ mapStyle, onToggle }: { mapStyle: MapStyle; onToggle
 						strokeLinejoin="round"
 						width="16"
 						height="16"
+						aria-hidden="true"
 					>
 						<rect x="3" y="3" width="18" height="18" rx="2" />
 						<path d="M3 12h18" />
@@ -97,6 +99,7 @@ function MapStyleSwitcher({ mapStyle, onToggle }: { mapStyle: MapStyle; onToggle
 						strokeLinejoin="round"
 						width="16"
 						height="16"
+						aria-hidden="true"
 					>
 						<path d="m8 3 4 8 5-5 2 15H2L8 3z" />
 					</svg>
@@ -190,14 +193,14 @@ export default function MapDisplayMapLibre() {
 
 	return (
 		<section className="MapDisplay" aria-label="Map of scripture locations">
-			<Map ref={mapRef} center={JERUSALEM_CENTER} zoom={DEFAULT_ZOOM} styles={STYLE_CONFIG[mapStyle]}>
+			<MapLibreMap ref={mapRef} center={JERUSALEM_CENTER} zoom={DEFAULT_ZOOM} styles={STYLE_CONFIG[mapStyle]}>
 				{markers}
 				<MapControls position="bottom-right" showZoom showCompass />
 				<MapStyleSwitcher mapStyle={mapStyle} onToggle={toggleStyle} />
 				<MapBoundsUpdaterMapLibre />
 				<MapTerrainLayer enabled={mapStyle === "terrain"} />
 				<PitchTransition mapStyle={mapStyle} />
-			</Map>
+			</MapLibreMap>
 			{geoplaces && Object.keys(geoplaces).length > 0 && (
 				<div className="absolute bottom-3 left-3 z-10 max-h-48 overflow-y-auto rounded-lg bg-[var(--surface)]/90 backdrop-blur-sm shadow-lg border border-[var(--outline-variant)] p-2 text-sm">
 					<div className="text-xs font-medium text-[var(--on-surface-variant)] px-2 py-1 mb-1">
@@ -206,6 +209,7 @@ export default function MapDisplayMapLibre() {
 					{Object.entries(geoplaces).map(([key, gp]) => (
 						<button
 							key={key}
+							type="button"
 							className="block w-full text-left px-2 py-1 rounded-md text-[var(--on-surface)] hover:bg-[var(--surface-container)] transition-colors text-sm cursor-pointer"
 							onClick={() => setFocusedGeoplace(gp)}
 						>

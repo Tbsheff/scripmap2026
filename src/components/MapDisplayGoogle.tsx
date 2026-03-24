@@ -6,7 +6,7 @@
  * DESCRIPTION: Google Maps component.
  */
 
-import { AdvancedMarker, APIProvider, ControlPosition, Map } from "@vis.gl/react-google-maps";
+import { AdvancedMarker, APIProvider, ControlPosition, Map as GoogleMap } from "@vis.gl/react-google-maps";
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
@@ -63,7 +63,7 @@ export default function MapDisplayGoogle() {
 	return (
 		<APIProvider apiKey={API_KEY}>
 			<section className="MapDisplay" aria-label="Map of scripture locations">
-				<Map
+				<GoogleMap
 					defaultCenter={JERUSALEM_LOCATION}
 					defaultZoom={DEFAULT_ZOOM}
 					mapId={MAP_ID}
@@ -77,7 +77,7 @@ export default function MapDisplayGoogle() {
 					zoomControlOptions={ZOOM_CONTROL_OPTIONS}
 				>
 					{markers}
-				</Map>
+				</GoogleMap>
 				<MapBoundsUpdater />
 				{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter</div>}
 			</section>

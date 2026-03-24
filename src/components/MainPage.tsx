@@ -104,8 +104,8 @@ export default function MainPage() {
 			const target = (e.target as HTMLElement).closest?.(".scripturewrapper a");
 			if (target) {
 				for (const el of document.querySelectorAll(".place-active")) {
-				el.classList.remove("place-active");
-			}
+					el.classList.remove("place-active");
+				}
 				target.classList.add("place-active");
 			}
 		};

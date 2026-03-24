@@ -28,7 +28,11 @@ export default function LoadingIndicator() {
 			<SkeletonHeader />
 			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
 				{Array.from({ length: 12 }, (_, i) => (
-					<div key={`skeleton-${i}`} className="skeleton aspect-[4/3] rounded-xl" style={{ animationDelay: `${i * 60}ms` }} />
+					<div
+						key={`skeleton-${i}`}
+						className="skeleton aspect-[4/3] rounded-xl"
+						style={{ animationDelay: `${i * 60}ms` }}
+					/>
 				))}
 			</div>
 		</div>
@@ -46,7 +50,11 @@ export function ChapterLoadingIndicator() {
 			<SkeletonHeader />
 			<div className="grid gap-[0.625rem]" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(3.5rem, 1fr))" }}>
 				{Array.from({ length: 20 }, (_, i) => (
-					<div key={`skeleton-${i}`} className="skeleton aspect-square rounded-xl" style={{ animationDelay: `${i * 30}ms` }} />
+					<div
+						key={`skeleton-${i}`}
+						className="skeleton aspect-square rounded-xl"
+						style={{ animationDelay: `${i * 30}ms` }}
+					/>
 				))}
 			</div>
 		</div>

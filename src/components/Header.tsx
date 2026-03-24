@@ -88,6 +88,7 @@ export default memo(function Header({
 			{/* Map toggle — chapter view only */}
 			{onToggleMap && (
 				<button
+					type="button"
 					className="map-toggle-btn"
 					onClick={onToggleMap}
 					onMouseEnter={prefetchMap}

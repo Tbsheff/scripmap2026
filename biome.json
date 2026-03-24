@@ -15,6 +15,16 @@
 	},
 	"overrides": [
 		{
+			"includes": ["src/components/LoadingIndicator.tsx"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noArrayIndexKey": "off"
+					}
+				}
+			}
+		},
+		{
 			"includes": ["src/index.css"],
 			"css": {
 				"linter": {

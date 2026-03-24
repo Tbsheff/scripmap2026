@@ -32,6 +32,7 @@ export class MapErrorBoundary extends Component<Props, State> {
 							width="32"
 							height="32"
 							className="mb-3 opacity-50"
+							aria-hidden="true"
 						>
 							<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
 							<line x1="8" y1="2" x2="8" y2="18" />

@@ -26,6 +26,7 @@ const ZOOM_RATIO = 450;
  *                      PRIVATE HELPERS
  */
 function boundsForCurrentMarkers(geoplaces: GeoPlace[]) {
+	// biome-ignore lint/correctness/noUndeclaredVariables: google maps global
 	const bounds = new google.maps.LatLngBounds();
 
 	for (const place of geoplaces) {
@@ -54,6 +55,7 @@ export function MapBoundsUpdater() {
 	const { focusedGeoplace } = useFocusedGeoplaceContext();
 
 	useEffect(() => {
+		// biome-ignore lint/correctness/noUndeclaredVariables: google maps global
 		if (!map || typeof google === "undefined") {
 			// Ignore -- the map or API isn't fully loaded
 			return;
