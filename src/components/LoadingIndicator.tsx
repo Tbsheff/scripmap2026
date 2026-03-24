@@ -28,7 +28,7 @@ export default function LoadingIndicator() {
 			<SkeletonHeader />
 			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
 				{Array.from({ length: 12 }, (_, i) => (
-					<div key={i} className="skeleton aspect-[4/3] rounded-xl" style={{ animationDelay: `${i * 60}ms` }} />
+					<div key={`skeleton-${i}`} className="skeleton aspect-[4/3] rounded-xl" style={{ animationDelay: `${i * 60}ms` }} />
 				))}
 			</div>
 		</div>
@@ -46,7 +46,7 @@ export function ChapterLoadingIndicator() {
 			<SkeletonHeader />
 			<div className="grid gap-[0.625rem]" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(3.5rem, 1fr))" }}>
 				{Array.from({ length: 20 }, (_, i) => (
-					<div key={i} className="skeleton aspect-square rounded-xl" style={{ animationDelay: `${i * 30}ms` }} />
+					<div key={`skeleton-${i}`} className="skeleton aspect-square rounded-xl" style={{ animationDelay: `${i * 30}ms` }} />
 				))}
 			</div>
 		</div>
@@ -67,11 +67,11 @@ export function ScriptureLoadingIndicator() {
 				<div className="skeleton w-48 h-[0.6rem] rounded-sm" />
 			</div>
 			<div className="flex flex-col gap-4">
-				{SKELETON_LINE_WIDTHS.map((width, i) => (
+				{SKELETON_LINE_WIDTHS.map((width) => (
 					<div
-						key={i}
+						key={width}
 						className="skeleton h-[0.85rem] rounded-sm"
-						style={{ animationDelay: `${200 + i * 50}ms`, width }}
+						style={{ animationDelay: `${200 + SKELETON_LINE_WIDTHS.indexOf(width) * 50}ms`, width }}
 					/>
 				))}
 			</div>

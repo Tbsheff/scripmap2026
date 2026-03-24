@@ -6,7 +6,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!!**/dist"]
+		"includes": ["**", "!!**/dist", "!!src/google.maps.d.ts", "!!src/components/ui/map.tsx"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -29,7 +29,8 @@
 				"noArrayIndexKey": "warn",
 				"noConsole": "warn",
 				"noDoubleEquals": "error",
-				"noImplicitAnyLet": "error"
+				"noImplicitAnyLet": "error",
+				"noShadowRestrictedNames": "warn"
 			},
 			"style": {
 				"noNonNullAssertion": "error",

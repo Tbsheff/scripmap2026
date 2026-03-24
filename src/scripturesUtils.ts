@@ -5,7 +5,7 @@ export function replaceEntities(text: string): string {
 }
 
 export function conditionallyReplace(obj: Record<string, unknown>, props: string[]): void {
-	props.forEach((prop) => {
+	for (const prop of props) {
 		const property = obj[prop];
 
 		if (typeof property === "string") {
@@ -13,15 +13,15 @@ export function conditionallyReplace(obj: Record<string, unknown>, props: string
 				obj[prop] = replaceEntities(property);
 			}
 		}
-	});
+	}
 }
 
 export function replaceHtmlEntities(volumesData: Volume[], booksData: Books): void {
-	volumesData.forEach((volume) => {
+	for (const volume of volumesData) {
 		conditionallyReplace(volume as unknown as Record<string, unknown>, ["citeAbbr"]);
-	});
+	}
 
-	Object.keys(booksData).forEach((bookId) => {
+	for (const bookId of Object.keys(booksData)) {
 		conditionallyReplace(booksData[bookId] as unknown as Record<string, unknown>, [
 			"backName",
 			"citeAbbr",
@@ -31,5 +31,5 @@ export function replaceHtmlEntities(volumesData: Volume[], booksData: Books): vo
 			"subdiv",
 			"tocName",
 		]);
-	});
+	}
 }

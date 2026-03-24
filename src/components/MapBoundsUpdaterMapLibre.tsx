@@ -30,9 +30,9 @@ function zoomLevelForAltitude(viewAltitude: number) {
 function boundsForCurrentMarkers(geoplaces: GeoPlace[]) {
 	const bounds = new LngLatBounds();
 
-	geoplaces.forEach((place) => {
+	for (const place of geoplaces) {
 		bounds.extend([place.longitude, place.latitude]);
-	});
+	}
 
 	return bounds;
 }

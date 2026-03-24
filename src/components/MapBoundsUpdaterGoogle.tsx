@@ -28,9 +28,9 @@ const ZOOM_RATIO = 450;
 function boundsForCurrentMarkers(geoplaces: GeoPlace[]) {
 	const bounds = new google.maps.LatLngBounds();
 
-	geoplaces.forEach((place) => {
+	for (const place of geoplaces) {
 		bounds.extend({ lat: place.latitude, lng: place.longitude });
-	});
+	}
 
 	return bounds;
 }

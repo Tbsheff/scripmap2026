@@ -6,7 +6,7 @@
  * DESCRIPTION: Header with sidebar toggle, breadcrumbs, and map toggle.
  */
 
-import { Map, PanelLeft, X } from "lucide-react";
+import { Map as MapIcon, PanelLeft, X } from "lucide-react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { ANIMATION_KEY_NEXT, ANIMATION_KEY_PREVIOUS } from "../Constants";
@@ -95,7 +95,7 @@ export default memo(function Header({
 					aria-label={mapOpen ? "Close map" : "Open map"}
 					title={mapOpen ? "Close map" : "Open map"}
 				>
-					{mapOpen ? <X className="h-5 w-5" strokeWidth={1.5} /> : <Map className="h-5 w-5" strokeWidth={1.5} />}
+					{mapOpen ? <X className="h-5 w-5" strokeWidth={1.5} /> : <MapIcon className="h-5 w-5" strokeWidth={1.5} />}
 				</button>
 			)}
 		</header>

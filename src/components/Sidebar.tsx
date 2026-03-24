@@ -45,6 +45,7 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
 												? "bg-[var(--surface-container)] text-[var(--on-surface)] font-semibold"
 												: "text-[var(--on-surface)] opacity-80 hover:bg-[var(--surface-container-lowest)] hover:opacity-100"
 										}`}
+				type="button"
 				onClick={toggle}
 				aria-expanded={expanded}
 			>
@@ -97,7 +98,7 @@ export default memo(function Sidebar({ open = true }: { open?: boolean }) {
 				{/* Logo / Title */}
 				<div className="flex h-12 shrink-0 items-center px-3">
 					<Link to="/" className="flex items-center gap-2.5 no-underline text-[var(--on-surface)]">
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" className="shrink-0">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" className="shrink-0" aria-hidden="true">
 							<rect width="32" height="32" rx="6" fill="var(--primary)" />
 							<g
 								transform="translate(6 5)"

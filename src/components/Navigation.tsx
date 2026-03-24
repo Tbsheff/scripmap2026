@@ -51,10 +51,12 @@ export default function Navigation() {
 	}, []);
 
 	const nodeRef = useMemo(() => {
-		if (!nodeRefCache.has(pathname)) {
-			nodeRefCache.set(pathname, createRef<HTMLDivElement>());
+		let ref = nodeRefCache.get(pathname);
+		if (!ref) {
+			ref = createRef<HTMLDivElement>();
+			nodeRefCache.set(pathname, ref);
 		}
-		return nodeRefCache.get(pathname)!;
+		return ref;
 	}, [pathname]);
 
 	return (

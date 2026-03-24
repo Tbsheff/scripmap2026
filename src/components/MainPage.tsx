@@ -103,7 +103,9 @@ export default function MainPage() {
 		const handleScriptureClick = (e: MouseEvent) => {
 			const target = (e.target as HTMLElement).closest?.(".scripturewrapper a");
 			if (target) {
-				document.querySelectorAll(".place-active").forEach((el) => el.classList.remove("place-active"));
+				for (const el of document.querySelectorAll(".place-active")) {
+				el.classList.remove("place-active");
+			}
 				target.classList.add("place-active");
 			}
 		};
