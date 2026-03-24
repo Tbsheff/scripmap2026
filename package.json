@@ -6,19 +6,30 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "ultracite check src/",
+    "lint:fix": "ultracite fix src/",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
     "@vis.gl/react-google-maps": "^1.5.2",
+    "clsx": "^2.1.1",
     "lru-cache": "^11.1.0",
+    "lucide-react": "^1.0.1",
+    "maplibre-gl": "^5.21.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0",
-    "react-transition-group": "^4.4.5"
+    "react-transition-group": "^4.4.5",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.2",
+    "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.8",
     "@eslint/js": "^9.21.0",
+    "@types/node": "^25.5.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@types/react-transition-group": "^4.4.12",
@@ -27,8 +38,10 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "shadcn": "^4.1.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
+    "ultracite": "^7.3.2",
     "vite": "^6.2.0"
   }
 }

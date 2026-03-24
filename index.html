@@ -5,26 +5,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>The Scriptures Mapped</title>
         <meta name="author" content="Stephen W. Liddle" />
-        <meta name="description" content="The Scriptures Mapped" />
+        <meta name="description" content="The Scriptures Mapped — an interactive scripture reader with geographic locations displayed on a map." />
 
         <meta property="og:title" content="The Scriptures Mapped" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://scriptures.byu.edu/mapscrip" />
         <meta property="og:image" content="" />
 
-        <meta name="theme-color" content="#fafafa" />
+        <meta name="theme-color" content="#5F6D64" />
 
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="preload" href="https://scriptures.byu.edu/mapscrip/model/volumes.php" as="fetch" crossorigin />
+        <link rel="preload" href="https://scriptures.byu.edu/mapscrip/model/books.php" as="fetch" crossorigin />
+        <link rel="preconnect" href="https://maps.googleapis.com" />
+        <link rel="preconnect" href="https://maps.gstatic.com" crossorigin />
+
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="apple-touch-icon" href="/logo192.png" />
         <link rel="manifest" href="/manifest.json" />
 
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css?family=Roboto"
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
             rel="stylesheet"
-            type="text/css"
         />
 
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
     </head>
     <body>
         <div id="root"></div>

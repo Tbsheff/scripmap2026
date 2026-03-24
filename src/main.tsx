@@ -20,9 +20,9 @@ import App from "./App.tsx";
 const rootDiv = document.getElementById("root");
 
 if (rootDiv) {
-    createRoot(rootDiv).render(
-        <StrictMode>
-            <App />
-        </StrictMode>
-    );
+	createRoot(rootDiv).render(
+		<StrictMode>
+			<App />
+		</StrictMode>,
+	);
 }

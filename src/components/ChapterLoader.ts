@@ -10,42 +10,79 @@
  *                      IMPORTS
  */
 import { LRUCache } from "lru-cache";
-import { LoaderFunctionArgs } from "react-router-dom";
+import type { LoaderFunctionArgs } from "react-router-dom";
 import { MS_PER_HOUR } from "../Constants";
+import { fetchChapterHtml, getScripturesData } from "../ServerApi";
+import type { ChapterCacheEntry } from "../Types";
+import { bookBySlug } from "../utils/scriptureNavigation";
 import extractGeoplaces from "./MapHelper";
-import { fetchChapterHtml } from "../ServerApi";
-import { ChapterCacheEntry } from "../Types";
 
 /*----------------------------------------------------------------------
  *                      PRIVATE VARIABLES
  */
-const chapterDataCache = new LRUCache<string, ChapterCacheEntry>({
-    max: 20,
-    ttl: 8 * MS_PER_HOUR,
-    updateAgeOnGet: true
+export const chapterDataCache = new LRUCache<string, ChapterCacheEntry>({
+	max: 50,
+	ttl: 8 * MS_PER_HOUR,
+	updateAgeOnGet: true,
 });
+
+/*----------------------------------------------------------------------
+ *                      PRIVATE FUNCTIONS
+ */
+function prefetchAdjacentChapters(bookId: number, chapter: number): void {
+	const prefetch = (ch: number) => {
+		const key = `${bookId}:${ch}`;
+		if (!chapterDataCache.has(key)) {
+			fetchChapterHtml(bookId, ch)
+				.then((html) => {
+					if (html) {
+						chapterDataCache.set(key, { html, geoplaces: extractGeoplaces(html) });
+					}
+				})
+				.catch(() => {});
+		}
+	};
+	prefetch(chapter + 1);
+	if (chapter > 1) {
+		prefetch(chapter - 1);
+	}
+}
 
 /*----------------------------------------------------------------------
  *                      LOADER
  */
-export default async function chapterLoader({ params }: LoaderFunctionArgs) {
-    const { bookId, chapter } = params;
-    const key = `${bookId}:${chapter}`;
+export default async function chapterLoader({ params, request }: LoaderFunctionArgs) {
+	await getScripturesData();
 
-    if (chapterDataCache.has(key)) {
-        return chapterDataCache.get(key);
-    }
+	const { bookSlug, chapter } = params;
+	const chapterNum = Number(chapter);
+	if (!Number.isFinite(chapterNum) || chapterNum < 0) {
+		// eslint-disable-next-line @typescript-eslint/only-throw-error
+		throw new Response("Invalid chapter", { status: 404 });
+	}
+	const book = bookBySlug(bookSlug ?? "");
+	if (!book) {
+		// eslint-disable-next-line @typescript-eslint/only-throw-error
+		throw new Response("Book not found", { status: 404 });
+	}
+	const bookId = book.id;
+	const key = `${bookId}:${chapter}`;
 
-    const html = await fetchChapterHtml(Number(bookId), Number(chapter));
+	const cached = chapterDataCache.get(key);
+	if (cached) return cached;
 
-    if (!html) {
-        // eslint-disable-next-line @typescript-eslint/only-throw-error
-        throw new Response("Chapter not found", { status: 404 });
-    }
+	const html = await fetchChapterHtml(bookId, chapterNum, request.signal);
 
-    const geoplaces = extractGeoplaces(html);
+	if (!html) {
+		// eslint-disable-next-line @typescript-eslint/only-throw-error
+		throw new Response("Chapter not found", { status: 404 });
+	}
 
-    chapterDataCache.set(key, { html, geoplaces });
+	const geoplaces = extractGeoplaces(html);
+	const entry = { html, geoplaces };
 
-    return chapterDataCache.get(key);
+	chapterDataCache.set(key, entry);
+	void prefetchAdjacentChapters(bookId, chapterNum);
+
+	return entry;
 }

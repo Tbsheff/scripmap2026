@@ -1,96 +1,180 @@
+@import "tailwindcss";
+
+/* ============================================================
+   THE EDITORIAL SANCTUARY — Design Token Foundation
+   ============================================================ */
+
 :root {
-    color-scheme: light dark;
+	color-scheme: light dark;
 
-    --body-background-color: rgb(236, 226, 217);
-    --body-text-color: #201500;
+	/* Surface Hierarchy — Neutral #F7F8F7 base */
+	--surface: #ffffff;
+	--surface-container-low: #eaebea;
+	--surface-container: #e0e2e0;
+	--surface-container-high: #d6d8d7;
+	--surface-container-lowest: #ffffff;
 
-    --chapter-background-color: #fffcfc;
+	/* Text & Content — Secondary #373B3E */
+	--on-surface: #373b3e;
+	--on-surface-variant: #5a5e60;
+	--outline: #8c9ba5;
+	--outline-variant: #c2c8cc;
 
-    --header-background-color: #3f2000;
-    --header-text-color: #f0f0f0;
-    --header-hover-color: #d0d0ff;
-    --header-shadow-1: rgba(0, 0, 0, 0.16);
-    --header-shadow-2: rgba(0, 0, 0, 0.12);
+	/* Primary — Sage #5F6D64 */
+	--primary: #5f6d64;
+	--primary-container: #d7e6db;
+	--on-primary: #ffffff;
 
-    --button-background-color: rgba(255, 255, 255, 0.65);
-    --button-text-color: #201500;
-    --button-shadow-1: rgba(0, 0, 0, 0.14);
-    --button-shadow-2: rgba(0, 0, 0, 0.12);
-    --button-shadow-3: rgba(0, 0, 0, 0.2);
+	/* Secondary — Charcoal #373B3E */
+	--secondary: #373b3e;
+	--secondary-container: #e0e3e6;
+	--on-secondary: #ffffff;
 
-    --link-visited-color: blue;
-    --active-hover-color: blue;
-    --anchor-name-color: black;
-    --volume-hover-color: #33b;
-    --scripture-link-color: #44b;
-    --scripture-hover-color: #4488ff;
+	/* Tertiary — Steel #8C9BA5 */
+	--tertiary: #8c9ba5;
+	--tertiary-container: #e3edf5;
 
-    --match-background-color: #ffffbb;
+	/* Legacy compatibility tokens */
+	--body-background-color: var(--surface);
+	--body-text-color: var(--on-surface);
+	--header-background-color: var(--on-surface);
+	--header-text-color: var(--surface);
+	--header-hover-color: var(--primary-container);
+	--border-nav-map-color: rgba(171, 180, 179, 0.35);
+	--scripture-link-color: var(--primary);
+	--match-background-color: #e8ecd8;
+	--map-text-color: var(--on-surface);
+	--map-text-shadow-color: var(--surface);
 
-    --border-nav-map-color: #aaa;
+	/* Z-index scale */
+	--z-base: 0;
+	--z-nav-overlay: 10;
+	--z-header: 20;
+	--z-modal: 30;
 
-    --nav-hover-color: rgba(0, 0, 0, 0.05);
+	/* Motion */
+	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+	--ease-standard: cubic-bezier(0.2, 0, 0, 1);
+	--transition-slow: 200ms ease-out;
 
-    --text-shadow-color: #fff;
-    --map-text-color: #201500;
-    --map-text-shadow-color: #fff8f0;
+	/* Radius */
+	--radius: 0.75rem;
+	--radius-sm: calc(var(--radius) * 0.5);
+	--radius-md: calc(var(--radius) * 0.8);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) * 1.4);
+	--radius-full: 9999px;
+
+	/* Ambient shadow (tinted, diffused) */
+	--shadow-ambient: 0px 20px 40px rgba(44, 52, 51, 0.06);
+	--shadow-subtle: 0px 1px 3px rgba(44, 52, 51, 0.04);
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --body-background-color: black;
-        --body-text-color: #d8d8d8;
+	:root {
+		--surface: #1a1f1e;
+		--surface-container-low: #212625;
+		--surface-container: #2a2f2e;
+		--surface-container-high: #343938;
+		--surface-container-lowest: #141918;
 
-        --chapter-background-color: #222;
+		--on-surface: #e0e4e3;
+		--on-surface-variant: #a0a8a7;
+		--outline: #6a7271;
+		--outline-variant: #404847;
 
-        /* We're keeping the same header background/foreground colors in both color schemes */
-        --header-shadow-1: rgba(255, 255, 255, 0.06);
-        --header-shadow-2: rgba(255, 255, 255, 0.08);
+		--primary: #a8c4ae;
+		--primary-container: #354039;
+		--on-primary: #1a1f1e;
 
-        --button-background-color: rgba(75, 75, 75, 0.75);
-        --button-text-color: #ccc;
-        --button-shadow-1: rgba(255, 255, 255, 0.2);
-        --button-shadow-2: rgba(255, 255, 255, 0.12);
-        --button-shadow-3: rgba(255, 255, 255, 0.14);
+		--secondary-container: #333837;
+		--on-secondary: #e0e4e3;
 
-        --link-visited-color: #b0b0ff;
-        --active-hover-color: #ffb0b0;
-        --anchor-name-color: #b0b0b0;
-        --volume-hover-color: #d0d0ff;
-        --scripture-link-color: #b0b0ff;
+		--accent: #c4a882;
+		--accent-container: #3d3228;
 
-        --match-background-color: #303022;
+		--match-background-color: #2a3028;
+		--scripture-link-color: var(--primary);
+		--border-nav-map-color: rgba(64, 72, 71, 0.4);
 
-        --border-nav-map-color: #555;
+		--shadow-ambient: 0px 20px 40px rgba(0, 0, 0, 0.2);
+		--shadow-subtle: 0px 1px 3px rgba(0, 0, 0, 0.15);
+	}
+}
 
-        --nav-hover-color: rgba(255, 255, 255, 0.14);
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
 
-        --text-shadow-color: #222;
-        --map-text-color: #d59563;
-        --map-text-shadow-color: #242f3e;
-    }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+	font-family: "Noto Serif", serif;
+}
+
+p {
+	text-wrap: pretty;
+}
+
+:focus-visible {
+	outline: 2px solid var(--primary);
+	outline-offset: 2px;
 }
 
 html {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family: "Roboto", sans-serif;
-    font-size: 12pt;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font-family: "Manrope", sans-serif;
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    color: var(--body-text-color);
-    background-color: var(--body-background-color);
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
+	color: var(--on-surface);
+	background-color: var(--surface);
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+		transition-duration: 0.01ms;
+	}
 }
 
 @media screen and (max-width: 44rem) {
-    body {
-        font-size: 10pt;
-        height: 100%;
-        width: 100%;
-    }
+	html {
+		font-size: 15px;
+	}
+}
+
+/* Tailwind theme mapping */
+@theme inline {
+    --font-heading: 'Noto Serif', serif;
+    --font-sans: 'Manrope', sans-serif;
+    --font-serif: 'Noto Serif', serif;
+}
+
+@layer base {
+	* {
+		border-color: var(--border-nav-map-color);
+	}
+	.maplibregl-popup-content {
+		@apply bg-transparent! shadow-none! p-0! rounded-none!;
+	}
+	.maplibregl-popup-tip {
+		@apply hidden!;
+	}
 }

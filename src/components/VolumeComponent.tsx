@@ -3,43 +3,48 @@
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2026
  *
- * DESCRIPTION: Single volume display component with grid of books.
+ * DESCRIPTION: Single volume display component with editorial book cards.
  */
 
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
+import { memo } from "react";
 import { Link } from "react-router-dom";
-import { CLASS_BUTTON } from "../Constants";
-import LoadingIndicator from "./LoadingIndicator";
-import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
-import { VolumeProps } from "../Types";
+import { VOLUME_LABELS } from "../Constants";
+import type { VolumeProps } from "../Types";
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
-export default function VolumeComponent({ volume }: VolumeProps) {
-    const { isLoading } = useScripturesDataContext();
+export default memo(function VolumeComponent({ volume }: VolumeProps) {
+	if (!volume) {
+		return null;
+	}
 
-    if (isLoading || !volume) {
-        return <LoadingIndicator />;
-    }
+	const volumeLabel = VOLUME_LABELS[volume.id - 1] ?? `Volume ${volume.id}`;
 
-    return (
-        <div className="volume">
-            <h5>{volume.fullName}</h5>
-            <div className="books">
-                {volume.books.map((book) => (
-                    <Link
-                        className={CLASS_BUTTON}
-                        id={String(book.id)}
-                        key={`bk${book.id}`}
-                        to={`/${volume.id}/${book.id}`}
-                    >
-                        {book.gridName}
-                    </Link>
-                ))}
-            </div>
-        </div>
-    );
-}
+	return (
+		<section className="volume">
+			<div className="volume-header">
+				<div>
+					<span className="volume-label">{volumeLabel}</span>
+					<h2 className="volume-title">{volume.fullName}</h2>
+				</div>
+			</div>
+			<div className="book-cards">
+				{volume.books.map((book) => (
+					<Link
+						className="book-card"
+						id={String(book.id)}
+						key={`bk${book.id}`}
+						to={`/${volume.urlPath}/${book.urlPath}`}
+					>
+						<span className="book-abbr">{book.citeAbbr}</span>
+						<span className="book-name">{book.gridName}</span>
+					</Link>
+				))}
+			</div>
+		</section>
+	);
+});

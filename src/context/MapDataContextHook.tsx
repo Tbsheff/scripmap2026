@@ -3,25 +3,39 @@
  * AUTHOR:  Stephen W. Liddle
  * DATE:    Winter 2026
  *
- * DESCRIPTION: Custom hook for accessing the map context.
+ * DESCRIPTION: Custom hooks for accessing the map contexts.
  */
 
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
 import { use } from "react";
-import { MapContextType } from "../Types";
-import { MapDataContext } from "./MapData";
+import {
+	FocusedGeoplaceContext,
+	type FocusedGeoplaceContextType,
+	GeoplacesContext,
+	type GeoplacesContextType,
+} from "./MapData";
 
 /*----------------------------------------------------------------------
- *                      CUSTOM HOOK
+ *                      CUSTOM HOOKS
  */
-export function useMapContext(): MapContextType {
-    const context = use(MapDataContext);
+export function useGeoplacesContext(): GeoplacesContextType {
+	const context = use(GeoplacesContext);
 
-    if (!context) {
-        throw new Error("useMapContext must be used within a MapDataContext provider");
-    }
+	if (!context) {
+		throw new Error("useGeoplacesContext must be used within a GeoplacesContext provider");
+	}
 
-    return context;
+	return context;
+}
+
+export function useFocusedGeoplaceContext(): FocusedGeoplaceContextType {
+	const context = use(FocusedGeoplaceContext);
+
+	if (!context) {
+		throw new Error("useFocusedGeoplaceContext must be used within a FocusedGeoplaceContext provider");
+	}
+
+	return context;
 }

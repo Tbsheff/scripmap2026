@@ -9,7 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { ReactNode } from "react";
+import { type ReactNode, useMemo } from "react";
 import { useFetchScripturesData } from "../ServerApi";
 import { ScripturesDataContext } from "./ScripturesData";
 
@@ -17,17 +17,9 @@ import { ScripturesDataContext } from "./ScripturesData";
  *                      COMPONENT
  */
 export function ScripturesDataProvider({ children }: { children: ReactNode }) {
-    const { books, isLoading, volumes } = useFetchScripturesData();
+	const { books, error, isLoading, volumes } = useFetchScripturesData();
 
-    return (
-        <ScripturesDataContext
-            value={{
-                books,
-                isLoading,
-                volumes
-            }}
-        >
-            {children}
-        </ScripturesDataContext>
-    );
+	const contextValue = useMemo(() => ({ books, error, isLoading, volumes }), [books, error, isLoading, volumes]);
+
+	return <ScripturesDataContext value={contextValue}>{children}</ScripturesDataContext>;
 }

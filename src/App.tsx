@@ -9,54 +9,95 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import BookComponent from "./components/BookComponent";
-import ChapterComponent from "./components/ChapterComponent";
+import { lazy, Suspense } from "react";
+import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import chapterLoader from "./components/ChapterLoader";
-import LoadingIndicator from "./components/LoadingIndicator";
+import LoadingIndicator, { ChapterLoadingIndicator, ScriptureLoadingIndicator } from "./components/LoadingIndicator";
 import MainPage from "./components/MainPage";
 import { ScripturesDataProvider } from "./context/ScripturesDataProvider";
-import VolumesList from "./components/VolumesList";
+
+const BookComponent = lazy(() => import("./components/BookComponent"));
+const ChapterComponent = lazy(() => import("./components/ChapterComponent"));
+const VolumesList = lazy(() => import("./components/VolumesList"));
 import "./App.css";
-import "./Waves.js";
-import "./Waves.css";
+import "./styles/transitions.css";
+import "./styles/content.css";
 
 /*----------------------------------------------------------------------
  *                      PRIVATE HELPERS
  */
 function ErrorPage() {
-    return <div>There was a routing error.</div>;
+	return (
+		<div
+			role="alert"
+			className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center bg-[var(--body-background-color)] text-[var(--body-text-color)]"
+		>
+			<h2 className="m-0 text-[var(--header-background-color)]">Something went wrong</h2>
+			<p className="m-0">Unable to load this page.</p>
+			<Link
+				to="/"
+				className="text-[var(--header-text-color)] bg-[var(--header-background-color)] px-6 py-2.5 min-h-[2.5rem] rounded-xl no-underline mt-4 inline-flex items-center"
+			>
+				Return to All Volumes
+			</Link>
+		</div>
+	);
 }
 
 /*----------------------------------------------------------------------
  *                      ROUTER
  */
 const router = createBrowserRouter([
-    {
-        path: "*",
-        element: <MainPage />,
-        errorElement: <ErrorPage />,
-        children: [
-            { path: "", element: <VolumesList /> },
-            { path: ":volumeId", element: <VolumesList /> },
-            { path: ":volumeId/:bookId", element: <BookComponent /> },
-            {
-                path: ":volumeId/:bookId/:chapter",
-                element: <ChapterComponent />,
-                hydrateFallbackElement: <LoadingIndicator />,
-                loader: chapterLoader
-            }
-        ]
-    }
+	{
+		path: "/",
+		element: <MainPage />,
+		errorElement: <ErrorPage />,
+		children: [
+			{
+				path: "",
+				element: (
+					<Suspense fallback={<LoadingIndicator />}>
+						<VolumesList />
+					</Suspense>
+				),
+			},
+			{
+				path: ":volumeSlug",
+				element: (
+					<Suspense fallback={<LoadingIndicator />}>
+						<VolumesList />
+					</Suspense>
+				),
+			},
+			{
+				path: ":volumeSlug/:bookSlug",
+				element: (
+					<Suspense fallback={<ChapterLoadingIndicator />}>
+						<BookComponent />
+					</Suspense>
+				),
+			},
+			{
+				path: ":volumeSlug/:bookSlug/:chapter",
+				element: (
+					<Suspense fallback={<ScriptureLoadingIndicator />}>
+						<ChapterComponent />
+					</Suspense>
+				),
+				hydrateFallbackElement: <ScriptureLoadingIndicator />,
+				loader: chapterLoader,
+			},
+		],
+	},
 ]);
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
 export default function App() {
-    return (
-        <ScripturesDataProvider>
-            <RouterProvider router={router} />
-        </ScripturesDataProvider>
-    );
+	return (
+		<ScripturesDataProvider>
+			<RouterProvider router={router} />
+		</ScripturesDataProvider>
+	);
 }
