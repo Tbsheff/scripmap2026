@@ -6,7 +6,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!!**/dist", "!!src/google.maps.d.ts", "!!src/components/ui/map.tsx"]
+		"includes": ["**", "!!**/dist", "!!src/google.maps.d.ts", "!!src/components/ui/map.tsx", "!!src/index.css"]
 	},
 	"css": {
 		"linter": {
@@ -21,14 +21,6 @@
 					"suspicious": {
 						"noArrayIndexKey": "off"
 					}
-				}
-			}
-		},
-		{
-			"includes": ["src/index.css"],
-			"css": {
-				"linter": {
-					"enabled": false
 				}
 			}
 		},
