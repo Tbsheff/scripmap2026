@@ -11,13 +11,14 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { ANIMATION_KEY_NEXT, ANIMATION_KEY_PREVIOUS } from "../Constants";
 import Breadcrumbs from "./Breadcrumbs";
+import type { NextPreviousParameters } from "./NextPreviousComponent";
 
 interface HeaderProps {
 	mapOpen?: boolean;
 	onToggleMap?: () => void;
 	onToggleSidebar?: () => void;
-	prevChapter?: { volumeSlug: string; bookSlug: string; chapter: number; title: string; bookId: number } | null;
-	nextChapter?: { volumeSlug: string; bookSlug: string; chapter: number; title: string; bookId: number } | null;
+	prevChapter?: NextPreviousParameters | null;
+	nextChapter?: NextPreviousParameters | null;
 }
 
 export default memo(function Header({

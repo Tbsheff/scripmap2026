@@ -14,7 +14,7 @@ import type { Book, Books, Volume } from "../Types";
 /*----------------------------------------------------------------------
  *                      PRIVATE TYPES
  */
-interface NextPreviousParameters {
+export interface NextPreviousParameters {
 	volumeSlug: string;
 	bookSlug: string;
 	bookId: number;
@@ -22,7 +22,7 @@ interface NextPreviousParameters {
 	title: string;
 }
 
-export function nextChapter(bookId: number, chapter: number, books: Books, volumes: Volume[]): NextPreviousParameters {
+export function nextChapter(bookId: number, chapter: number, books: Books, volumes: Volume[]): NextPreviousParameters | null {
 	const book = books[bookId];
 
 	if (book !== undefined) {
@@ -59,7 +59,7 @@ export function nextChapter(bookId: number, chapter: number, books: Books, volum
 		}
 	}
 
-	return { volumeSlug: "", bookSlug: "", bookId: 0, chapter: 0, title: "" };
+	return null;
 }
 
 export function previousChapter(
@@ -67,7 +67,7 @@ export function previousChapter(
 	chapter: number,
 	books: Books,
 	volumes: Volume[],
-): NextPreviousParameters {
+): NextPreviousParameters | null {
 	const book = books[bookId];
 
 	if (book !== undefined) {
@@ -98,7 +98,7 @@ export function previousChapter(
 		}
 	}
 
-	return { volumeSlug: "", bookSlug: "", bookId: 0, chapter: 0, title: "" };
+	return null;
 }
 
 export function titleForBookChapter(book: Book, chapter: number): string {

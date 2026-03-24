@@ -79,10 +79,10 @@ export default function ChapterComponent() {
 		<>
 			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: server-rendered scripture content */}
 			<div className="chapter-content" dangerouslySetInnerHTML={innerHtml} />
-			{(prev.bookId > 0 || next.bookId > 0) && (
+			{(prev !== null || next !== null) && (
 				<div className="flex w-full max-w-[36rem] mx-auto px-12 py-8 mt-4 border-t border-[var(--outline-variant)]">
 					<div className="flex-1">
-						{prev.bookId > 0 && (
+						{prev !== null && (
 							<Link
 								to={`/${prev.volumeSlug}/${prev.bookSlug}/${prev.chapter}`}
 								state={{ animationKey: ANIMATION_KEY_PREVIOUS }}
@@ -95,7 +95,7 @@ export default function ChapterComponent() {
 						)}
 					</div>
 					<div className="flex-1 text-right">
-						{next.bookId > 0 && (
+						{next !== null && (
 							<Link
 								to={`/${next.volumeSlug}/${next.bookSlug}/${next.chapter}`}
 								state={{ animationKey: ANIMATION_KEY_NEXT }}

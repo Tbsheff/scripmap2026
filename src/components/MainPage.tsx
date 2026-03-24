@@ -73,12 +73,12 @@ export default function MainPage() {
 				return;
 			}
 
-			if (e.key === "ArrowLeft" && prev.bookId > 0) {
+			if (e.key === "ArrowLeft" && prev !== null) {
 				navigate(`/${prev.volumeSlug}/${prev.bookSlug}/${prev.chapter}`, {
 					state: { animationKey: ANIMATION_KEY_PREVIOUS },
 				});
 			}
-			if (e.key === "ArrowRight" && next.bookId > 0) {
+			if (e.key === "ArrowRight" && next !== null) {
 				navigate(`/${next.volumeSlug}/${next.bookSlug}/${next.chapter}`, {
 					state: { animationKey: ANIMATION_KEY_NEXT },
 				});
@@ -141,8 +141,8 @@ export default function MainPage() {
 								mapOpen={isChapterView && mapOpen}
 								onToggleMap={isChapterView ? toggleMap : undefined}
 								onToggleSidebar={toggleSidebar}
-								prevChapter={isChapterView && prev.bookId > 0 ? prev : null}
-								nextChapter={isChapterView && next.bookId > 0 ? next : null}
+								prevChapter={isChapterView ? prev : null}
+								nextChapter={isChapterView ? next : null}
 							/>
 
 							{/* Content + optional map */}

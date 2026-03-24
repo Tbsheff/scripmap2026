@@ -12,20 +12,14 @@
 import { Link, useParams } from "react-router-dom";
 import { VOLUME_LABELS } from "../Constants";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
-import type { Volume } from "../Types";
+import type { Book, Volume } from "../Types";
 import { volumeBySlug } from "../utils/scriptureNavigation";
 import LoadingIndicator from "./LoadingIndicator";
 
 /*----------------------------------------------------------------------
  *                      SUB-COMPONENTS
  */
-function BookCard({
-	volume,
-	book,
-}: {
-	volume: Volume;
-	book: { id: number; citeAbbr: string; fullName: string; urlPath: string };
-}) {
+function BookCard({ volume, book }: { volume: Volume; book: Book }) {
 	return (
 		<Link
 			className="book-card flex flex-col bg-[var(--surface-container-lowest)] px-5 pt-5 pb-4 rounded-xl no-underline text-[var(--on-surface)] text-left relative overflow-hidden active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"

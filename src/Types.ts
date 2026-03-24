@@ -69,7 +69,7 @@ export type ShowLocationFunction = (
 ) => void;
 
 export type AnimationState = {
-	animationKey: string;
+	animationKey: "n" | "p";
 };
 
 /*------------------------------------------------------------------------

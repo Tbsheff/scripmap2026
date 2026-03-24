@@ -63,9 +63,8 @@ export default async function chapterLoader({ params, request }: LoaderFunctionA
 	const bookId = book.id;
 	const key = `${bookId}:${chapter}`;
 
-	if (chapterDataCache.has(key)) {
-		return chapterDataCache.get(key);
-	}
+	const cached = chapterDataCache.get(key);
+	if (cached) return cached;
 
 	const html = await fetchChapterHtml(bookId, Number(chapter), request.signal);
 
