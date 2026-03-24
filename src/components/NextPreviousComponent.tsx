@@ -28,9 +28,10 @@ export function nextChapter(bookId: number, chapter: number, books: Books, volum
 	if (book !== undefined) {
 		if (chapter < book.numChapters) {
 			const volume = volumes.find((v) => v.id === book.parentBookId);
+			if (!volume) return null;
 
 			return {
-				volumeSlug: volume?.urlPath ?? "",
+				volumeSlug: volume.urlPath,
 				bookSlug: book.urlPath,
 				bookId,
 				chapter: chapter + 1,
@@ -48,9 +49,10 @@ export function nextChapter(bookId: number, chapter: number, books: Books, volum
 			}
 
 			const nextVolume = volumes.find((v) => v.id === nextBook.parentBookId);
+			if (!nextVolume) return null;
 
 			return {
-				volumeSlug: nextVolume?.urlPath ?? "",
+				volumeSlug: nextVolume.urlPath,
 				bookSlug: nextBook.urlPath,
 				bookId: nextBook.id,
 				chapter: nextChapterValue,
@@ -73,9 +75,10 @@ export function previousChapter(
 	if (book !== undefined) {
 		if (chapter > 1) {
 			const volume = volumes.find((v) => v.id === book.parentBookId);
+			if (!volume) return null;
 
 			return {
-				volumeSlug: volume?.urlPath ?? "",
+				volumeSlug: volume.urlPath,
 				bookSlug: book.urlPath,
 				bookId,
 				chapter: chapter - 1,
@@ -87,9 +90,10 @@ export function previousChapter(
 
 		if (previousBook !== undefined) {
 			const prevVolume = volumes.find((v) => v.id === previousBook.parentBookId);
+			if (!prevVolume) return null;
 
 			return {
-				volumeSlug: prevVolume?.urlPath ?? "",
+				volumeSlug: prevVolume.urlPath,
 				bookSlug: previousBook.urlPath,
 				bookId: previousBook.id,
 				chapter: previousBook.numChapters,

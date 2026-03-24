@@ -55,6 +55,11 @@ export default async function chapterLoader({ params, request }: LoaderFunctionA
 	await getScripturesData();
 
 	const { bookSlug, chapter } = params;
+	const chapterNum = Number(chapter);
+	if (!Number.isFinite(chapterNum) || chapterNum < 0) {
+		// eslint-disable-next-line @typescript-eslint/only-throw-error
+		throw new Response("Invalid chapter", { status: 404 });
+	}
 	const book = bookBySlug(bookSlug ?? "");
 	if (!book) {
 		// eslint-disable-next-line @typescript-eslint/only-throw-error
@@ -66,7 +71,7 @@ export default async function chapterLoader({ params, request }: LoaderFunctionA
 	const cached = chapterDataCache.get(key);
 	if (cached) return cached;
 
-	const html = await fetchChapterHtml(bookId, Number(chapter), request.signal);
+	const html = await fetchChapterHtml(bookId, chapterNum, request.signal);
 
 	if (!html) {
 		// eslint-disable-next-line @typescript-eslint/only-throw-error
@@ -77,7 +82,7 @@ export default async function chapterLoader({ params, request }: LoaderFunctionA
 	const entry = { html, geoplaces };
 
 	chapterDataCache.set(key, entry);
-	void prefetchAdjacentChapters(bookId, Number(chapter));
+	void prefetchAdjacentChapters(bookId, chapterNum);
 
 	return entry;
 }

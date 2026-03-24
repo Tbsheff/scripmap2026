@@ -48,13 +48,19 @@ export default function Navigation() {
 
 	useEffect(() => {
 		navRef.current?.focus();
-	}, []);
+	}, [pathname]);
 
 	const nodeRef = useMemo(() => {
 		let ref = nodeRefCache.get(pathname);
 		if (!ref) {
 			ref = createRef<HTMLDivElement>();
 			nodeRefCache.set(pathname, ref);
+			if (nodeRefCache.size > 30) {
+				const firstKey = nodeRefCache.keys().next().value;
+				if (firstKey !== undefined) {
+					nodeRefCache.delete(firstKey);
+				}
+			}
 		}
 		return ref;
 	}, [pathname]);

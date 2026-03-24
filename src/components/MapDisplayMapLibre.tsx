@@ -139,7 +139,7 @@ export default function MapDisplayMapLibre() {
 	const { geoplaces } = useGeoplacesContext();
 	const { focusedGeoplace, setFocusedGeoplace } = useFocusedGeoplaceContext();
 	const [mapStyle, setMapStyle] = useState<MapStyle>(getStoredStyle);
-	const mapRef = useRef<MapRef>(null);
+	const mapRef = useRef<MapRef | null>(null);
 
 	const hasFocus = focusedGeoplace !== null;
 
