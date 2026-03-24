@@ -523,11 +523,13 @@ function MarkerPopup({ children, className, closeButton = false, ...popupOptions
 	const { marker, map } = useMarkerContext();
 	const container = useMemo(() => document.createElement("div"), []);
 	const prevPopupOptions = useRef(popupOptions);
+	const popupOptionsRef = useRef(popupOptions);
+	popupOptionsRef.current = popupOptions;
 
 	const popup = useMemo(() => {
 		const popupInstance = new MapLibreGL.Popup({
 			offset: 16,
-			...popupOptions,
+			...popupOptionsRef.current,
 			closeButton: false,
 		})
 			.setMaxWidth("none")
@@ -535,7 +537,7 @@ function MarkerPopup({ children, className, closeButton = false, ...popupOptions
 
 		return popupInstance;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [container, popupOptions]);
+	}, [container]);
 
 	useEffect(() => {
 		if (!map) {
@@ -601,18 +603,20 @@ function MarkerTooltip({ children, className, ...popupOptions }: MarkerTooltipPr
 	const { marker, map } = useMarkerContext();
 	const container = useMemo(() => document.createElement("div"), []);
 	const prevTooltipOptions = useRef(popupOptions);
+	const popupOptionsRef = useRef(popupOptions);
+	popupOptionsRef.current = popupOptions;
 
 	const tooltip = useMemo(() => {
 		const tooltipInstance = new MapLibreGL.Popup({
 			offset: 16,
-			...popupOptions,
+			...popupOptionsRef.current,
 			closeOnClick: true,
 			closeButton: false,
 		}).setMaxWidth("none");
 
 		return tooltipInstance;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [popupOptions]);
+	}, []);
 
 	useEffect(() => {
 		if (!map) {
@@ -916,6 +920,7 @@ function MapPopup({
 }: MapPopupProps) {
 	const { map } = useMap();
 	const popupOptionsRef = useRef(popupOptions);
+	popupOptionsRef.current = popupOptions;
 	const onCloseRef = useRef(onClose);
 	onCloseRef.current = onClose;
 	const container = useMemo(() => document.createElement("div"), []);
@@ -923,7 +928,7 @@ function MapPopup({
 	const popup = useMemo(() => {
 		const popupInstance = new MapLibreGL.Popup({
 			offset: 16,
-			...popupOptions,
+			...popupOptionsRef.current,
 			closeButton: false,
 		})
 			.setMaxWidth("none")
@@ -931,7 +936,7 @@ function MapPopup({
 
 		return popupInstance;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [latitude, longitude, popupOptions]);
+	}, [latitude, longitude]);
 
 	useEffect(() => {
 		if (!map) {
