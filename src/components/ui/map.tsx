@@ -190,6 +190,9 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
 	const onViewportChangeRef = useRef(onViewportChange);
 	onViewportChangeRef.current = onViewportChange;
 
+	const propsRef = useRef(props);
+	propsRef.current = props;
+
 	const mapStyles = useMemo(
 		() => ({
 			dark: styles?.dark ?? defaultStyles.dark,
@@ -224,7 +227,7 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
 			attributionControl: {
 				compact: true,
 			},
-			...props,
+			...propsRef.current,
 			...viewport,
 		});
 
@@ -266,7 +269,7 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
 			setMapInstance(null);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [clearStyleTimeout, mapStyles.dark, mapStyles.light, projection, props, resolvedTheme, viewport]);
+	}, [clearStyleTimeout, mapStyles.dark, mapStyles.light, projection, resolvedTheme, viewport]);
 
 	// Sync controlled viewport to map
 	useEffect(() => {
