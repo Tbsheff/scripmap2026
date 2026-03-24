@@ -6,13 +6,13 @@
  * DESCRIPTION: Google Maps component.
  */
 
+import { AdvancedMarker, APIProvider, ControlPosition, Map } from "@vis.gl/react-google-maps";
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
 import { useMemo } from "react";
-import { AdvancedMarker, APIProvider, ControlPosition, Map } from "@vis.gl/react-google-maps";
-import { MapBoundsUpdater } from "./MapBoundsUpdaterGoogle";
 import { useGeoplacesContext } from "../context/MapDataContextHook";
+import { MapBoundsUpdater } from "./MapBoundsUpdaterGoogle";
 
 /*----------------------------------------------------------------------
  *                      CONSTANTS
@@ -33,58 +33,54 @@ const ZOOM_CONTROL_OPTIONS = { position: ControlPosition.RIGHT_BOTTOM };
  *                      COMPONENT
  */
 export default function MapDisplayGoogle() {
-    const { geoplaces } = useGeoplacesContext();
+	const { geoplaces } = useGeoplacesContext();
 
-    if (!API_KEY) {
-        throw new Error("Google Maps API key not configured. Set VITE_GOOGLE_MAPS_API_KEY in .env.local");
-    }
+	if (!API_KEY) {
+		throw new Error("Google Maps API key not configured. Set VITE_GOOGLE_MAPS_API_KEY in .env.local");
+	}
 
-    const markers = useMemo(() => {
-        if (!geoplaces) {
-            return [];
-        }
+	const markers = useMemo(() => {
+		if (!geoplaces) {
+			return [];
+		}
 
-        return Object.entries(geoplaces).map(([key, geoplace]) => (
-            <AdvancedMarker
-                key={key}
-                position={{ lat: geoplace.latitude, lng: geoplace.longitude }}
-                title={geoplace.placename}
-            >
-                <div className={CLASS_GEOPLACE_MARKER}>
-                    <div className={CLASS_PIN} aria-hidden="true"></div>
-                    <div className={CLASS_LABEL}>{geoplace.placename}</div>
-                </div>
-            </AdvancedMarker>
-        ));
-    }, [geoplaces]);
+		return Object.entries(geoplaces).map(([key, geoplace]) => (
+			<AdvancedMarker
+				key={key}
+				position={{ lat: geoplace.latitude, lng: geoplace.longitude }}
+				title={geoplace.placename}
+			>
+				<div className={CLASS_GEOPLACE_MARKER}>
+					<div className={CLASS_PIN} aria-hidden="true"></div>
+					<div className={CLASS_LABEL}>{geoplace.placename}</div>
+				</div>
+			</AdvancedMarker>
+		));
+	}, [geoplaces]);
 
-    const showEmptyState = geoplaces !== null && Object.keys(geoplaces).length === 0;
+	const showEmptyState = geoplaces !== null && Object.keys(geoplaces).length === 0;
 
-    return (
-        <APIProvider apiKey={API_KEY}>
-            <section className="MapDisplay" aria-label="Map of scripture locations">
-                <Map
-                    defaultCenter={JERUSALEM_LOCATION}
-                    defaultZoom={DEFAULT_ZOOM}
-                    mapId={MAP_ID}
-                    gestureHandling={DEFAULT_GESTURE_HANDLING}
-                    mapTypeControl={true}
-                    mapTypeControlOptions={MAP_TYPE_CONTROL_OPTIONS}
-                    mapTypeId={DEFAULT_MAP_TYPE_ID}
-                    streetViewControl={false}
-                    fullscreenControl={false}
-                    zoomControl={true}
-                    zoomControlOptions={ZOOM_CONTROL_OPTIONS}
-                >
-                    {markers}
-                </Map>
-                <MapBoundsUpdater />
-                {showEmptyState && (
-                    <div className="map-empty-state">
-                        No geographic locations in this chapter
-                    </div>
-                )}
-            </section>
-        </APIProvider>
-    );
+	return (
+		<APIProvider apiKey={API_KEY}>
+			<section className="MapDisplay" aria-label="Map of scripture locations">
+				<Map
+					defaultCenter={JERUSALEM_LOCATION}
+					defaultZoom={DEFAULT_ZOOM}
+					mapId={MAP_ID}
+					gestureHandling={DEFAULT_GESTURE_HANDLING}
+					mapTypeControl={true}
+					mapTypeControlOptions={MAP_TYPE_CONTROL_OPTIONS}
+					mapTypeId={DEFAULT_MAP_TYPE_ID}
+					streetViewControl={false}
+					fullscreenControl={false}
+					zoomControl={true}
+					zoomControlOptions={ZOOM_CONTROL_OPTIONS}
+				>
+					{markers}
+				</Map>
+				<MapBoundsUpdater />
+				{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter</div>}
+			</section>
+		</APIProvider>
+	);
 }

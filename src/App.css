@@ -1,15 +1,14 @@
 /* Skip-to-content accessibility link */
 .skip-to-content {
-    position: absolute;
-    left: -9999px;
-    z-index: var(--z-modal);
-    padding: 0.5rem 1rem;
-    background: var(--header-background-color);
-    color: var(--header-text-color);
+	position: absolute;
+	left: -9999px;
+	z-index: var(--z-modal);
+	padding: 0.5rem 1rem;
+	background: var(--header-background-color);
+	color: var(--header-text-color);
 }
 
 .skip-to-content:focus {
-    left: 0;
-    top: 0;
+	left: 0;
+	top: 0;
 }
-

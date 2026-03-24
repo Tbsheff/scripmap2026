@@ -18,53 +18,71 @@ import { bookBySlug, volumeBySlug } from "../utils/scriptureNavigation";
  *                      COMPONENT
  */
 export default function Breadcrumbs() {
-    const { volumeSlug, bookSlug, chapter } = useParams();
-    const volume = volumeBySlug(volumeSlug ?? "");
-    const book = bookBySlug(bookSlug ?? "");
+	const { volumeSlug, bookSlug, chapter } = useParams();
+	const volume = volumeBySlug(volumeSlug ?? "");
+	const book = bookBySlug(bookSlug ?? "");
 
-    const crumbs = useMemo(() => {
-        const items = [];
+	const crumbs = useMemo(() => {
+		const items = [];
 
-        if (!volumeSlug || volume === undefined) {
-            items.push(<li key="t" aria-current="page">{HOME_BREADCRUMB}</li>);
-        } else {
-            items.push(
-                <li key="t">
-                    <Link to="/">{HOME_BREADCRUMB}</Link>
-                </li>
-            );
+		if (!volumeSlug || volume === undefined) {
+			items.push(
+				<li key="t" aria-current="page">
+					{HOME_BREADCRUMB}
+				</li>,
+			);
+		} else {
+			items.push(
+				<li key="t">
+					<Link to="/">{HOME_BREADCRUMB}</Link>
+				</li>,
+			);
 
-            if (!bookSlug || book === undefined) {
-                items.push(<li key={`v${volume.id}`} aria-current="page">{volume.fullName}</li>);
-            } else {
-                items.push(
-                    <li key={`v${volume.id}`}>
-                        <Link to={`/${volume.urlPath}`}>{volume.fullName}</Link>
-                    </li>
-                );
+			if (!bookSlug || book === undefined) {
+				items.push(
+					<li key={`v${volume.id}`} aria-current="page">
+						{volume.fullName}
+					</li>,
+				);
+			} else {
+				items.push(
+					<li key={`v${volume.id}`}>
+						<Link to={`/${volume.urlPath}`}>{volume.fullName}</Link>
+					</li>,
+				);
 
-                if (chapter === undefined || Number(chapter) <= 0) {
-                    items.push(<li key={`b${book.id}`} aria-current="page">{book.tocName}</li>);
-                } else {
-                    items.push(
-                        <li key={`b${book.id}`}>
-                            <Link to={`/${volume.urlPath}/${book.urlPath}`}>{book.tocName}</Link>
-                        </li>
-                    );
+				if (chapter === undefined || Number(chapter) <= 0) {
+					items.push(
+						<li key={`b${book.id}`} aria-current="page">
+							{book.tocName}
+						</li>,
+					);
+				} else {
+					items.push(
+						<li key={`b${book.id}`}>
+							<Link to={`/${volume.urlPath}/${book.urlPath}`}>{book.tocName}</Link>
+						</li>,
+					);
 
-                    items.push(<li key={`c${chapter}`} aria-current="page">{chapter}</li>);
-                }
-            }
-        }
+					items.push(
+						<li key={`c${chapter}`} aria-current="page">
+							{chapter}
+						</li>,
+					);
+				}
+			}
+		}
 
-        return items;
-    }, [volumeSlug, bookSlug, chapter, volume, book]);
+		return items;
+	}, [volumeSlug, bookSlug, chapter, volume, book]);
 
-    return (
-        <div className="flex-auto min-w-0 overflow-hidden">
-            <div className="crumbs">
-                <ul className="flex items-center p-0 m-0 list-none whitespace-nowrap overflow-hidden text-ellipsis">{crumbs}</ul>
-            </div>
-        </div>
-    );
+	return (
+		<div className="flex-auto min-w-0 overflow-hidden">
+			<div className="crumbs">
+				<ul className="flex items-center p-0 m-0 list-none whitespace-nowrap overflow-hidden text-ellipsis">
+					{crumbs}
+				</ul>
+			</div>
+		</div>
+	);
 }

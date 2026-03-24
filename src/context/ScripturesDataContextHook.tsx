@@ -10,18 +10,18 @@
  *                      IMPORTS
  */
 import { use } from "react";
-import { ScripturesContextType } from "../Types";
+import type { ScripturesContextType } from "../Types";
 import { ScripturesDataContext } from "./ScripturesData";
 
 /*----------------------------------------------------------------------
  *                      CUSTOM HOOK
  */
 export function useScripturesDataContext(): ScripturesContextType {
-    const context = use(ScripturesDataContext);
+	const context = use(ScripturesDataContext);
 
-    if (!context) {
-        throw new Error("useScripturesDataContext must be used within a ScripturesDataProvider");
-    }
+	if (!context) {
+		throw new Error("useScripturesDataContext must be used within a ScripturesDataProvider");
+	}
 
-    return context;
+	return context;
 }

@@ -10,7 +10,7 @@
  *                      IMPORTS
  */
 import { createContext } from "react";
-import { ScripturesContextType } from "../Types";
+import type { ScripturesContextType } from "../Types";
 
 /*----------------------------------------------------------------------
  *                      PUBLIC VARIABLE

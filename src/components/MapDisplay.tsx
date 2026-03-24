@@ -27,28 +27,30 @@ const STORAGE_KEY = "scripmap-map-provider";
  *                      HELPERS
  */
 function getStoredProvider(): "maplibre" | "google" {
-    try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored === "google") return "google";
-    } catch {
-        // localStorage unavailable
-    }
-    return "maplibre";
+	try {
+		const stored = localStorage.getItem(STORAGE_KEY);
+		if (stored === "google") {
+			return "google";
+		}
+	} catch {
+		// localStorage unavailable
+	}
+	return "maplibre";
 }
 
 /*----------------------------------------------------------------------
  *                      COMPONENT
  */
 export default function MapDisplay() {
-    const provider = getStoredProvider();
+	const provider = getStoredProvider();
 
-    if (provider === "google") {
-        return (
-            <Suspense fallback={null}>
-                <MapDisplayGoogle />
-            </Suspense>
-        );
-    }
+	if (provider === "google") {
+		return (
+			<Suspense fallback={null}>
+				<MapDisplayGoogle />
+			</Suspense>
+		);
+	}
 
-    return <MapDisplayMapLibre />;
+	return <MapDisplayMapLibre />;
 }
