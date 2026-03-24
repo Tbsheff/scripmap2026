@@ -400,23 +400,6 @@ section.MapDisplay {
 	opacity: 0.45;
 }
 
-@media (hover: hover) and (pointer: fine) {
-	.geoplace-marker:hover {
-		transform: translateY(-2px);
-	}
-
-	.geoplace-marker:hover .marker-dot {
-		transform: scale(1.2);
-		box-shadow:
-			0 2px 6px rgba(0, 0, 0, 0.35),
-			0 0 0 4px rgba(184, 92, 56, 0.2);
-	}
-
-	.geoplace-marker:hover .label {
-		color: #9a4e30;
-	}
-}
-
 .marker-dot {
 	width: 14px;
 	height: 14px;
@@ -478,6 +461,23 @@ section.MapDisplay {
 	margin-top: 0;
 	letter-spacing: 0.01em;
 	transition: color 150ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.geoplace-marker:hover {
+		transform: translateY(-2px);
+	}
+
+	.geoplace-marker:hover .marker-dot {
+		transform: scale(1.2);
+		box-shadow:
+			0 2px 6px rgba(0, 0, 0, 0.35),
+			0 0 0 4px rgba(184, 92, 56, 0.2);
+	}
+
+	.geoplace-marker:hover .label {
+		color: #9a4e30;
+	}
 }
 
 .marker-popup {

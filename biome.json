@@ -8,6 +8,31 @@
 	"files": {
 		"includes": ["**", "!!**/dist", "!!src/google.maps.d.ts", "!!src/components/ui/map.tsx"]
 	},
+	"css": {
+		"linter": {
+			"enabled": true
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["src/index.css"],
+			"css": {
+				"linter": {
+					"enabled": false
+				}
+			}
+		},
+		{
+			"includes": ["src/styles/content.css"],
+			"linter": {
+				"rules": {
+					"style": {
+						"noDescendingSpecificity": "off"
+					}
+				}
+			}
+		}
+	],
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
