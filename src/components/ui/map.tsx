@@ -409,9 +409,12 @@ function MapMarker({
 		onDragEnd,
 	};
 
+	const markerOptionsRef = useRef(markerOptions);
+	markerOptionsRef.current = markerOptions;
+
 	const marker = useMemo(() => {
 		const markerInstance = new MapLibreGL.Marker({
-			...markerOptions,
+			...markerOptionsRef.current,
 			element: document.createElement("div"),
 			draggable,
 		}).setLngLat([longitude, latitude]);
@@ -444,7 +447,7 @@ function MapMarker({
 		return markerInstance;
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [draggable, latitude, longitude, markerOptions]);
+	}, [draggable, latitude, longitude]);
 
 	useEffect(() => {
 		if (!map) {
