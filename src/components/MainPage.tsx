@@ -178,6 +178,30 @@ export default function MainPage() {
 						</div>
 					</div>
 				</div>
+
+				{/* Mobile map sheet */}
+				{isChapterView && mapOpen && (
+					<div className="sm:hidden fixed inset-x-0 bottom-0 z-40 h-[50vh] bg-[var(--surface)] rounded-t-2xl shadow-2xl overflow-hidden">
+						<div className="flex items-center justify-between px-4 py-2 border-b border-[var(--outline-variant)]">
+							<span className="text-sm font-medium text-[var(--on-surface-variant)]">Map</span>
+							<button
+								type="button"
+								onClick={toggleMap}
+								className="flex items-center justify-center h-8 w-8 rounded-full text-[var(--on-surface-variant)] hover:bg-[var(--surface-container)]"
+								aria-label="Close map"
+							>
+								✕
+							</button>
+						</div>
+						<div className="h-[calc(50vh-3rem)]">
+							<MapErrorBoundary>
+								<Suspense fallback={null}>
+									<MapDisplay />
+								</Suspense>
+							</MapErrorBoundary>
+						</div>
+					</div>
+				)}
 			</FocusedGeoplaceContext>
 		</GeoplacesContext>
 	);

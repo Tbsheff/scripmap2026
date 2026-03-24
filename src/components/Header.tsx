@@ -63,12 +63,12 @@ export default memo(function Header({
 							state={{ animationKey: ANIMATION_KEY_PREVIOUS }}
 							aria-label={`Previous: ${prevChapter.title}`}
 							title={prevChapter.title}
-							className="flex items-center justify-center h-7 w-7 rounded-md text-lg leading-none text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
+							className="flex items-center justify-center h-10 w-10 -mx-1 rounded-md text-lg leading-none text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
 						>
 							‹
 						</Link>
 					) : (
-						<span className="inline-block h-7 w-7" />
+						<span className="inline-block h-10 w-10" />
 					)}
 					{nextChapter ? (
 						<Link
@@ -76,12 +76,12 @@ export default memo(function Header({
 							state={{ animationKey: ANIMATION_KEY_NEXT }}
 							aria-label={`Next: ${nextChapter.title}`}
 							title={nextChapter.title}
-							className="flex items-center justify-center h-7 w-7 rounded-md text-lg leading-none text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
+							className="flex items-center justify-center h-10 w-10 -mx-1 rounded-md text-lg leading-none text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
 						>
 							›
 						</Link>
 					) : (
-						<span className="inline-block h-7 w-7" />
+						<span className="inline-block h-10 w-10" />
 					)}
 				</div>
 			)}

@@ -246,3 +246,14 @@ div.chapterheading {
 		background: var(--surface-container-low);
 	}
 }
+
+@media (prefers-reduced-motion: reduce) {
+	.cross-fade-enter-active,
+	.cross-fade-exit-active,
+	.slide-left-enter-active,
+	.slide-left-exit-active,
+	.slide-right-enter-active,
+	.slide-right-exit-active {
+		transition-duration: 0.01ms !important;
+	}
+}

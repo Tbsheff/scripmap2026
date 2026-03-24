@@ -36,6 +36,12 @@ div.chapterheading .big {
 	font-variant-numeric: tabular-nums;
 }
 
+@media screen and (max-width: 640px) {
+	div.chapterheading .big {
+		font-size: 2.25rem;
+	}
+}
+
 div.navheading {
 	text-align: center;
 	display: flex;
