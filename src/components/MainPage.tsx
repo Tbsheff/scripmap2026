@@ -32,7 +32,9 @@ export default function MainPage() {
 	const [focusedGeoplace, setFocusedGeoplace] = useState<GeoPlace | null>(null);
 	const [geoplaces, setGeoplaces] = useState<GeoPlaces | null>(null);
 	const [mapOpen, setMapOpen] = useState(false);
-	const [sidebarOpen, setSidebarOpen] = useState(true);
+	const [sidebarOpen, setSidebarOpen] = useState(() =>
+		typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
+	);
 	const { bookSlug, chapter } = useParams();
 	const isChapterView = Boolean(chapter);
 	const navigate = useNavigate();
@@ -129,7 +131,12 @@ export default function MainPage() {
 
 				{/* Outer shell — full viewport, flex row */}
 				<div className="flex h-dvh w-full overflow-hidden bg-[var(--surface-container-low)]">
-					{/* Sidebar — desktop only, collapsible */}
+					{sidebarOpen && (
+						<div
+							className="fixed inset-0 z-40 bg-black/30 lg:hidden"
+							onClick={toggleSidebar}
+						/>
+					)}
 					<Sidebar open={sidebarOpen} />
 
 					{/* Main area — flex column with inset container */}

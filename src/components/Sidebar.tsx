@@ -90,9 +90,12 @@ export default memo(function Sidebar({ open = true }: { open?: boolean }) {
 
 	return (
 		<aside
-			className={`hidden lg:flex flex-col shrink-0 overflow-y-auto overflow-x-hidden px-3 py-2
-                        transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-                        ${open ? "w-60" : "w-0 px-0"}`}
+			className={`flex flex-col shrink-0 overflow-y-auto overflow-x-hidden px-3 py-2
+                        transition-[width,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+                        ${open
+                            ? "fixed inset-y-0 left-0 z-50 w-72 bg-[var(--surface)] shadow-2xl lg:static lg:z-auto lg:w-60 lg:shadow-none lg:bg-transparent"
+                            : "hidden lg:flex w-0 px-0"
+                        }`}
 		>
 			<div className={`transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
 				{/* Logo / Title */}
