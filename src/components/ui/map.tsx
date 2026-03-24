@@ -117,7 +117,7 @@ type MapViewport = {
 
 type MapStyleOption = string | MapLibreGL.StyleSpecification;
 
-type MapRef = MapLibreGL.Map | null;
+type MapRef = MapLibreGL.Map;
 
 type MapProps = {
 	children?: ReactNode;
@@ -202,7 +202,7 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
 	);
 
 	// Expose the map instance to the parent component
-	useImperativeHandle(ref, () => mapInstance, [mapInstance]);
+	useImperativeHandle(ref, () => mapInstance as MapRef, [mapInstance]);
 
 	const clearStyleTimeout = useCallback(() => {
 		if (styleTimeoutRef.current) {
