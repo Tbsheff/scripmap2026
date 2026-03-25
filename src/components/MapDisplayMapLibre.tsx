@@ -66,12 +66,13 @@ function getStoredStyle(): MapStyle {
  */
 function MapStyleSwitcher({ mapStyle, onToggle }: { mapStyle: MapStyle; onToggle: () => void }) {
 	return (
-		<div className="map-style-switcher">
+		<div className="absolute top-2.5 right-2.5 z-[1]">
 			<button
 				type="button"
 				onClick={onToggle}
 				aria-label={`Switch to ${mapStyle === "terrain" ? "clean" : "terrain"} map`}
 				title={mapStyle === "terrain" ? "Clean view" : "Terrain view"}
+				className="flex items-center gap-1.5 bg-[var(--surface-container-lowest)] text-[var(--on-surface-variant)] border border-[var(--outline-variant)] rounded-[var(--radius-sm)] px-2.5 py-1.5 min-h-[2.5rem] font-sans text-[0.7rem] font-medium tracking-[0.02em] cursor-pointer [transition:background-color_150ms_var(--ease-out),color_150ms_var(--ease-out),box-shadow_150ms_var(--ease-out)] shadow-[var(--shadow-subtle)] hover:bg-[var(--surface-container-low)] hover:text-[var(--on-surface)] active:scale-[0.96]"
 			>
 				{mapStyle === "terrain" ? (
 					<svg
@@ -85,6 +86,7 @@ function MapStyleSwitcher({ mapStyle, onToggle }: { mapStyle: MapStyle; onToggle
 						width="16"
 						height="16"
 						aria-hidden="true"
+						className="shrink-0 opacity-70"
 					>
 						<rect x="3" y="3" width="18" height="18" rx="2" />
 						<path d="M3 12h18" />
@@ -101,6 +103,7 @@ function MapStyleSwitcher({ mapStyle, onToggle }: { mapStyle: MapStyle; onToggle
 						width="16"
 						height="16"
 						aria-hidden="true"
+						className="shrink-0 opacity-70"
 					>
 						<path d="m8 3 4 8 5-5 2 15H2L8 3z" />
 					</svg>
@@ -174,9 +177,9 @@ export default function MapDisplayMapLibre() {
 										<div className="label">{geoplace.placename}</div>
 									</div>
 								</MarkerContent>
-								<MarkerPopup className="marker-popup">
-									<p className="marker-popup-name">{geoplace.placename}</p>
-									<p className="marker-popup-coords">
+								<MarkerPopup className="font-serif bg-[var(--surface-container-lowest)] rounded-[var(--radius-md)] px-3.5 py-2.5 shadow-[var(--shadow-ambient)] max-w-[200px]">
+									<p className="text-[0.8rem] font-semibold text-[var(--on-surface)] m-0 leading-tight">{geoplace.placename}</p>
+									<p className="font-sans text-[0.65rem] text-[var(--on-surface-variant)] mt-1 mb-0 tracking-[0.02em]">
 										{geoplace.latitude.toFixed(4)}, {geoplace.longitude.toFixed(4)}
 									</p>
 								</MarkerPopup>
@@ -191,7 +194,7 @@ export default function MapDisplayMapLibre() {
 	const showEmptyState = geoplaces !== null && Object.keys(geoplaces).length === 0;
 
 	return (
-		<section className="MapDisplay" aria-label="Map of scripture locations">
+		<section className="relative h-full bg-[var(--body-background-color)] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-ambient)]" aria-label="Map of scripture locations">
 			<MapLibreMap ref={mapRef} center={JERUSALEM_CENTER} zoom={DEFAULT_ZOOM} styles={STYLE_CONFIG[mapStyle]}>
 				{markers}
 				<MapControls position="bottom-right" showZoom showCompass />
@@ -217,7 +220,7 @@ export default function MapDisplayMapLibre() {
 					))}
 				</div>
 			)}
-			{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter.</div>}
+			{showEmptyState && <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-[var(--surface-container-lowest)] text-[var(--on-surface-variant)] px-4 py-2 rounded-[var(--radius-lg,0.625rem)] font-serif italic text-[0.8rem] pointer-events-none whitespace-nowrap z-[var(--z-nav-overlay)] shadow-[var(--shadow-subtle)] animate-[fadeInSlide_400ms_cubic-bezier(0.23,1,0.32,1)_both] [animation-delay:200ms]">No geographic locations in this chapter.</div>}
 		</section>
 	);
 }

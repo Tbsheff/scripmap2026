@@ -167,6 +167,82 @@ body {
     --font-serif: 'Noto Serif', serif;
 }
 
+:root {
+	--animation-duration: 320ms;
+	--fade-duration: 250ms;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes chapterFadeIn {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+@keyframes fadeInSkeleton {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes markerAppear {
+	0% {
+		opacity: 0;
+		transform: scale(0.4);
+	}
+	70% {
+		opacity: 1;
+		transform: scale(1.08);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes focusPulse {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.25); }
+}
+
+@keyframes fadeInSlide {
+	from {
+		opacity: 0;
+		transform: translateX(-50%) translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(-50%) translateY(0);
+	}
+}
+
 @layer base {
 	* {
 		border-color: var(--border-nav-map-color);
@@ -176,5 +252,452 @@ body {
 	}
 	.maplibregl-popup-tip {
 		@apply hidden!;
+	}
+}
+
+@layer components {
+	.scripturewrapper {
+		min-height: 100%;
+		background-color: var(--surface-container-lowest);
+		color: var(--on-surface);
+		padding-block-start: 2rem;
+		padding-block-end: 4rem;
+		font-family: "Noto Serif", serif;
+		font-size: 1rem;
+		line-height: 1.7;
+		-webkit-text-size-adjust: 100%;
+		animation: fadeIn 400ms var(--ease-out) both;
+		animation-delay: 100ms;
+	}
+
+	div.chapterheading {
+		font-family: "Noto Serif", serif;
+		font-size: 0.85rem;
+		font-weight: 400;
+		letter-spacing: 0.12em;
+		text-align: center;
+		text-transform: uppercase;
+		color: var(--on-surface-variant);
+		margin: 0.5em 0;
+		animation: fadeIn 500ms var(--ease-out) both;
+		animation-delay: 150ms;
+	}
+
+	div.chapterheading .big {
+		font-size: 3.5rem;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		display: block;
+		padding: 0.2em 0;
+		color: var(--on-surface);
+		text-transform: none;
+		font-variant-numeric: tabular-nums;
+	}
+
+	@media screen and (max-width: 640px) {
+		div.chapterheading .big {
+			font-size: 2.25rem;
+		}
+	}
+
+	div.navheading {
+		text-align: center;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.navheading .divtitle {
+		font-size: 110%;
+		font-weight: 500;
+		letter-spacing: 0.09em;
+		display: inline-block;
+		padding: 0.3em;
+	}
+
+	#scriptures ul.versesblock {
+		margin: 0;
+		list-style: none;
+		padding: 1.5em 0;
+	}
+
+	ul.versesblock li {
+		position: relative;
+		display: block;
+		margin-bottom: 0.4em;
+	}
+
+	ul.versesblock li.sectionHeader {
+		font-style: italic;
+	}
+
+	span.verse {
+		padding-left: 0.4em;
+		padding-right: 0.3em;
+	}
+
+	.verse,
+	.footVerse {
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+		line-height: 1.7;
+	}
+
+	.scripturewrapper li a,
+	.scripturewrapper li a:visited,
+	.scripturewrapper li a:active {
+		color: var(--scripture-link-color);
+		text-decoration: underline;
+		text-decoration-style: dotted;
+		text-decoration-color: var(--scripture-link-color);
+		text-underline-offset: 3px;
+		text-decoration-thickness: 1.5px;
+		cursor: pointer;
+		transition:
+			color var(--transition-slow),
+			text-decoration-color var(--transition-slow);
+		border-radius: 2px;
+		padding: 0 2px;
+		margin: 0 -2px;
+	}
+
+	.scripturewrapper li a:hover {
+		color: var(--primary);
+		text-decoration-color: var(--primary);
+		background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+	}
+
+	.scripturewrapper li a.place-active {
+		background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+		text-decoration-color: var(--primary);
+		color: var(--primary);
+	}
+
+	.scripturecontent {
+		box-sizing: border-box;
+		max-width: 36rem;
+		margin-inline: auto;
+		padding-inline-start: 3rem;
+		padding-inline-end: 3rem;
+		overflow-wrap: break-word;
+		word-break: break-word;
+	}
+
+	@media screen and (max-width: 44rem) {
+		.scripturecontent {
+			padding-inline-start: 1.25rem;
+			padding-inline-end: 1.25rem;
+		}
+	}
+
+	.scripturecontent ul {
+		padding-inline-start: 0;
+		padding-inline-end: 0;
+	}
+
+	.match {
+		background-color: var(--match-background-color);
+		border-radius: 2px;
+		padding: 0 2px;
+	}
+
+	.skeleton {
+		background: linear-gradient(
+			90deg,
+			var(--surface-container-low) 25%,
+			var(--surface-container) 50%,
+			var(--surface-container-low) 75%
+		);
+		background-size: 200% 100%;
+		animation:
+			shimmer 2s ease-in-out infinite,
+			fadeInSkeleton 400ms var(--ease-out) both;
+		border-radius: 0.5rem;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.skeleton {
+			animation: fadeInSkeleton 400ms var(--ease-out) both;
+			background: var(--surface-container-low);
+		}
+	}
+
+	.cross-fade-enter {
+		opacity: 0;
+		transform: scale(0.99);
+	}
+
+	.cross-fade-enter-active {
+		opacity: 1;
+		transform: scale(1);
+		transition:
+			opacity var(--fade-duration) var(--ease-out),
+			transform var(--fade-duration) var(--ease-out);
+	}
+
+	.cross-fade-exit {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	.cross-fade-exit-active {
+		opacity: 0;
+		transform: scale(0.99);
+		transition:
+			opacity var(--fade-duration) var(--ease-out),
+			transform var(--fade-duration) var(--ease-out);
+	}
+
+	.slide-left-enter {
+		transform: translateX(40%);
+		opacity: 0;
+	}
+
+	.slide-left-enter-active {
+		transform: translateX(0%);
+		opacity: 1;
+		transition:
+			transform var(--animation-duration) var(--ease-out),
+			opacity var(--animation-duration) var(--ease-out);
+	}
+
+	.slide-left-exit-active {
+		transform: translateX(-8px);
+		opacity: 0;
+		transition:
+			transform var(--animation-duration) var(--ease-out),
+			opacity var(--animation-duration) var(--ease-out);
+	}
+
+	.slide-right-enter {
+		transform: translateX(-40%);
+		opacity: 0;
+	}
+
+	.slide-right-enter-active {
+		transform: translateX(0%);
+		opacity: 1;
+		transition:
+			transform var(--animation-duration) var(--ease-out),
+			opacity var(--animation-duration) var(--ease-out);
+	}
+
+	.slide-right-exit-active {
+		transform: translateX(8px);
+		opacity: 0;
+		transition:
+			transform var(--animation-duration) var(--ease-out),
+			opacity var(--animation-duration) var(--ease-out);
+	}
+
+	.slide-right-enter-active + .slide-left-exit-active,
+	.slide-right-enter-active + .cross-fade-exit-active {
+		transform: translateX(8px);
+		opacity: 0;
+		transition:
+			transform var(--animation-duration) var(--ease-out),
+			opacity var(--animation-duration) var(--ease-out);
+	}
+
+	.slide-left-enter-active + .slide-right-exit-active,
+	.slide-left-enter-active + .cross-fade-exit-active {
+		transform: translateX(-8px);
+		opacity: 0;
+		transition:
+			transform var(--animation-duration) var(--ease-out),
+			opacity var(--animation-duration) var(--ease-out);
+	}
+
+	.cross-fade-enter-active + .slide-left-exit-active,
+	.cross-fade-enter-active + .slide-right-exit-active {
+		transform: translateX(0);
+		opacity: 0;
+		transition:
+			opacity var(--fade-duration) var(--ease-out);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cross-fade-enter-active,
+		.cross-fade-exit-active,
+		.slide-left-enter-active,
+		.slide-left-exit-active,
+		.slide-right-enter-active,
+		.slide-right-exit-active {
+			transition-duration: 0.01ms !important;
+		}
+	}
+
+	.chapter-pill {
+		animation: chapterFadeIn 250ms var(--ease-out) both;
+		transition:
+			background-color 300ms var(--ease-out),
+			color 300ms var(--ease-out),
+			transform 160ms var(--ease-out);
+	}
+
+	.chapter-pill:nth-child(n + 1) {
+		animation-delay: calc(var(--i, 0) * 15ms);
+	}
+	.chapter-pill:nth-child(1) { --i: 0; }
+	.chapter-pill:nth-child(2) { --i: 1; }
+	.chapter-pill:nth-child(3) { --i: 2; }
+	.chapter-pill:nth-child(4) { --i: 3; }
+	.chapter-pill:nth-child(5) { --i: 4; }
+	.chapter-pill:nth-child(6) { --i: 5; }
+	.chapter-pill:nth-child(7) { --i: 6; }
+	.chapter-pill:nth-child(8) { --i: 7; }
+	.chapter-pill:nth-child(9) { --i: 8; }
+	.chapter-pill:nth-child(10) { --i: 9; }
+	.chapter-pill:nth-child(n + 11) {
+		animation-delay: 150ms;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.chapter-pill:hover {
+			background-color: var(--primary);
+			color: var(--on-primary);
+		}
+	}
+
+	.vol-section {
+		animation: fadeIn 400ms var(--ease-out) both;
+	}
+
+	.hub-header {
+		animation: fadeIn 500ms var(--ease-out) both;
+	}
+
+	.crumbs li:not(:first-child)::before {
+		content: "";
+		display: inline-block;
+		width: 0.35em;
+		height: 0.35em;
+		border-right: 1.5px solid var(--on-surface-variant);
+		border-top: 1.5px solid var(--on-surface-variant);
+		transform: rotate(45deg);
+		margin: 0 0.6em;
+		opacity: 0.5;
+		vertical-align: middle;
+	}
+
+	header a:link,
+	header a:visited,
+	header a:active {
+		color: var(--on-surface-variant);
+		text-decoration: none;
+		transition: color var(--transition-slow);
+	}
+
+	header a:hover {
+		color: var(--primary);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		header a:link,
+		header a:visited,
+		header a:active {
+			color: var(--outline);
+		}
+	}
+
+	.geoplace-marker {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		cursor: pointer;
+		animation: markerAppear 350ms cubic-bezier(0.23, 1, 0.32, 1) both;
+		transition:
+			transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+			opacity 200ms var(--ease-out);
+	}
+
+	.geoplace-marker:nth-child(1) { animation-delay: 0ms; }
+	.geoplace-marker:nth-child(2) { animation-delay: 50ms; }
+	.geoplace-marker:nth-child(3) { animation-delay: 100ms; }
+	.geoplace-marker:nth-child(4) { animation-delay: 150ms; }
+	.geoplace-marker:nth-child(5) { animation-delay: 200ms; }
+	.geoplace-marker:nth-child(n + 6) { animation-delay: 250ms; }
+
+	.geoplace-marker.dimmed {
+		opacity: 0.45;
+	}
+
+	.marker-dot {
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background: radial-gradient(circle at 35% 35%, #d4845a, #b85c38 70%);
+		border: 2.5px solid white;
+		box-shadow:
+			0 1px 5px rgba(0, 0, 0, 0.35),
+			0 0 0 1px rgba(0, 0, 0, 0.08);
+		transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+	}
+
+	.geoplace-marker.focused .marker-dot {
+		width: 16px;
+		height: 16px;
+		background-color: #b85c38;
+		border-width: 3px;
+		animation: focusPulse 2s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.marker-dot {
+			background-color: #d4845a;
+			border-color: rgba(26, 31, 30, 0.9);
+		}
+
+		.geoplace-marker.focused .marker-dot {
+			background-color: #d4845a;
+		}
+	}
+
+	.geoplace-marker::after {
+		content: "";
+		width: 1px;
+		height: 6px;
+		background-color: rgba(0, 0, 0, 0.15);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.geoplace-marker::after {
+			background-color: rgba(255, 255, 255, 0.15);
+		}
+	}
+
+	.label {
+		font-family: "Noto Serif", serif;
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--on-surface);
+		text-shadow:
+			0 0 4px var(--map-text-shadow-color, white),
+			1px 1px 2px var(--map-text-shadow-color, white),
+			-1px -1px 2px var(--map-text-shadow-color, white),
+			1px -1px 2px var(--map-text-shadow-color, white),
+			-1px 1px 2px var(--map-text-shadow-color, white);
+		white-space: nowrap;
+		margin-top: 0;
+		letter-spacing: 0.01em;
+		transition: color 150ms var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.geoplace-marker:hover {
+			transform: translateY(-2px);
+		}
+
+		.geoplace-marker:hover .marker-dot {
+			transform: scale(1.2);
+			box-shadow:
+				0 2px 6px rgba(0, 0, 0, 0.35),
+				0 0 0 4px rgba(184, 92, 56, 0.2);
+		}
+
+		.geoplace-marker:hover .label {
+			color: #9a4e30;
+		}
 	}
 }

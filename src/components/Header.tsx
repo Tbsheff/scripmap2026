@@ -90,14 +90,14 @@ export default memo(function Header({
 			{onToggleMap && (
 				<button
 					type="button"
-					className="map-toggle-btn"
+					className="flex items-center justify-center bg-transparent border-none text-[var(--primary)] cursor-pointer p-2.5 min-w-[2.75rem] min-h-[2.75rem] rounded-full shrink-0 [transition:background-color_var(--transition-slow),transform_160ms_var(--ease-out)] hover:bg-[var(--surface-container-low)] active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-[var(--primary)] focus-visible:outline-offset-[3px]"
 					onClick={onToggleMap}
 					onMouseEnter={prefetchMap}
 					onFocus={prefetchMap}
 					aria-label={mapOpen ? "Close map" : "Open map"}
 					title={mapOpen ? "Close map" : "Open map"}
 				>
-					{mapOpen ? <X className="size-5" strokeWidth={1.5} /> : <MapIcon className="size-5" strokeWidth={1.5} />}
+					{mapOpen ? <X className="block size-[22px]" strokeWidth={1.5} /> : <MapIcon className="block size-[22px]" strokeWidth={1.5} />}
 				</button>
 			)}
 		</header>

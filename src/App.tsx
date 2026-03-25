@@ -28,9 +28,6 @@ function lazyWithRetry(factory: () => Promise<{ default: React.ComponentType }>)
 const BookComponent = lazyWithRetry(() => import("./components/BookComponent"));
 const ChapterComponent = lazyWithRetry(() => import("./components/ChapterComponent"));
 const VolumesList = lazyWithRetry(() => import("./components/VolumesList"));
-import "./App.css";
-import "./styles/transitions.css";
-import "./styles/content.css";
 
 /*----------------------------------------------------------------------
  *                      PRIVATE HELPERS

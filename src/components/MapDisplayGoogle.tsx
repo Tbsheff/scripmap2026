@@ -62,7 +62,7 @@ export default function MapDisplayGoogle() {
 
 	return (
 		<APIProvider apiKey={API_KEY}>
-			<section className="MapDisplay" aria-label="Map of scripture locations">
+			<section className="relative h-full bg-[var(--body-background-color)] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-ambient)]" aria-label="Map of scripture locations">
 				<GoogleMap
 					defaultCenter={JERUSALEM_LOCATION}
 					defaultZoom={DEFAULT_ZOOM}
@@ -79,7 +79,7 @@ export default function MapDisplayGoogle() {
 					{markers}
 				</GoogleMap>
 				<MapBoundsUpdater />
-				{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter.</div>}
+				{showEmptyState && <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-[var(--surface-container-lowest)] text-[var(--on-surface-variant)] px-4 py-2 rounded-[var(--radius-lg,0.625rem)] font-serif italic text-[0.8rem] pointer-events-none whitespace-nowrap z-[var(--z-nav-overlay)] shadow-[var(--shadow-subtle)] animate-[fadeInSlide_400ms_cubic-bezier(0.23,1,0.32,1)_both] [animation-delay:200ms]">No geographic locations in this chapter.</div>}
 			</section>
 		</APIProvider>
 	);

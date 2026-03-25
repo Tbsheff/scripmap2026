@@ -126,7 +126,7 @@ export default function MainPage() {
 	return (
 		<GeoplacesContext value={geoplacesValue}>
 			<FocusedGeoplaceContext value={focusedValue}>
-				<a className="skip-to-content" href="#scripture-content">
+				<a className="absolute -left-[9999px] z-[var(--z-modal)] px-4 py-2 bg-[var(--header-background-color)] text-[var(--header-text-color)] focus:left-0 focus:top-0" href="#scripture-content">
 					Skip to content
 				</a>
 
