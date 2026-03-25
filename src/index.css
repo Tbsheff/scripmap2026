@@ -570,19 +570,6 @@ body {
 		animation: fadeIn 500ms var(--ease-out) both;
 	}
 
-	.crumbs li:not(:first-child)::before {
-		content: "";
-		display: inline-block;
-		width: 0.35em;
-		height: 0.35em;
-		border-right: 1.5px solid var(--on-surface-variant);
-		border-top: 1.5px solid var(--on-surface-variant);
-		transform: rotate(45deg);
-		margin: 0 0.6em;
-		opacity: 0.5;
-		vertical-align: middle;
-	}
-
 	header a:link,
 	header a:visited,
 	header a:active {
