@@ -33,7 +33,7 @@ export default function Breadcrumbs() {
 			);
 		} else {
 			items.push(
-				<li key="t" className="min-w-0 truncate">
+				<li key="t" className="hidden sm:block min-w-0 truncate">
 					<Link to="/">{HOME_BREADCRUMB}</Link>
 				</li>,
 			);

@@ -44,8 +44,8 @@ export default memo(function Header({
 				<PanelLeft className="size-4" strokeWidth={1.5} />
 			</button>
 
-			{/* Title — mobile only */}
-			<div className="flex lg:hidden items-center whitespace-nowrap pr-3 mr-1 border-r border-[var(--outline-variant)]">
+			{/* Title — tablet only (hidden on small phones, shown until lg sidebar appears) */}
+			<div className="hidden sm:flex lg:hidden items-center whitespace-nowrap pr-3 mr-1 border-r border-[var(--outline-variant)]">
 				<span className="font-serif text-base italic text-[var(--on-surface)]">The Scriptures Mapped</span>
 			</div>
 
@@ -56,7 +56,7 @@ export default memo(function Header({
 
 			{/* Prev/next chapter chevrons — chapter view only */}
 			{(prevChapter || nextChapter) && (
-				<div className="flex items-center gap-0.5 shrink-0 ml-auto mr-2">
+				<div className="flex items-center gap-0.5 shrink-0 ml-auto mr-2 pl-2 border-l border-[var(--outline-variant)]">
 					{prevChapter ? (
 						<Link
 							to={`/${prevChapter.volumeSlug}/${prevChapter.bookSlug}/${prevChapter.chapter}`}

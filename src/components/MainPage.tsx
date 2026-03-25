@@ -9,6 +9,7 @@
 /*----------------------------------------------------------------------
  *                      IMPORTS
  */
+import { X } from "lucide-react";
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Header from "./Header";
@@ -183,16 +184,15 @@ export default function MainPage() {
 				{/* Mobile map sheet */}
 				{isChapterView && mapOpen && (
 					<div className="sm:hidden fixed inset-x-0 bottom-0 z-40 h-[50vh] bg-[var(--surface)] rounded-t-2xl shadow-2xl overflow-hidden pb-[env(safe-area-inset-bottom)]">
-						<div className="relative flex items-center justify-between px-4 pt-5 pb-2 border-b border-[var(--outline-variant)]">
-							<div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-[var(--outline-variant)]" />
-							<span className="text-sm font-medium text-[var(--on-surface-variant)]">Map</span>
+						<div className="relative flex items-center justify-end px-3 pt-5 pb-2 border-b border-[var(--outline-variant)]">
+							<div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 rounded-full bg-[var(--outline-variant)]" />
 							<button
 								type="button"
 								onClick={toggleMap}
-								className="flex items-center justify-center h-10 w-10 rounded-full text-[var(--on-surface-variant)] hover:bg-[var(--surface-container)]"
+								className="flex items-center justify-center h-11 w-11 rounded-full text-[var(--on-surface-variant)] hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)] transition-colors"
 								aria-label="Close map"
 							>
-								✕
+								<X className="size-5" strokeWidth={1.5} />
 							</button>
 						</div>
 						<div className="h-[calc(50vh-3rem)]">

@@ -204,7 +204,7 @@ export default function MapDisplayMapLibre() {
 				<PitchTransition mapStyle={mapStyle} />
 			</MapLibreMap>
 			{geoplaces && Object.keys(geoplaces).length > 0 && (
-				<div className="absolute bottom-3 left-3 z-10 max-h-48 overflow-y-auto rounded-lg bg-[var(--surface)] shadow-lg border border-[var(--outline-variant)] p-2 text-sm">
+				<div className="absolute top-14 left-3 z-10 max-h-48 overflow-y-auto rounded-lg bg-[var(--surface)] shadow-lg border border-[var(--outline-variant)] p-2 text-sm">
 					<div className="text-xs font-medium text-[var(--on-surface-variant)] px-2 py-1 mb-1">
 						Locations ({Object.keys(geoplaces).length})
 					</div>
