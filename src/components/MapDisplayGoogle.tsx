@@ -79,7 +79,7 @@ export default function MapDisplayGoogle() {
 					{markers}
 				</GoogleMap>
 				<MapBoundsUpdater />
-				{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter</div>}
+				{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter.</div>}
 			</section>
 		</APIProvider>
 	);

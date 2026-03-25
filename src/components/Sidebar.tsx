@@ -97,7 +97,7 @@ export default memo(function Sidebar({ open = true }: { open?: boolean }) {
                             : "hidden lg:flex w-0 px-0"
                         }`}
 		>
-			<div className={`transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+			<div className={`transition-opacity duration-200 ${open ? "opacity-100" : "invisible"}`}>
 				{/* Logo / Title */}
 				<div className="flex h-12 shrink-0 items-center px-3">
 					<Link to="/" className="flex items-center gap-2.5 no-underline text-[var(--on-surface)]">

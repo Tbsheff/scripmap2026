@@ -218,7 +218,7 @@ export default function MapDisplayMapLibre() {
 					))}
 				</div>
 			)}
-			{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter</div>}
+			{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter.</div>}
 		</section>
 	);
 }

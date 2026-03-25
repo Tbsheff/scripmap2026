@@ -71,6 +71,13 @@ export default function VolumesList() {
 		return (
 			<div role="alert" className="p-8 text-center">
 				{error}
+				<button
+					type="button"
+					onClick={() => window.location.reload()}
+					className="mt-3 text-sm text-[var(--primary)] hover:underline cursor-pointer block mx-auto"
+				>
+					Reload page
+				</button>
 			</div>
 		);
 	}
