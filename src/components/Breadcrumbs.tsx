@@ -27,7 +27,7 @@ export default function Breadcrumbs() {
 
 		if (!volumeSlug || volume === undefined) {
 			items.push(
-				<li key="t" aria-current="page">
+				<li key="t" aria-current="page" className="min-w-0 truncate">
 					{HOME_BREADCRUMB}
 				</li>,
 			);
@@ -40,7 +40,7 @@ export default function Breadcrumbs() {
 
 			if (!bookSlug || book === undefined) {
 				items.push(
-					<li key={`v${volume.id}`} aria-current="page">
+					<li key={`v${volume.id}`} aria-current="page" className="min-w-0 truncate">
 						{volume.fullName}
 					</li>,
 				);
@@ -53,7 +53,7 @@ export default function Breadcrumbs() {
 
 				if (chapter === undefined || Number(chapter) <= 0) {
 					items.push(
-						<li key={`b${book.id}`} aria-current="page">
+						<li key={`b${book.id}`} aria-current="page" className="min-w-0 truncate">
 							{book.tocName}
 						</li>,
 					);
@@ -65,7 +65,7 @@ export default function Breadcrumbs() {
 					);
 
 					items.push(
-						<li key={`c${chapter}`} aria-current="page">
+						<li key={`c${chapter}`} aria-current="page" className="min-w-0 truncate">
 							{chapter}
 						</li>,
 					);

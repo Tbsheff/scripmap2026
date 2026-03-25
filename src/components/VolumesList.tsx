@@ -22,7 +22,7 @@ import LoadingIndicator from "./LoadingIndicator";
 function BookCard({ volume, book }: { volume: Volume; book: Book }) {
 	return (
 		<Link
-			className="book-card flex flex-col bg-[var(--surface-container-lowest)] px-5 pt-5 pb-4 rounded-xl no-underline text-[var(--on-surface)] text-left relative overflow-hidden active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+			className="book-card flex flex-col bg-[var(--surface-container-lowest)] px-3 pt-3 pb-2.5 sm:px-5 sm:pt-5 sm:pb-4 rounded-xl no-underline text-[var(--on-surface)] text-left relative overflow-hidden active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
 			id={String(book.id)}
 			to={`/${volume.urlPath}/${book.urlPath}`}
 		>

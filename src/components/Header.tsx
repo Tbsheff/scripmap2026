@@ -34,7 +34,7 @@ export default memo(function Header({
 		<header className="flex items-center gap-3 px-3 h-12 shrink-0 border-b border-[var(--outline-variant)]">
 			{/* Sidebar toggle */}
 			<button
-				className="flex items-center justify-center h-7 w-7 rounded-md shrink-0
+				className="flex items-center justify-center h-10 w-10 rounded-md shrink-0
                            text-[var(--on-surface-variant)] transition-colors
                            hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
 				onClick={onToggleSidebar}
