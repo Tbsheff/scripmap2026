@@ -318,17 +318,8 @@ header a:hover {
 }
 
 @keyframes focusPulse {
-	0%,
-	100% {
-		box-shadow:
-			0 1px 5px rgba(0, 0, 0, 0.35),
-			0 0 0 0 rgba(184, 92, 56, 0.4);
-	}
-	50% {
-		box-shadow:
-			0 1px 5px rgba(0, 0, 0, 0.35),
-			0 0 0 10px rgba(184, 92, 56, 0);
-	}
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.25); }
 }
 
 @keyframes fadeInSlide {
@@ -365,7 +356,7 @@ section.MapDisplay {
 	font-size: 0.8rem;
 	pointer-events: none;
 	white-space: nowrap;
-	z-index: 10;
+	z-index: var(--z-nav-overlay);
 	box-shadow: var(--shadow-subtle);
 	animation: fadeInSlide 400ms cubic-bezier(0.23, 1, 0.32, 1) both;
 	animation-delay: 200ms;
@@ -415,9 +406,7 @@ section.MapDisplay {
 	box-shadow:
 		0 1px 5px rgba(0, 0, 0, 0.35),
 		0 0 0 1px rgba(0, 0, 0, 0.08);
-	transition:
-		transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
-		box-shadow 300ms var(--ease-out);
+	transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .geoplace-marker.focused .marker-dot {
@@ -515,7 +504,7 @@ section.MapDisplay {
 	position: absolute;
 	top: 0.625rem;
 	right: 0.625rem;
-	z-index: 2;
+	z-index: 1;
 }
 
 .map-style-switcher button {

@@ -11,6 +11,7 @@ import { memo, type ReactNode, useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import type { Volume } from "../Types";
+import { cn } from "@/lib/utils";
 
 const VOLUME_ICONS: Record<number, ReactNode> = {
 	1: <BookOpen className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} />,
@@ -93,7 +94,7 @@ export default memo(function Sidebar({ open = true }: { open?: boolean }) {
 			className={`flex flex-col shrink-0 overflow-y-auto overflow-x-hidden px-3 py-2
                         transition-[width,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
                         ${open
-                            ? "fixed inset-y-0 left-0 z-50 w-72 bg-[var(--surface)] shadow-2xl lg:static lg:z-auto lg:w-60 lg:shadow-none lg:bg-transparent"
+                            ? "fixed inset-y-0 left-0 z-50 w-72 bg-[var(--surface)] shadow-2xl pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] lg:static lg:z-auto lg:w-60 lg:shadow-none lg:bg-transparent lg:pt-0 lg:pb-0"
                             : "hidden lg:flex w-0 px-0"
                         }`}
 		>

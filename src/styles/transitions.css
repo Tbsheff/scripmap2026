@@ -64,11 +64,9 @@
 .cross-fade-exit-active {
 	opacity: 0;
 	transform: scale(0.99);
-	filter: blur(1px);
 	transition:
 		opacity var(--fade-duration) var(--ease-out),
-		transform var(--fade-duration) var(--ease-out),
-		filter var(--fade-duration) var(--ease-out);
+		transform var(--fade-duration) var(--ease-out);
 }
 
 .slide-left-enter {
@@ -87,11 +85,9 @@
 .slide-left-exit-active {
 	transform: translateX(-8px);
 	opacity: 0;
-	filter: blur(1px);
 	transition:
 		transform var(--animation-duration) var(--ease-out),
-		opacity var(--animation-duration) var(--ease-out),
-		filter var(--animation-duration) var(--ease-out);
+		opacity var(--animation-duration) var(--ease-out);
 }
 
 .slide-right-enter {
@@ -110,43 +106,35 @@
 .slide-right-exit-active {
 	transform: translateX(8px);
 	opacity: 0;
-	filter: blur(1px);
 	transition:
 		transform var(--animation-duration) var(--ease-out),
-		opacity var(--animation-duration) var(--ease-out),
-		filter var(--animation-duration) var(--ease-out);
+		opacity var(--animation-duration) var(--ease-out);
 }
 
 .slide-right-enter-active + .slide-left-exit-active,
 .slide-right-enter-active + .cross-fade-exit-active {
 	transform: translateX(8px);
 	opacity: 0;
-	filter: blur(1px);
 	transition:
 		transform var(--animation-duration) var(--ease-out),
-		opacity var(--animation-duration) var(--ease-out),
-		filter var(--animation-duration) var(--ease-out);
+		opacity var(--animation-duration) var(--ease-out);
 }
 
 .slide-left-enter-active + .slide-right-exit-active,
 .slide-left-enter-active + .cross-fade-exit-active {
 	transform: translateX(-8px);
 	opacity: 0;
-	filter: blur(1px);
 	transition:
 		transform var(--animation-duration) var(--ease-out),
-		opacity var(--animation-duration) var(--ease-out),
-		filter var(--animation-duration) var(--ease-out);
+		opacity var(--animation-duration) var(--ease-out);
 }
 
 .cross-fade-enter-active + .slide-left-exit-active,
 .cross-fade-enter-active + .slide-right-exit-active {
 	transform: translateX(0);
 	opacity: 0;
-	filter: blur(1px);
 	transition:
-		opacity var(--fade-duration) var(--ease-out),
-		filter var(--fade-duration) var(--ease-out);
+		opacity var(--fade-duration) var(--ease-out);
 }
 
 .vol-section {
