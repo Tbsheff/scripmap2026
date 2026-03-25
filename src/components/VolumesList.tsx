@@ -42,7 +42,7 @@ function VolumeSection({ volume, label }: { volume: Volume; label: string }) {
 					<span className="block font-sans text-[0.7rem] font-bold tracking-[0.15em] uppercase text-[var(--primary)] mb-1">
 						{label}
 					</span>
-					<h2 className="font-serif text-[1.875rem] max-sm:text-2xl font-bold text-[var(--on-surface)] m-0 tracking-[-0.01em]">
+					<h2 className="font-serif text-3xl max-sm:text-2xl font-bold text-[var(--on-surface)] m-0 tracking-[-0.01em]">
 						{volume.fullName}
 					</h2>
 				</div>

@@ -164,9 +164,7 @@ export default function MapDisplayMapLibre() {
 							focusedGeoplace &&
 							geoplace.latitude === focusedGeoplace.latitude &&
 							geoplace.longitude === focusedGeoplace.longitude;
-						const markerClass = ["geoplace-marker", isFocused ? "focused" : "", hasFocus && !isFocused ? "dimmed" : ""]
-							.filter(Boolean)
-							.join(" ");
+						const markerClass = cn("geoplace-marker", isFocused && "focused", hasFocus && !isFocused && "dimmed");
 
 						return (
 							<MapMarker key={key} longitude={geoplace.longitude} latitude={geoplace.latitude}>

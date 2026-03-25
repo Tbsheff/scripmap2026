@@ -90,7 +90,7 @@ export default function ChapterComponent() {
 								className="inline-flex items-center gap-1 text-sm text-[var(--on-surface-variant)] hover:text-[var(--primary)] transition-colors"
 							>
 								<span aria-hidden="true">‹</span>
-								<span className="font-medium">{prev.title}</span>
+								<span className="font-medium truncate max-w-[10rem]">{prev.title}</span>
 							</Link>
 						)}
 					</div>
@@ -102,7 +102,7 @@ export default function ChapterComponent() {
 								aria-label={`Next: ${next.title}`}
 								className="inline-flex items-center gap-1 text-sm text-[var(--on-surface-variant)] hover:text-[var(--primary)] transition-colors"
 							>
-								<span className="font-medium">{next.title}</span>
+								<span className="font-medium truncate max-w-[10rem]">{next.title}</span>
 								<span aria-hidden="true">›</span>
 							</Link>
 						)}

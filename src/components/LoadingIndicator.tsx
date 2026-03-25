@@ -48,7 +48,7 @@ export function ChapterLoadingIndicator() {
 		>
 			<span className="sr-only">Loading chapters...</span>
 			<SkeletonHeader />
-			<div className="grid gap-[0.625rem]" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(3.5rem, 1fr))" }}>
+			<div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(3.5rem, 1fr))" }}>
 				{Array.from({ length: 20 }, (_, i) => (
 					<div
 						key={`skeleton-${i}`}

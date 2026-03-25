@@ -33,7 +33,7 @@ export default function Breadcrumbs() {
 			);
 		} else {
 			items.push(
-				<li key="t">
+				<li key="t" className="min-w-0 truncate">
 					<Link to="/">{HOME_BREADCRUMB}</Link>
 				</li>,
 			);
@@ -46,7 +46,7 @@ export default function Breadcrumbs() {
 				);
 			} else {
 				items.push(
-					<li key={`v${volume.id}`}>
+					<li key={`v${volume.id}`} className="min-w-0 truncate">
 						<Link to={`/${volume.urlPath}`}>{volume.fullName}</Link>
 					</li>,
 				);
@@ -59,13 +59,13 @@ export default function Breadcrumbs() {
 					);
 				} else {
 					items.push(
-						<li key={`b${book.id}`}>
+						<li key={`b${book.id}`} className="min-w-0 truncate">
 							<Link to={`/${volume.urlPath}/${book.urlPath}`}>{book.tocName}</Link>
 						</li>,
 					);
 
 					items.push(
-						<li key={`c${chapter}`} aria-current="page" className="min-w-0 truncate">
+						<li key={`c${chapter}`} aria-current="page" className="min-w-0 truncate tabular-nums">
 							{chapter}
 						</li>,
 					);

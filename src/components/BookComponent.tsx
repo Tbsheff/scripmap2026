@@ -54,12 +54,12 @@ export default function BookComponent() {
 				<span className="block font-sans text-[0.7rem] font-bold tracking-[0.15em] uppercase text-[var(--primary)] mb-1">
 					Chapters
 				</span>
-				<h2 className="font-serif text-[1.875rem] max-sm:text-2xl font-bold text-[var(--on-surface)] m-0 tracking-[-0.01em]">
+				<h2 className="font-serif text-3xl max-sm:text-2xl font-bold text-[var(--on-surface)] m-0 tracking-[-0.01em]">
 					{book.fullName}
 				</h2>
 			</div>
 			<div
-				className="chapter-grid grid gap-[0.625rem] max-sm:gap-2"
+				className="chapter-grid grid gap-2.5 max-sm:gap-2"
 				style={{ gridTemplateColumns: "repeat(auto-fill, minmax(3.5rem, 1fr))" }}
 			>
 				{chaptersList}
