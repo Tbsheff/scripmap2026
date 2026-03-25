@@ -71,7 +71,7 @@ export default function Navigation() {
 			ref={navRef}
 			tabIndex={-1}
 			aria-label="Scripture navigation"
-			className="grid grid-rows-[minmax(0,1fr)] overflow-hidden flex-1 min-h-0"
+			className="grid grid-rows-[minmax(0,1fr)] overflow-hidden flex-1 min-h-0 min-w-0 w-full"
 		>
 			<TransitionGroup className="contents">
 				<CSSTransition
@@ -81,7 +81,7 @@ export default function Navigation() {
 					classNames={classNamesFor(state)}
 					unmountOnExit
 				>
-					<div ref={nodeRef} className="[grid-area:1/1] overflow-y-auto min-h-0 scroll-smooth">
+					<div ref={nodeRef} className="[grid-area:1/1] overflow-y-auto overflow-x-hidden min-h-0 min-w-0 scroll-smooth">
 						{currentOutlet}
 					</div>
 				</CSSTransition>
