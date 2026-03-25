@@ -34,14 +34,14 @@ export default memo(function Header({
 		<header className="flex items-center gap-3 px-3 h-12 shrink-0 border-b border-[var(--outline-variant)]">
 			{/* Sidebar toggle */}
 			<button
-				className="hidden lg:flex items-center justify-center h-7 w-7 rounded-md shrink-0
+				className="flex items-center justify-center size-10 rounded-md shrink-0
                            text-[var(--on-surface-variant)] transition-colors
                            hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
 				onClick={onToggleSidebar}
 				aria-label="Toggle sidebar"
 				type="button"
 			>
-				<PanelLeft className="h-4 w-4" strokeWidth={1.5} />
+				<PanelLeft className="size-4" strokeWidth={1.5} />
 			</button>
 
 			{/* Title — mobile only */}
@@ -63,12 +63,12 @@ export default memo(function Header({
 							state={{ animationKey: ANIMATION_KEY_PREVIOUS }}
 							aria-label={`Previous: ${prevChapter.title}`}
 							title={prevChapter.title}
-							className="flex items-center justify-center h-7 w-7 rounded-md text-lg leading-none text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
+							className="flex items-center justify-center size-10 -mx-1 rounded-md text-lg leading-none text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
 						>
 							‹
 						</Link>
 					) : (
-						<span className="inline-block h-7 w-7" />
+						<span className="inline-block size-10" />
 					)}
 					{nextChapter ? (
 						<Link
@@ -76,12 +76,12 @@ export default memo(function Header({
 							state={{ animationKey: ANIMATION_KEY_NEXT }}
 							aria-label={`Next: ${nextChapter.title}`}
 							title={nextChapter.title}
-							className="flex items-center justify-center h-7 w-7 rounded-md text-lg leading-none text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
+							className="flex items-center justify-center size-10 -mx-1 rounded-md text-lg leading-none text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container)] hover:text-[var(--on-surface)]"
 						>
 							›
 						</Link>
 					) : (
-						<span className="inline-block h-7 w-7" />
+						<span className="inline-block size-10" />
 					)}
 				</div>
 			)}
@@ -97,7 +97,7 @@ export default memo(function Header({
 					aria-label={mapOpen ? "Close map" : "Open map"}
 					title={mapOpen ? "Close map" : "Open map"}
 				>
-					{mapOpen ? <X className="h-5 w-5" strokeWidth={1.5} /> : <MapIcon className="h-5 w-5" strokeWidth={1.5} />}
+					{mapOpen ? <X className="size-5" strokeWidth={1.5} /> : <MapIcon className="size-5" strokeWidth={1.5} />}
 				</button>
 			)}
 		</header>

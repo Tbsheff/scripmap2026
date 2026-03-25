@@ -22,7 +22,7 @@ import LoadingIndicator from "./LoadingIndicator";
 function BookCard({ volume, book }: { volume: Volume; book: Book }) {
 	return (
 		<Link
-			className="book-card flex flex-col bg-[var(--surface-container-lowest)] px-5 pt-5 pb-4 rounded-xl no-underline text-[var(--on-surface)] text-left relative overflow-hidden active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+			className="book-card flex flex-col bg-[var(--surface-container-lowest)] px-3 pt-3 pb-2.5 sm:px-5 sm:pt-5 sm:pb-4 rounded-xl no-underline text-[var(--on-surface)] text-left relative overflow-hidden active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
 			id={String(book.id)}
 			to={`/${volume.urlPath}/${book.urlPath}`}
 		>
@@ -42,7 +42,7 @@ function VolumeSection({ volume, label }: { volume: Volume; label: string }) {
 					<span className="block font-sans text-[0.7rem] font-bold tracking-[0.15em] uppercase text-[var(--primary)] mb-1">
 						{label}
 					</span>
-					<h2 className="font-serif text-[1.875rem] max-sm:text-2xl font-bold text-[var(--on-surface)] m-0 tracking-[-0.01em]">
+					<h2 className="font-serif text-3xl max-sm:text-2xl font-bold text-[var(--on-surface)] m-0 tracking-[-0.01em]">
 						{volume.fullName}
 					</h2>
 				</div>
@@ -71,6 +71,13 @@ export default function VolumesList() {
 		return (
 			<div role="alert" className="p-8 text-center">
 				{error}
+				<button
+					type="button"
+					onClick={() => window.location.reload()}
+					className="mt-3 text-sm text-[var(--primary)] hover:underline cursor-pointer block mx-auto"
+				>
+					Reload page
+				</button>
 			</div>
 		);
 	}

@@ -10,6 +10,7 @@
  *                      IMPORTS
  */
 import { useCallback, useMemo, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 import {
 	MapControls,
@@ -163,9 +164,7 @@ export default function MapDisplayMapLibre() {
 							focusedGeoplace &&
 							geoplace.latitude === focusedGeoplace.latitude &&
 							geoplace.longitude === focusedGeoplace.longitude;
-						const markerClass = ["geoplace-marker", isFocused ? "focused" : "", hasFocus && !isFocused ? "dimmed" : ""]
-							.filter(Boolean)
-							.join(" ");
+						const markerClass = cn("geoplace-marker", isFocused && "focused", hasFocus && !isFocused && "dimmed");
 
 						return (
 							<MapMarker key={key} longitude={geoplace.longitude} latitude={geoplace.latitude}>
@@ -202,7 +201,7 @@ export default function MapDisplayMapLibre() {
 				<PitchTransition mapStyle={mapStyle} />
 			</MapLibreMap>
 			{geoplaces && Object.keys(geoplaces).length > 0 && (
-				<div className="absolute bottom-3 left-3 z-10 max-h-48 overflow-y-auto rounded-lg bg-[var(--surface)]/90 backdrop-blur-sm shadow-lg border border-[var(--outline-variant)] p-2 text-sm">
+				<div className="absolute bottom-3 left-3 z-10 max-h-48 overflow-y-auto rounded-lg bg-[var(--surface)] shadow-lg border border-[var(--outline-variant)] p-2 text-sm">
 					<div className="text-xs font-medium text-[var(--on-surface-variant)] px-2 py-1 mb-1">
 						Locations ({Object.keys(geoplaces).length})
 					</div>
@@ -218,7 +217,7 @@ export default function MapDisplayMapLibre() {
 					))}
 				</div>
 			)}
-			{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter</div>}
+			{showEmptyState && <div className="map-empty-state">No geographic locations in this chapter.</div>}
 		</section>
 	);
 }

@@ -32,7 +32,7 @@ function ErrorPage() {
 			role="alert"
 			className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center bg-[var(--body-background-color)] text-[var(--body-text-color)]"
 		>
-			<h2 className="m-0 text-[var(--header-background-color)]">Something went wrong</h2>
+			<h2 className="m-0 text-[var(--header-background-color)]">Something went wrong.</h2>
 			<p className="m-0">Unable to load this page.</p>
 			<Link
 				to="/"

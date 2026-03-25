@@ -11,6 +11,7 @@ import { memo, type ReactNode, useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useScripturesDataContext } from "../context/ScripturesDataContextHook";
 import type { Volume } from "../Types";
+import { cn } from "@/lib/utils";
 
 const VOLUME_ICONS: Record<number, ReactNode> = {
 	1: <BookOpen className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} />,
@@ -37,14 +38,12 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
 	return (
 		<div>
 			<button
-				className={`flex items-center gap-2 w-full px-6 py-2 border-none bg-transparent cursor-pointer
-                    font-[Manrope] text-[0.9rem] font-medium text-left
-                    rounded-r-full transition-all duration-200
-                    ${
-											isActive
-												? "bg-[var(--surface-container)] text-[var(--on-surface)] font-semibold"
-												: "text-[var(--on-surface)] opacity-80 hover:bg-[var(--surface-container-lowest)] hover:opacity-100"
-										}`}
+				className={cn(
+				"flex items-center gap-2 w-full px-6 py-2 border-none bg-transparent cursor-pointer font-[Manrope] text-[0.9rem] font-medium text-left rounded-r-full transition-all duration-200",
+				isActive
+					? "bg-[var(--surface-container)] text-[var(--on-surface)] font-semibold"
+					: "text-[var(--on-surface)] opacity-80 hover:bg-[var(--surface-container-lowest)] hover:opacity-100",
+			)}
 				type="button"
 				onClick={toggle}
 				aria-expanded={expanded}
@@ -52,7 +51,7 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
 				{icon}
 				<span className="flex-1 min-w-0 leading-tight">{volume.fullName}</span>
 				<ChevronDown
-					className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 opacity-50 ${expanded ? "rotate-180" : ""}`}
+					className={cn("h-3.5 w-3.5 shrink-0 transition-transform duration-200 opacity-50", expanded && "rotate-180")}
 					strokeWidth={1.5}
 				/>
 			</button>
@@ -64,13 +63,12 @@ function VolumeTree({ volume, isActive }: { volume: Volume; isActive: boolean })
 						return (
 							<li key={book.id}>
 								<Link
-									className={`block py-1.5 pl-12 pr-6 mr-3 text-[0.9rem] no-underline
-                                        rounded-r-full transition-all duration-200
-                                        ${
-																					active
-																						? "text-[var(--primary)] font-semibold bg-[var(--surface-container)]"
-																						: "text-[var(--on-surface-variant)] hover:bg-[var(--surface-container-lowest)] hover:text-[var(--on-surface)]"
-																				}`}
+									className={cn(
+									"block py-1.5 pl-12 pr-6 mr-3 text-[0.9rem] no-underline rounded-r-full transition-all duration-200",
+									active
+										? "text-[var(--primary)] font-semibold bg-[var(--surface-container)]"
+										: "text-[var(--on-surface-variant)] hover:bg-[var(--surface-container-lowest)] hover:text-[var(--on-surface)]",
+								)}
 									to={`/${volume.urlPath}/${book.urlPath}`}
 								>
 									{book.tocName}
@@ -90,11 +88,14 @@ export default memo(function Sidebar({ open = true }: { open?: boolean }) {
 
 	return (
 		<aside
-			className={`hidden lg:flex flex-col shrink-0 overflow-y-auto overflow-x-hidden px-3 py-2
-                        transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-                        ${open ? "w-60" : "w-0 px-0"}`}
+			className={cn(
+			"flex flex-col shrink-0 overflow-y-auto overflow-x-hidden px-3 py-2 transition-[width,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+			open
+				? "fixed inset-y-0 left-0 z-50 w-72 bg-[var(--surface)] shadow-2xl pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] lg:static lg:z-auto lg:w-60 lg:shadow-none lg:bg-transparent lg:pt-0 lg:pb-0"
+				: "hidden lg:flex w-0 px-0",
+		)}
 		>
-			<div className={`transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+			<div className={cn("transition-opacity duration-200", open ? "opacity-100" : "invisible")}>
 				{/* Logo / Title */}
 				<div className="flex h-12 shrink-0 items-center px-3">
 					<Link to="/" className="flex items-center gap-2.5 no-underline text-[var(--on-surface)]">

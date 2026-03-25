@@ -38,8 +38,15 @@ export class MapErrorBoundary extends Component<Props, State> {
 							<line x1="8" y1="2" x2="8" y2="18" />
 							<line x1="16" y1="6" x2="16" y2="22" />
 						</svg>
-						<p className="m-0">Map unavailable</p>
+						<p className="m-0">Map unavailable.</p>
 						<p className="m-0 mt-1 text-[0.8rem] opacity-70">{this.state.message}</p>
+						<button
+							type="button"
+							onClick={() => window.location.reload()}
+							className="mt-3 text-sm text-[var(--primary)] hover:underline cursor-pointer"
+						>
+							Reload page
+						</button>
 					</div>
 				</div>
 			);

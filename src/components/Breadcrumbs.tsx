@@ -27,45 +27,45 @@ export default function Breadcrumbs() {
 
 		if (!volumeSlug || volume === undefined) {
 			items.push(
-				<li key="t" aria-current="page">
+				<li key="t" aria-current="page" className="min-w-0 truncate">
 					{HOME_BREADCRUMB}
 				</li>,
 			);
 		} else {
 			items.push(
-				<li key="t">
+				<li key="t" className="min-w-0 truncate">
 					<Link to="/">{HOME_BREADCRUMB}</Link>
 				</li>,
 			);
 
 			if (!bookSlug || book === undefined) {
 				items.push(
-					<li key={`v${volume.id}`} aria-current="page">
+					<li key={`v${volume.id}`} aria-current="page" className="min-w-0 truncate">
 						{volume.fullName}
 					</li>,
 				);
 			} else {
 				items.push(
-					<li key={`v${volume.id}`}>
+					<li key={`v${volume.id}`} className="min-w-0 truncate">
 						<Link to={`/${volume.urlPath}`}>{volume.fullName}</Link>
 					</li>,
 				);
 
 				if (chapter === undefined || Number(chapter) <= 0) {
 					items.push(
-						<li key={`b${book.id}`} aria-current="page">
+						<li key={`b${book.id}`} aria-current="page" className="min-w-0 truncate">
 							{book.tocName}
 						</li>,
 					);
 				} else {
 					items.push(
-						<li key={`b${book.id}`}>
+						<li key={`b${book.id}`} className="min-w-0 truncate">
 							<Link to={`/${volume.urlPath}/${book.urlPath}`}>{book.tocName}</Link>
 						</li>,
 					);
 
 					items.push(
-						<li key={`c${chapter}`} aria-current="page">
+						<li key={`c${chapter}`} aria-current="page" className="min-w-0 truncate tabular-nums">
 							{chapter}
 						</li>,
 					);

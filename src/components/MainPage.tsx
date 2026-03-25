@@ -10,7 +10,7 @@
  *                      IMPORTS
  */
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Header from "./Header";
 import { MapErrorBoundary } from "./MapErrorBoundary";
 
@@ -32,10 +32,13 @@ export default function MainPage() {
 	const [focusedGeoplace, setFocusedGeoplace] = useState<GeoPlace | null>(null);
 	const [geoplaces, setGeoplaces] = useState<GeoPlaces | null>(null);
 	const [mapOpen, setMapOpen] = useState(false);
-	const [sidebarOpen, setSidebarOpen] = useState(true);
+	const [sidebarOpen, setSidebarOpen] = useState(() =>
+		typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
+	);
 	const { bookSlug, chapter } = useParams();
 	const isChapterView = Boolean(chapter);
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { books, volumes } = useScripturesDataContext();
 	const book = useMemo(() => bookBySlug(bookSlug ?? ""), [bookSlug, books]);
 	const numericBookId = book?.id ?? 0;
@@ -51,6 +54,12 @@ export default function MainPage() {
 
 	const toggleMap = useCallback(() => setMapOpen((prev) => !prev), []);
 	const toggleSidebar = useCallback(() => setSidebarOpen((prev) => !prev), []);
+
+	useEffect(() => {
+		if (window.matchMedia("(max-width: 1023px)").matches) {
+			setSidebarOpen(false);
+		}
+	}, [location.pathname]);
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
@@ -89,12 +98,6 @@ export default function MainPage() {
 	}, [isChapterView, prev, next, navigate]);
 
 	useEffect(() => {
-		if (!isChapterView) {
-			setMapOpen(false);
-		}
-	}, [isChapterView]);
-
-	useEffect(() => {
 		window.showLocation = (_id, placename, latitude, longitude, viewAltitude) => {
 			setFocusedGeoplace({ latitude, longitude, placename, viewAltitude });
 			setMapOpen(true);
@@ -129,7 +132,12 @@ export default function MainPage() {
 
 				{/* Outer shell — full viewport, flex row */}
 				<div className="flex h-dvh w-full overflow-hidden bg-[var(--surface-container-low)]">
-					{/* Sidebar — desktop only, collapsible */}
+					{sidebarOpen && (
+						<div
+							className="fixed inset-0 z-40 bg-black/30 lg:hidden"
+							onClick={toggleSidebar}
+						/>
+					)}
 					<Sidebar open={sidebarOpen} />
 
 					{/* Main area — flex column with inset container */}
@@ -171,6 +179,31 @@ export default function MainPage() {
 						</div>
 					</div>
 				</div>
+
+				{/* Mobile map sheet */}
+				{isChapterView && mapOpen && (
+					<div className="sm:hidden fixed inset-x-0 bottom-0 z-40 h-[50vh] bg-[var(--surface)] rounded-t-2xl shadow-2xl overflow-hidden pb-[env(safe-area-inset-bottom)]">
+						<div className="relative flex items-center justify-between px-4 pt-5 pb-2 border-b border-[var(--outline-variant)]">
+							<div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-[var(--outline-variant)]" />
+							<span className="text-sm font-medium text-[var(--on-surface-variant)]">Map</span>
+							<button
+								type="button"
+								onClick={toggleMap}
+								className="flex items-center justify-center h-10 w-10 rounded-full text-[var(--on-surface-variant)] hover:bg-[var(--surface-container)]"
+								aria-label="Close map"
+							>
+								✕
+							</button>
+						</div>
+						<div className="h-[calc(50vh-3rem)]">
+							<MapErrorBoundary>
+								<Suspense fallback={null}>
+									<MapDisplay />
+								</Suspense>
+							</MapErrorBoundary>
+						</div>
+					</div>
+				)}
 			</FocusedGeoplaceContext>
 		</GeoplacesContext>
 	);

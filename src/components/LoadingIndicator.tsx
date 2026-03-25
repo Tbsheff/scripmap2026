@@ -26,7 +26,7 @@ export default function LoadingIndicator() {
 		>
 			<span className="sr-only">Loading...</span>
 			<SkeletonHeader />
-			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
 				{Array.from({ length: 12 }, (_, i) => (
 					<div
 						key={`skeleton-${i}`}
@@ -48,7 +48,7 @@ export function ChapterLoadingIndicator() {
 		>
 			<span className="sr-only">Loading chapters...</span>
 			<SkeletonHeader />
-			<div className="grid gap-[0.625rem]" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(3.5rem, 1fr))" }}>
+			<div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(3.5rem, 1fr))" }}>
 				{Array.from({ length: 20 }, (_, i) => (
 					<div
 						key={`skeleton-${i}`}
