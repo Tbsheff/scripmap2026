@@ -141,9 +141,9 @@ export default function MainPage() {
 					<Sidebar open={sidebarOpen} />
 
 					{/* Main area — flex column with inset container */}
-					<div className="flex min-h-0 flex-1 flex-col p-0 lg:p-2 lg:pl-0">
+					<div className="flex min-h-0 min-w-0 flex-1 flex-col p-0 lg:p-2 lg:pl-0">
 						{/* Inset card container */}
-						<div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:rounded-xl bg-[var(--surface)]">
+						<div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden lg:rounded-xl bg-[var(--surface)]">
 							{/* Header */}
 							<Header
 								mapOpen={isChapterView && mapOpen}
@@ -155,7 +155,7 @@ export default function MainPage() {
 
 							{/* Content + optional map */}
 							<div
-								className="flex min-h-0 flex-1 overflow-hidden"
+								className="flex min-h-0 min-w-0 flex-1 overflow-hidden"
 								data-map-open={(isChapterView && mapOpen) || undefined}
 							>
 								{/* Scripture content */}
