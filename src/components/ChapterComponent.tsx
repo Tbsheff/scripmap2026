@@ -78,7 +78,7 @@ export default function ChapterComponent() {
 	return (
 		<>
 			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: server-rendered scripture content */}
-			<div className="chapter-content" dangerouslySetInnerHTML={innerHtml} />
+			<div className="chapter-content w-full min-w-0 overflow-x-hidden" dangerouslySetInnerHTML={innerHtml} />
 			{(prev !== null || next !== null) && (
 				<div className="flex w-full max-w-[36rem] mx-auto px-4 sm:px-12 py-8 mt-4 border-t border-[var(--outline-variant)]">
 					<div className="flex-1">
