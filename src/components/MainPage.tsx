@@ -183,7 +183,7 @@ export default function MainPage() {
 
 				{/* Mobile map sheet */}
 				{isChapterView && mapOpen && (
-					<div className="sm:hidden fixed inset-x-0 bottom-0 z-40 h-[50vh] bg-[var(--surface)] rounded-t-2xl shadow-2xl overflow-hidden pb-[env(safe-area-inset-bottom)]">
+					<div className="sm:hidden fixed inset-x-0 bottom-0 z-40 h-[75dvh] bg-[var(--surface)] rounded-t-2xl shadow-2xl overflow-hidden pb-[env(safe-area-inset-bottom)]">
 						<div className="relative flex items-center justify-end px-3 pt-5 pb-2 border-b border-[var(--outline-variant)]">
 							<div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 rounded-full bg-[var(--outline-variant)]" />
 							<button
@@ -195,7 +195,7 @@ export default function MainPage() {
 								<X className="size-5" strokeWidth={1.5} />
 							</button>
 						</div>
-						<div className="h-[calc(50vh-3rem)]">
+						<div className="h-[calc(75dvh-3rem)]">
 							<MapErrorBoundary>
 								<Suspense fallback={null}>
 									<MapDisplay />
