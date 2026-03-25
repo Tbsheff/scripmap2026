@@ -16,9 +16,18 @@ import LoadingIndicator, { ChapterLoadingIndicator, ScriptureLoadingIndicator } 
 import MainPage from "./components/MainPage";
 import { ScripturesDataProvider } from "./context/ScripturesDataProvider";
 
-const BookComponent = lazy(() => import("./components/BookComponent"));
-const ChapterComponent = lazy(() => import("./components/ChapterComponent"));
-const VolumesList = lazy(() => import("./components/VolumesList"));
+function lazyWithRetry(factory: () => Promise<{ default: React.ComponentType }>) {
+	return lazy(() =>
+		factory().catch(() => {
+			window.location.reload();
+			return factory();
+		}),
+	);
+}
+
+const BookComponent = lazyWithRetry(() => import("./components/BookComponent"));
+const ChapterComponent = lazyWithRetry(() => import("./components/ChapterComponent"));
+const VolumesList = lazyWithRetry(() => import("./components/VolumesList"));
 import "./App.css";
 import "./styles/transitions.css";
 import "./styles/content.css";
